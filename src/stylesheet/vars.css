@@ -1,0 +1,11 @@
+:root {
+    --white: #fff;
+    --black: #111111;
+    --gray: rgba(17, 17, 17, 0.6);
+    --blue: #3091EB;
+    --bg-body: #FDF7F2;
+    --primary: #F59256;
+    --border-btn: 40px;
+    --border-input: 20px;
+    --font-manrope: "Manrope", sans-serif;
+}
