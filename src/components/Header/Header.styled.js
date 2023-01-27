@@ -45,6 +45,7 @@ export const StyledLink = styled(NavLink)`
   transition: background-color var(--transition), color var(--transition);
   cursor: pointer;
 
+  &:active,
   &:hover,
   &:focus {
     background-color: var(--primary);
