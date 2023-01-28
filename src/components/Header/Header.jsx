@@ -1,45 +1,62 @@
 import SVG from "react-inlinesvg";
 import { Mobile } from "components/Container/Mobile";
-import { burger, petly, petly_m } from "assets/icon";
+import { burger, close, petly, petly_m } from "assets/icon";
 import { Tablet } from "components/Container/Tablet";
-import {
-  ButtonBox,
-  ButtonNav,
-  HeaderBox,
-  StyledLink,
-  StyledLinkLogin,
-} from "./Header.styled";
+import { ButtonBox, ButtonNav, HeaderBox, NavMobBox } from "./Header.styled";
 import { Desktop } from "components/Container/Desktop";
 import { Navigation } from "components/Navigation/Navigation";
+import { useState } from "react";
+import { AuthorizationBlock } from "components/AuthorizationBlock/AuthorizationBlock";
 
 export const Header = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <HeaderBox>
       <Mobile>
         <SVG src={petly_m} width={82} height={42} title="logo" />
-        <ButtonNav type="button">
-          <SVG src={burger} width={40} height={40} title="menu" />
+        <ButtonNav type="button" onClick={() => setOpenMenu(!openMenu)}>
+          {!openMenu ? (
+            <SVG src={burger} width={40} height={40} title="menu" />
+          ) : (
+            <SVG src={close} width={40} height={40} title="menu" />
+          )}
         </ButtonNav>
+        {openMenu && (
+          <NavMobBox>
+            <AuthorizationBlock onClick={() => setOpenMenu(false)} />
+            <Navigation onClick={() => setOpenMenu(false)} />
+          </NavMobBox>
+        )}
       </Mobile>
+
       <Tablet>
         <SVG src={petly} width={94} height={48} title="logo" />
         <ButtonBox>
-          <StyledLinkLogin to="/login">login</StyledLinkLogin>
-          <StyledLink to="/register">registration</StyledLink>
-          <ButtonNav type="button">
-            <SVG src={burger} width={40} height={40} title="menu" />
+          {!openMenu && (
+            <AuthorizationBlock onClick={() => setOpenMenu(false)} />
+          )}
+          <ButtonNav type="button" onClick={() => setOpenMenu(!openMenu)}>
+            {!openMenu ? (
+              <SVG src={burger} width={40} height={40} title="menu" />
+            ) : (
+              <SVG src={close} width={40} height={40} title="menu" />
+            )}
           </ButtonNav>
+          {openMenu && (
+            <NavMobBox>
+              <Navigation onClick={() => setOpenMenu(false)} />
+            </NavMobBox>
+          )}
         </ButtonBox>
       </Tablet>
+
       <Desktop>
         <ButtonBox>
           <SVG src={petly} width={94} height={48} title="logo" />
           <Navigation />
         </ButtonBox>
-        <ButtonBox>
-          <StyledLinkLogin to="/login">login</StyledLinkLogin>
-          <StyledLink to="/register">registration</StyledLink>
-        </ButtonBox>
+        <AuthorizationBlock />
       </Desktop>
     </HeaderBox>
   );

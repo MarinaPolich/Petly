@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import { device } from "stylesheet/breakpoints";
 
 export const HeaderBox = styled.header`
@@ -16,8 +15,16 @@ export const HeaderBox = styled.header`
 
 export const ButtonBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
+  @media ${device.mobile} {
+    margin-bottom: 30px;
+  }
+
+  @media ${device.tabDesk} {
+    justify-content: space-between;
+  }
 `;
 
 export const ButtonNav = styled.button`
@@ -27,45 +34,18 @@ export const ButtonNav = styled.button`
   background-color: transparent;
 `;
 
-export const StyledLink = styled(NavLink)`
-  text-decoration: none;
-  padding: 8px 26px;
+export const NavMobBox = styled.div`
+  position: absolute;
+  left: 0;
+  top: 56px;
+  width: 100%;
+  height: calc(100vh - 56px);
+  margin-top: 46px;
+  background-color: var(--bg-body);
 
-  background-color: transparent;
-  border: 2px solid var(--primary);
-  border-radius: var(--border-btn);
-
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 1.35;
-  letter-spacing: 0.04em;
-  text-transform: capitalize;
-  color: var(--black);
-  transition: background-color var(--transition), color var(--transition);
-  cursor: pointer;
-
-  &:active,
-  &:hover,
-  &:focus {
-    background-color: var(--primary);
-    color: var(--white);
-  }
-
-  @media ${device.mobile} {
-    margin-right: 30px;
-    margin-bottom: 0;
-  }
-`;
-
-export const StyledLinkLogin = styled(StyledLink)`
-  margin-right: 20px;
-  background-color: var(--primary);
-  color: var(--white);
-
-  &:hover,
-  &:focus {
-    background-color: transparent;
-    color: var(--black);
+  @media ${device.tablet} {
+    top: 72px;
+    height: calc(100vh - 72px);
+    margin-top: 52px;
   }
 `;

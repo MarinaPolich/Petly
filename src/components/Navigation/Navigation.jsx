@@ -1,11 +1,17 @@
 import { NavBox, StyledLink } from "./Navigation.styled";
 
-export const Navigation = () => {
+export const Navigation = ({ onClick = () => {} }) => {
   return (
     <NavBox>
-      <StyledLink to="/news">News</StyledLink>
-      <StyledLink to="/notices/sell">Find pet</StyledLink>
-      <StyledLink to="/friends">Our friennds</StyledLink>
+      <StyledLink to="/news" onClick={onClick}>
+        News
+      </StyledLink>
+      <StyledLink to="/notices/sell" onClick={onClick}>
+        Find pet
+      </StyledLink>
+      <StyledLink to="/friends" onClick={onClick}>
+        Our friennds
+      </StyledLink>
     </NavBox>
   );
 };

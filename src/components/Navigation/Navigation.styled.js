@@ -3,13 +3,15 @@ import { NavLink } from "react-router-dom";
 import { device } from "stylesheet/breakpoints";
 
 export const NavBox = styled.nav`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 
   @media ${device.desktop} {
     width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
     margin-left: 50px;
   }
 `;
@@ -29,6 +31,7 @@ export const StyledLink = styled(NavLink)`
   cursor: pointer;
 
   &:active,
+  &.active,
   &:hover,
   &:focus {
     text-decoration-line: underline;
