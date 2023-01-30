@@ -3,6 +3,7 @@ import { desktop, tablet } from "constants/responsive";
 import { device } from "stylesheet/breakpoints";
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
   margin: 0 auto;
 `;
@@ -12,10 +13,10 @@ export const Box = styled.div`
   margin: 0 auto;
   padding: 0 20px;
 
-  @media ${device.mobile} {
-    max-height: calc(100vh - 0px);
+  /* @media ${device.mobile} {
+    max-height: calc(100vh - 60px);
     overflow: auto;
-  }
+  } */
   @media ${device.tablet} {
     width: ${tablet}px;
     padding: 24px 32px;

@@ -10,6 +10,8 @@ import wave_t from "./wave_t.svg";
 import waveLog_d from "./waveLog_d.svg";
 import waveLog_m from "./waveLog_m.svg";
 import waveLog_t from "./waveLog_t.svg";
+import search from "./search.svg";
+import clear from "./clear.svg";
 
 export {
   account_circle,
@@ -24,4 +26,6 @@ export {
   waveLog_d,
   waveLog_m,
   waveLog_t,
+  search,
+  clear,
 };
