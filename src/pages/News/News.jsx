@@ -3,7 +3,7 @@ import SearchForm from "components/SearchForm/SearchForm";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { newsOperation } from "redux/news/news-operations";
-import { selectFilteredNews, selectNews } from "redux/news/news-selector";
+import { selectFilteredNews } from "redux/news/news-selector";
 
 const News = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const filteredNews = useSelector(selectFilteredNews)
 
   useEffect(() => {
     dispatch(newsOperation());
-  }, []);
+  }, [dispatch]);
 
   return (
   <>
