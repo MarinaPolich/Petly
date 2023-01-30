@@ -5,10 +5,12 @@ export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0 auto;
   background-color: var(--bg-body);
+  color: var(--gray);
   font-family: "Manrope", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.57;
+  letter-spacing: 0.04em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
