@@ -4,6 +4,8 @@ export const ButtonBox = styled.button`
   width: 180px;
   height: 44px;
   padding: 6px 26px;
+  margin-bottom: ${(props) => props.marginBottom}px;
+  margin-top: ${({ marginTop }) => marginTop}px;
 
   background-color: transparent;
   border: 2px solid var(--primary);
@@ -48,6 +50,16 @@ export const ButtonBoxPrimaryMin = styled(ButtonBox)`
   background-color: var(--primary);
   color: var(--white);
   font-size: 14px;
+`;
+
+export const ButtonBoxMax = styled(ButtonBox)`
+  width: 100%;
+`;
+
+export const ButtonBoxPrimaryMax = styled(ButtonBoxPrimary)`
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--white);
 `;
 
 export const ButtonBoxPrimaryWithIcon = styled(ButtonBoxPrimary)`

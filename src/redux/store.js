@@ -11,6 +11,9 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/auth-slice";
+import { newsReducer } from "./news/news-slice";
+import { noticesReducer } from "./notices/notices-slice";
+
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -23,12 +26,14 @@ const middleware = [
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["token"],
+  whitelist: ["accessToken", "refreshToken"],
 };
 
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    news: newsReducer,
+    notices: noticesReducer,
   },
   middleware,
   // devTools: process.env.NODE_ENV === 'development',
