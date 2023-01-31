@@ -1,6 +1,7 @@
 // import { useMobile } from "hooks/useMobile";
-import { lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Loader } from "./Loader/Loader";
 import { SharedLayout } from "./SharedLayout/SharedLayout";
 
 const Home = lazy(() => import("../pages/Home/Home"));
@@ -21,7 +22,17 @@ export const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Registration />} />
         <Route path="news" element={<News />} />
-        <Route path="notices/:categoryName" element={<Notices />} />
+        <Route
+          path="notices"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Outlet />
+            </Suspense>
+          }
+        >
+          <Route path=":categoryName" element={<Notices />} />
+          <Route path="" element={<Navigate to="sell" />} />
+        </Route>
         <Route path="friends" element={<OurFriends />} />
         <Route path="user" element={<User />} />
       </Route>

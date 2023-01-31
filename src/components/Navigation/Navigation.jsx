@@ -6,7 +6,7 @@ export const Navigation = ({ onClick = () => {} }) => {
       <StyledLink to="/news" onClick={onClick}>
         News
       </StyledLink>
-      <StyledLink to="/notices/sell" onClick={onClick}>
+      <StyledLink to="/notices" end={false} onClick={onClick}>
         Find pet
       </StyledLink>
       <StyledLink to="/friends" onClick={onClick}>
