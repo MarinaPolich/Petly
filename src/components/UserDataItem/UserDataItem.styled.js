@@ -20,7 +20,7 @@ export const InfoInput = styled.input`
   width: 216px;
   height: 32px;
 
-  padding-left: 12px;
+  padding: 0 12px;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.38;
@@ -32,7 +32,8 @@ export const InfoInput = styled.input`
 `;
 
 export const InfoHolder = styled.p`
-  display: block;
+  display: flex;
+  align-items: center;
 
   margin: 0 25px;
   width: 216px;

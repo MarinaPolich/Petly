@@ -1,13 +1,22 @@
 import styled from "styled-components";
+import { device } from "stylesheet/breakpoints";
 
 export const UserPageBox = styled.div`
   position: relative;
-  display: flex;
-  padding-top: 58px;
+  padding-top: 88px;
+
+  @media ${device.desktop} {
+    display: flex;
+    padding-top: 58px;
+  }
 `;
 
 export const UserInfoBox = styled.div`
-  margin-right: 12px;
+  margin-bottom: 20px;
+  @media ${device.desktop} {
+    margin-right: 12px;
+    margin-bottom: 0;
+  }
 `;
 
 export const UserHeader = styled.h2`

@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { device } from "stylesheet/breakpoints";
 
 export const PetsList = styled.ul`
-  /* height: 100vh;
-  overflow-x: scroll; */
+  @media ${device.desktop} {
+    height: 100vh;
+    overflow-x: scroll;
+  }
 `;
 
 export const PetsCard = styled.li`

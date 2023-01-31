@@ -1,5 +1,8 @@
 import { Formik, Form } from "formik";
 import { useState } from "react";
+// import * as yup from "yup";
+import "flatpickr/dist/themes/dark.css";
+import Flatpickr from "react-flatpickr";
 
 import {
   UserInfoStats,
@@ -58,6 +61,10 @@ const UserDataItem = ({ user }) => {
   const onSubmit = (value) => {
     console.log(value);
     defaulSeating();
+  };
+
+  const CustomInput = ({ value, defaultValue, inputRef, ...props }) => {
+    return <InfoInput {...props} defaultValue={defaultValue} ref={inputRef} />;
   };
 
   return (
@@ -136,11 +143,19 @@ const UserDataItem = ({ user }) => {
             >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
-                  <InfoInput
-                    name="birtsday"
-                    type="email"
-                    value={values.birtsday}
-                    onChange={handleChange}
+                  <Flatpickr
+                    render={({ defaultValue, value, ...props }, ref) => {
+                      return (
+                        <CustomInput
+                          defaultValue={values.birtsday ?? "00.00.0000"}
+                          inputRef={ref}
+                          name="birtsday"
+                          value={values.birtsday}
+                          onChange={handleChange}
+                          dateFormat="dd.MM.yyyy"
+                        />
+                      );
+                    }}
                   />
 
                   <EditBtn type="submit">?</EditBtn>
@@ -230,3 +245,34 @@ const UserDataItem = ({ user }) => {
   );
 };
 export default UserDataItem;
+
+/* <Formik
+              initialValues={{ birtsday: user.birtsday }}
+              onSubmit={onSubmit}
+            >
+              {({ values, errors, handleChange, handleSubmit }) => (
+                <Form onSubmit={handleSubmit}>
+                  <InfoInput
+                    name="birtsday"
+                    type="email"
+                    value={values.birtsday}
+                    onChange={handleChange}
+                  />
+
+                  <EditBtn type="submit">?</EditBtn>
+                </Form>
+              )}
+            </Formik>
+          </>
+        ) : (
+          <>
+            <InfoHolder>{user.birtsday ?? "00.00.0000"}</InfoHolder>
+            <EditBtn
+              type="button"
+              id="birtsday"
+              disabled={isActiveBtn}
+              onClick={btnClick}
+            >
+              +
+            </EditBtn>
+          </> */
