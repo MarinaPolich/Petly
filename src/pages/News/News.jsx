@@ -8,23 +8,23 @@ import { selectFilteredNews } from "redux/news/news-selector";
 const News = () => {
   const dispatch = useDispatch();
 
-
-const filteredNews = useSelector(selectFilteredNews)
+  const filteredNews = useSelector(selectFilteredNews);
 
   useEffect(() => {
     dispatch(newsOperation());
   }, [dispatch]);
 
   return (
-  <>
-  <SearchForm/>
-  <ul>
-    {filteredNews.map(item => (<NewsItem item={item} key={item._id}/>) )}
-  
-  </ul>;
-  </>
-  )
-  
+    <>
+      <SearchForm />
+      <ul>
+        {filteredNews.map((item) => (
+          <NewsItem item={item} key={item._id} />
+        ))}
+      </ul>
+      ;
+    </>
+  );
 };
 
 export default News;

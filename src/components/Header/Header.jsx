@@ -7,6 +7,7 @@ import { Desktop } from "components/Container/Desktop";
 import { Navigation } from "components/Navigation/Navigation";
 import { useState } from "react";
 import { AuthorizationBlock } from "components/AuthorizationBlock/AuthorizationBlock";
+import { MobileMenu } from "components/MobileMenu/MobileMenu";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -23,10 +24,12 @@ export const Header = () => {
           )}
         </ButtonNav>
         {openMenu && (
-          <NavMobBox>
-            <AuthorizationBlock onClick={() => setOpenMenu(false)} />
-            <Navigation onClick={() => setOpenMenu(false)} />
-          </NavMobBox>
+          <MobileMenu>
+            <NavMobBox>
+              <AuthorizationBlock onClick={() => setOpenMenu(false)} />
+              <Navigation onClick={() => setOpenMenu(false)} />
+            </NavMobBox>
+          </MobileMenu>
         )}
       </Mobile>
 
@@ -44,9 +47,11 @@ export const Header = () => {
             )}
           </ButtonNav>
           {openMenu && (
-            <NavMobBox>
-              <Navigation onClick={() => setOpenMenu(false)} />
-            </NavMobBox>
+            <MobileMenu>
+              <NavMobBox>
+                <Navigation onClick={() => setOpenMenu(false)} />
+              </NavMobBox>
+            </MobileMenu>
           )}
         </ButtonBox>
       </Tablet>
