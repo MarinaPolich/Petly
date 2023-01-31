@@ -12,6 +12,9 @@ import waveLog_m from "./waveLog_m.svg";
 import waveLog_t from "./waveLog_t.svg";
 import search from "./search.svg";
 import clear from "./clear.svg";
+import del from "./del.svg";
+import favoriteDefault from "./favoriteDefault.svg";
+import favorite from "./favorite.svg";
 
 export {
   account_circle,
@@ -28,4 +31,7 @@ export {
   waveLog_t,
   search,
   clear,
+  del,
+  favoriteDefault,
+  favorite,
 };
