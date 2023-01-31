@@ -1,2 +1,2 @@
-export const noticesSelector = ({notices}) => notices.items;
-export const selectFilter = state => state.notices.filter;
+export const noticesSelector = (state) => state.notices.notices.items;
+export const filterSelector = (state) => state.notices.filter;
