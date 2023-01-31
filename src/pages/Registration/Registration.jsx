@@ -1,10 +1,10 @@
-import { AuthForm } from "components/AuthForm/AuthForm";
+import { RegisterForm } from "components/RegisterForm/RegisterForm";
 import { ContainerReg } from "./Registration.styled";
 
 const Registration = () => {
   return (
     <ContainerReg>
-      <AuthForm />
+      <RegisterForm />
     </ContainerReg>
   );
 };

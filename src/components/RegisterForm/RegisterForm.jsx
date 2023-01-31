@@ -17,7 +17,7 @@ import {
   TextError,
   TextLink,
   TitleForm,
-} from "./AuthForm.styled";
+} from "./RegisterForm.styled";
 
 const RegistrationSchema = Yup.object().shape({
   email: Yup.string().email().required("Enter email"),
@@ -43,7 +43,7 @@ const RegistrationSchema = Yup.object().shape({
     .required("Phone must be a valid phone number for region +38..."),
 });
 
-export const AuthForm = () => {
+export const RegisterForm = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const handelSubmit = async ({
@@ -110,7 +110,7 @@ export const AuthForm = () => {
                   <TextError>{errors.password}</TextError>
                 ) : null}
                 <InputForm
-                  type="confirm"
+                  type="password"
                   name="confirm"
                   value={values.confirm}
                   onChange={handleChange}
