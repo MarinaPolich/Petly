@@ -1,5 +1,6 @@
 // import { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import UserData from "components/UserData/UserData";
 import {
   UserPageBox,
@@ -8,8 +9,12 @@ import {
   UserHeader,
   AddBtnLabel,
   AddBtn,
+  FormWrapper,
+  InputText,
+  FormInput,
 } from "./User.styled";
 import PetsData from "components/PetsData/PetsData";
+import Modal from "../../components/Modal/Modal";
 
 axios.defaults.baseURL = "https://petly-back.onrender.com/api/";
 
@@ -56,6 +61,7 @@ const User = () => {
     createdAt: "2022-12-27T16:05:10.175Z",
     updatedAt: "2022-12-27T16:05:56.198Z",
   };
+  const [modalActive, setModalActive] = useState(false);
   return (
     <UserPageBox>
       <UserInfoBox>
@@ -67,9 +73,38 @@ const User = () => {
         <PetsData user={userData} />
         <AddBtnLabel>
           <UserHeader>Add pet</UserHeader>
-          <AddBtn type="button">+</AddBtn>
+          <AddBtn onClick={() => setModalActive(true)} type="button">
+            +
+          </AddBtn>
         </AddBtnLabel>
       </UserPetsBox>
+      <Modal
+        title={"Add pet"}
+        active={modalActive}
+        setActive={setModalActive}
+        setModalClose={() => setModalActive(false)}
+      >
+        <FormWrapper action="">
+          <InputText>Name pet</InputText>
+          <FormInput
+            className="form__input"
+            type="text"
+            placeholder="Type name pet"
+          />
+          <InputText>Date of birth</InputText>
+          <FormInput
+            className="form__input"
+            type="text"
+            placeholder="Type date of birth"
+          />
+          <InputText>Breed</InputText>
+          <FormInput
+            className="form__input"
+            type="text"
+            placeholder="Type breed"
+          />
+        </FormWrapper>
+      </Modal>
     </UserPageBox>
   );
 };
