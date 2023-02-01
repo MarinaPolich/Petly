@@ -12,9 +12,19 @@ import {
   FormWrapper,
   InputText,
   FormInput,
+  ModalFooter,
+  CancelBtn,
+  NextBtn,
+  FormInputImg,
+  InputTextImgModa2,
+  InputTextModa2,
+  FormInputText,
+  AddPhoto,
+  AddIcon,
 } from "./User.styled";
 import PetsData from "components/PetsData/PetsData";
 import Modal from "../../components/Modal/Modal";
+import addIcon from "../../assets/icon/Icon_add_photo.svg";
 
 axios.defaults.baseURL = "https://petly-back.onrender.com/api/";
 
@@ -62,6 +72,7 @@ const User = () => {
     updatedAt: "2022-12-27T16:05:56.198Z",
   };
   const [modalActive, setModalActive] = useState(false);
+  const [modal, setModal] = useState(1);
   return (
     <UserPageBox>
       <UserInfoBox>
@@ -83,26 +94,55 @@ const User = () => {
         active={modalActive}
         setActive={setModalActive}
         setModalClose={() => setModalActive(false)}
+        modal={setModal}
       >
         <FormWrapper action="">
-          <InputText>Name pet</InputText>
-          <FormInput
-            className="form__input"
-            type="text"
-            placeholder="Type name pet"
-          />
-          <InputText>Date of birth</InputText>
-          <FormInput
-            className="form__input"
-            type="text"
-            placeholder="Type date of birth"
-          />
-          <InputText>Breed</InputText>
-          <FormInput
-            className="form__input"
-            type="text"
-            placeholder="Type breed"
-          />
+          {modal === 1 && (
+            <>
+              <InputText>Name pet</InputText>
+              <FormInput
+                type="text"
+                placeholder="Type name pet"
+              />
+              <InputText>Date of birth</InputText>
+              <FormInput
+                type="text"
+                placeholder="Type date of birth"
+              />
+              <InputText>Breed</InputText>
+              <FormInput
+                type="text"
+                placeholder="Type breed"
+              />
+              <ModalFooter>
+                <CancelBtn onClick={() => setModalActive(false)}>
+                  Cancel
+                </CancelBtn>
+                <NextBtn onClick={() => setModal(2)}> Next </NextBtn>
+              </ModalFooter>
+            </>
+          )}
+          {modal === 2 && (
+            <>
+              <InputTextImgModa2>
+                Add photo and some comments{" "}
+              </InputTextImgModa2>
+              <FormInputImg
+                type="file"
+                id="addPhoto"
+                // placeholder="Type name pet"
+              />
+              <AddPhoto for="addPhoto">
+                <AddIcon src={addIcon} alt="sd" />
+              </AddPhoto>
+              <InputTextModa2>Comments</InputTextModa2>
+              <FormInputText type="text" placeholder="Type comments" />
+              <ModalFooter>
+                <CancelBtn onClick={() => setModal(1)}>Back</CancelBtn>
+                <NextBtn> Done </NextBtn>
+              </ModalFooter>
+            </>
+          )}
         </FormWrapper>
       </Modal>
     </UserPageBox>

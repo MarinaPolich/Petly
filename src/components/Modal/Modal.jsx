@@ -1,9 +1,6 @@
 import React from "react";
 import {
   ModalTitle,
-  ModalFooter,
-  CancelBtn,
-  NextBtn,
   ModalWrapper,
   CloseIcon,
   ModalContent,
@@ -16,10 +13,6 @@ const Modal = ({ active, title, setActive, setModalClose, children }) => {
         <CloseIcon onClick={() => setModalClose()} width="44px" />
         <ModalTitle>{title}</ModalTitle>
         {children}
-        <ModalFooter>
-          <CancelBtn onClick={() => setModalClose()}>Cancel</CancelBtn>
-          <NextBtn> Next </NextBtn>
-        </ModalFooter>
       </ModalContent>
     </ModalWrapper>
   );
