@@ -11,3 +11,4 @@ export const selectFilteredNews = state => {const news = selectNews(state)
 
     return filteredNews.sort(compareDate)
 }
+

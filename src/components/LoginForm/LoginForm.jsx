@@ -15,10 +15,21 @@ import { logIn } from "redux/auth/auth-operations";
 import { ButtonPrimaryMax } from "components/Button/Button";
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email().required("Enter email"),
+  email: Yup.string()
+    .email()
+    .min(10, "Email is too short, at least 10!")
+    .matches(
+      /^([a-zA-Z0-9]{1}[\w\-.]{0,}[a-zA-Z0-9]{1})+@([\w-]+.)+[\w]{2,4}$/,
+      "Invalid email"
+    )
+    .max(63, "Email is too long, at maximum 63!")
+    .required("Enter email"),
   password: Yup.string()
-    .matches()
     .min(7, "Password is too short, at least 7!")
+    .matches(
+      /^[a-zA-Z0-9]+$/,
+      "Invalid password, it must contain only letters and numbers!"
+    )
     .max(32, "Password is too long, at maximum 32!")
     .required("Enter password"),
 });
