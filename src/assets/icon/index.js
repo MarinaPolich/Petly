@@ -13,6 +13,12 @@ import waveLog_t from "./waveLog_t.svg";
 import search from "./search.svg";
 import clear from "./clear.svg";
 
+import trash from "./trash.svg";
+import addBtnIcon from "./addBtnIcon.svg";
+import confirm from "./confirm.svg";
+import pencil from "./pencil.svg";
+import camera from "./camera.svg";
+
 export {
   account_circle,
   burger,
@@ -28,4 +34,9 @@ export {
   waveLog_t,
   search,
   clear,
+  trash,
+  addBtnIcon,
+  confirm,
+  pencil,
+  camera,
 };
