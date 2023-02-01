@@ -1,8 +1,12 @@
 import { Formik, Form } from "formik";
 import { useState } from "react";
-// import * as yup from "yup";
-import "flatpickr/dist/themes/dark.css";
-import Flatpickr from "react-flatpickr";
+import React from "react";
+// import * as yup from 'yup';
+import moment from "moment";
+import SVG from "react-inlinesvg";
+import { confirm, pencil } from "assets/icon";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import {
   UserInfoStats,
@@ -10,6 +14,7 @@ import {
   InfoInput,
   InfoHolder,
   EditBtn,
+  FormBox,
 } from "./UserDataItem.styled";
 
 const UserDataItem = ({ user }) => {
@@ -19,6 +24,10 @@ const UserDataItem = ({ user }) => {
   const [phone, setPhone] = useState(false);
   const [city, setCity] = useState(false);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
+
+  const [fieldValue, setFieldValue] = useState(user.birtsday ?? new Date());
+  const confirmIcon = <SVG src={confirm} width={15} height={15} />;
+  const editIcon = <SVG src={pencil} width={15} height={15} />;
 
   const btnClick = (e) => {
     const click = e.target.id;
@@ -60,12 +69,29 @@ const UserDataItem = ({ user }) => {
   };
   const onSubmit = (value) => {
     console.log(value);
+
     defaulSeating();
   };
 
-  const CustomInput = ({ value, defaultValue, inputRef, ...props }) => {
-    return <InfoInput {...props} defaultValue={defaultValue} ref={inputRef} />;
-  };
+  const ExampleCustomInput = React.forwardRef(
+    ({ value, onClick, onChange }, ref) => {
+      // console.log(moment(fieldValue).format("DD.MM.YYYY"));
+      return (
+        <InfoInput
+          onClick={onClick}
+          onChange={
+            () => {}
+            // console.log(moment(fieldValue).format("DD.MM.YYYY"))
+            // console.log(onChange)
+            // console.log(value)
+          }
+          ref={ref}
+          selected={value}
+          defaultValue={value}
+        ></InfoInput>
+      );
+    }
+  );
 
   return (
     <ul>
@@ -82,7 +108,7 @@ const UserDataItem = ({ user }) => {
                     value={values.name}
                     onChange={handleChange}
                   />
-                  <EditBtn type="submit">?</EditBtn>
+                  <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </Form>
               )}
             </Formik>
@@ -96,7 +122,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              +
+              {editIcon}
             </EditBtn>
           </>
         )}
@@ -113,8 +139,9 @@ const UserDataItem = ({ user }) => {
                     type="email"
                     value={values.email}
                     onChange={handleChange}
+                    pattern="[/^([a-zA-Z0-9]{1}[\w-\.]{0,}[a-zA-Z0-9]{1})+@([\w-]+\.)+[\w-]{2,4}$/]"
                   />
-                  <EditBtn type="submit">?</EditBtn>
+                  <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </Form>
               )}
             </Formik>
@@ -128,51 +155,55 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              +
+              {editIcon}
             </EditBtn>
           </>
         )}
-      </UserInfoStats>{" "}
+      </UserInfoStats>
       <UserInfoStats>
-        <InfoLabel>Birthday: </InfoLabel>
+        <InfoLabel>Birthday:</InfoLabel>
         {birtsday ? (
           <>
             <Formik
-              initialValues={{ birtsday: user.birtsday }}
+              initialValues={{ birtsday: fieldValue }}
               onSubmit={onSubmit}
             >
-              {({ values, errors, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit}>
-                  <Flatpickr
-                    render={({ defaultValue, value, ...props }, ref) => {
-                      return (
-                        <CustomInput
-                          defaultValue={values.birtsday ?? "00.00.0000"}
-                          inputRef={ref}
-                          name="birtsday"
-                          value={values.birtsday}
-                          onChange={handleChange}
-                          dateFormat="dd.MM.yyyy"
-                        />
-                      );
-                    }}
-                  />
-
-                  <EditBtn type="submit">?</EditBtn>
-                </Form>
-              )}
+              {({ values, errors, handleChange, handleSubmit }) => {
+                return (
+                  <FormBox onSubmit={handleSubmit}>
+                    <DatePicker
+                      selected={values.birtsday}
+                      value={values.birtsday}
+                      type="date"
+                      name="birtsday"
+                      onChange={(e) => {
+                        setFieldValue(e);
+                        handleChange(fieldValue.toString());
+                      }}
+                      dateFormat="dd.MM.yyyy"
+                      customInput={
+                        <ExampleCustomInput onChange={handleChange} />
+                      }
+                      required
+                    />
+                    <EditBtn type="submit">{confirmIcon}</EditBtn>
+                  </FormBox>
+                );
+              }}
             </Formik>
           </>
         ) : (
           <>
-            <InfoHolder>{user.birtsday ?? "00.00.0000"}</InfoHolder>
+            <InfoHolder>
+              {user.birtsday ?? moment(fieldValue).format("DD.MM.YYYY")}
+            </InfoHolder>
             <EditBtn
               type="button"
               id="birtsday"
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              +
+              {editIcon}
             </EditBtn>
           </>
         )}
@@ -190,7 +221,7 @@ const UserDataItem = ({ user }) => {
                     value={values.phone}
                     onChange={handleChange}
                   />
-                  <EditBtn type="submit">?</EditBtn>
+                  <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </Form>
               )}
             </Formik>
@@ -204,7 +235,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              +
+              {editIcon}
             </EditBtn>
           </>
         )}
@@ -222,7 +253,7 @@ const UserDataItem = ({ user }) => {
                     value={values.city}
                     onChange={handleChange}
                   />
-                  <EditBtn type="submit">?</EditBtn>
+                  <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </Form>
               )}
             </Formik>
@@ -236,7 +267,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              +
+              {editIcon}
             </EditBtn>
           </>
         )}
@@ -245,34 +276,3 @@ const UserDataItem = ({ user }) => {
   );
 };
 export default UserDataItem;
-
-/* <Formik
-              initialValues={{ birtsday: user.birtsday }}
-              onSubmit={onSubmit}
-            >
-              {({ values, errors, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit}>
-                  <InfoInput
-                    name="birtsday"
-                    type="email"
-                    value={values.birtsday}
-                    onChange={handleChange}
-                  />
-
-                  <EditBtn type="submit">?</EditBtn>
-                </Form>
-              )}
-            </Formik>
-          </>
-        ) : (
-          <>
-            <InfoHolder>{user.birtsday ?? "00.00.0000"}</InfoHolder>
-            <EditBtn
-              type="button"
-              id="birtsday"
-              disabled={isActiveBtn}
-              onClick={btnClick}
-            >
-              +
-            </EditBtn>
-          </> */

@@ -16,6 +16,12 @@ import del from "./del.svg";
 import favoriteDefault from "./favoriteDefault.svg";
 import favorite from "./favorite.svg";
 
+import trash from "./trash.svg";
+import addBtnIcon from "./addBtnIcon.svg";
+import confirm from "./confirm.svg";
+import pencil from "./pencil.svg";
+import camera from "./camera.svg";
+
 export {
   account_circle,
   burger,
@@ -31,6 +37,11 @@ export {
   waveLog_t,
   search,
   clear,
+  trash,
+  addBtnIcon,
+  confirm,
+  pencil,
+  camera,
   del,
   favoriteDefault,
   favorite,

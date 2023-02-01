@@ -1,10 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import SVG from "react-inlinesvg";
-import { noticesSelector } from "redux/notices/notices-selector";
-import { getNotices } from "redux/notices/notices-operations";
-import { 
-  // del, favoriteDefault, 
-  favorite } from "assets/icon";
+import {
+  noticesSelector,
+  favoriteSelector,
+} from "redux/notices/notices-selector";
+import {
+  getNoticesByCategories,
+  addFavoriteNotice,
+  deleteFavoriteNotice,
+  // deleteNotice,
+} from "redux/notices/notices-operations";
+import {
+  // del,
+  favoriteDefault,
+  favorite,
+} from "assets/icon";
 import {
   BoxList,
   Notice,
@@ -23,12 +34,12 @@ import {
   // ButtonDelete,
   // SvgDelete,
 } from "./NoticesCategoriesList.styled";
-import { useEffect } from "react";
 
 const NoticesCategoriesList = () => {
   const dispatch = useDispatch();
   const items = useSelector(noticesSelector);
-  console.log(items);
+  const fav = useSelector(favoriteSelector);
+  console.log(fav);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -37,8 +48,17 @@ const NoticesCategoriesList = () => {
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
 
+  const onToggle = (item) => {
+    dispatch(addFavoriteNotice({ _id: item._id }));
+    dispatch(deleteFavoriteNotice({ _id: item._id }));
+  };
+
+  // const onDeleteNotice = (item) => {
+  //   dispatch(deleteNotice({ _id: item._id }));
+  // };
+
   useEffect(() => {
-    dispatch(getNotices());
+    dispatch(getNoticesByCategories());
   }, [dispatch]);
 
   return (
@@ -49,14 +69,17 @@ const NoticesCategoriesList = () => {
           <BoxImage>
             <Image src={item.avatarURL} alt={item.title} />
             <Category>{item.category}</Category>
-            <ButtonFavorite>
-              {/* <SVG
-              src={favoriteDefault}
-              width="28"
-              height="28"
-              title="favoriteDefault"
-            /> */}
-              <SVG src={favorite} width="28" height="28" title="favorite" />
+            <ButtonFavorite onClick={() => onToggle({ item })}>
+              {fav ? (
+                <SVG
+                  src={favoriteDefault}
+                  width="28"
+                  height="28"
+                  title="favorite default"
+                />
+              ) : (
+                <SVG src={favorite} width="28" height="28" title="favorite" />
+              )}
             </ButtonFavorite>
           </BoxImage>
           <DescriptionBox>
@@ -73,7 +96,7 @@ const NoticesCategoriesList = () => {
               </ListItem>
             </List>
             <ButtonMore type="submit">Learn more</ButtonMore>
-            {/* <ButtonDelete type="submit">
+            {/* <ButtonDelete type="submit" onClick={() => onDeleteNotice(item)}>
               Delete{" "}
               <SvgDelete src={del} width="20" height="20" title="delete" />
             </ButtonDelete> */}
