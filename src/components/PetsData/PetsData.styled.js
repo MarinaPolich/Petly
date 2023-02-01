@@ -41,6 +41,11 @@ export const PetPhoto = styled.img`
     margin-right: 32px;
     margin-bottom: 0;
   }
+  @media screen {
+    width: 161px;
+    height: 161px;
+    margin-right: 32px;
+  }
 `;
 
 export const DeleteBtn = styled.button`

@@ -31,6 +31,11 @@ export const InfoLabel = styled.p`
     font-size: 18px;
     line-height: 1.38;
   }
+  @media ${device.desktop} {
+    width: 80px;
+    font-size: 18px;
+    line-height: 1.38;
+  }
 `;
 export const InfoInput = styled.input`
   width: 159px;
@@ -48,6 +53,14 @@ export const InfoInput = styled.input`
 
   border-radius: 40px;
   @media ${device.tablet} {
+    margin: 0 25px;
+    width: 216px;
+    height: 32px;
+    padding: 0 18px;
+    font-size: 18px;
+    line-height: 1.38;
+  }
+  @media ${device.desktop} {
     margin: 0 25px;
     width: 216px;
     height: 32px;
@@ -79,6 +92,15 @@ export const InfoHolder = styled.p`
     font-size: 18px;
     line-height: 1.38;
   }
+  @media ${device.desktop} {
+    margin: 0 25px;
+    width: 216px;
+    height: 32px;
+    padding-left: 12px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.38;
+  }
 `;
 
 export const EditBtn = styled.button`
@@ -91,6 +113,10 @@ export const EditBtn = styled.button`
   background-color: var(--bg-body);
   cursor: pointer;
   @media ${device.tablet} {
+    width: 32px;
+    height: 32px;
+  }
+  @media ${device.desktop} {
     width: 32px;
     height: 32px;
   }
