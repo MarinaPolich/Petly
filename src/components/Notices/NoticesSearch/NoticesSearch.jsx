@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
+// import { useState } from "react";
 import { search, clear } from "assets/icon";
 import { filterNotices } from "redux/notices/notices-slice";
-import { noticesSelector } from "redux/notices/notices-selector";
+import { filterSelector } from "redux/notices/notices-selector";
 import {
   Box,
   Title,
@@ -16,23 +17,26 @@ import { useDesktopOrTablet } from "hooks/useTablet";
 
 const NoticesSearch = () => {
   const isDesktopOrTablet = useDesktopOrTablet();
-
   const dispatch = useDispatch();
-  const filter = useSelector(noticesSelector);
+  // const [filter, setFilter] = useState("");
+  const filter = useSelector(filterSelector);
 
   const onChange = (event) => {
-    dispatch(filterNotices(event.currentTarget.value));
+    dispatch(filterNotices(event.target.value));
   };
+  // console.log({dispatch(filterNotices(""))});
 
-  const handleSubmit = (event) => {
+  const handleClear = (event) => {
     event.preventDefault();
+    // setFilter("");
   };
 
   return (
     <Box>
       <Title>Find your favorite pet</Title>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Input
+          id="filterNotices"
           type="text"
           name="filter"
           placeholder="Search"
@@ -47,7 +51,7 @@ const NoticesSearch = () => {
             <Svg src={search} width="24" height="24" title="search" />
           )}
         </Button>
-        <ButtonClear type="submit">
+        <ButtonClear type="submit" onClick={handleClear}>
           <Mobile>
             <Svg src={clear} width="20" height="20" title="clear" />
           </Mobile>
