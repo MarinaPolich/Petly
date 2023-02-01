@@ -47,19 +47,19 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
-export const ButtonClear = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
+// export const ButtonClear = styled.button`
+//   position: absolute;
+//   top: 0;
+//   right: 0;
 
-  display: none;
-  padding: 10px 12px;
-  background-color: transparent;
-  border: 0;
-  border-radius: var(--border-input);
+//   display: none;
+//   padding: 10px 12px;
+//   background-color: transparent;
+//   border: 0;
+//   border-radius: var(--border-input);
 
-  cursor: pointer;
-`;
+//   cursor: pointer;
+// `;
 
 export const Input = styled.input`
   width: 100%;
@@ -81,14 +81,6 @@ export const Input = styled.input`
 
   &:focus {
     border: 1px solid rgba(245, 146, 86, 0.5);
-
-    & ~ ${ButtonClear} {
-      display: block;
-    }
-
-    & ~ ${Button} {
-      display: none;
-    }
   }
 
   @media ${device.tabDesk} {

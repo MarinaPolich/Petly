@@ -1,40 +1,31 @@
-import { useDispatch, useSelector } from "react-redux";
-// import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { search, clear } from "assets/icon";
 import { filterNotices } from "redux/notices/notices-slice";
-import { filterSelector } from "redux/notices/notices-selector";
-import {
-  Box,
-  Title,
-  Form,
-  Input,
-  Button,
-  ButtonClear,
-  Svg,
-} from "./NoticesSearch.styled";
+import { Box, Title, Form, Input, Button, Svg } from "./NoticesSearch.styled";
 import { Mobile } from "components/Container/Mobile";
 import { useDesktopOrTablet } from "hooks/useTablet";
 
 const NoticesSearch = () => {
-  const isDesktopOrTablet = useDesktopOrTablet();
+  const [filter, setFilter] = useState("");
   const dispatch = useDispatch();
-  // const [filter, setFilter] = useState("");
-  const filter = useSelector(filterSelector);
+
+  const isDesktopOrTablet = useDesktopOrTablet();
 
   const onChange = (event) => {
-    dispatch(filterNotices(event.target.value));
+    setFilter(event.target.value);
   };
-  // console.log({dispatch(filterNotices(""))});
 
-  const handleClear = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    // setFilter("");
+    dispatch(filterNotices(filter));
+    setFilter("");
   };
 
   return (
     <Box>
       <Title>Find your favorite pet</Title>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Input
           id="filterNotices"
           type="text"
@@ -44,21 +35,21 @@ const NoticesSearch = () => {
           onChange={onChange}
         />
         <Button type="submit">
-          <Mobile>
-            <Svg src={search} width="20" height="20" title="search" />
-          </Mobile>
-          {isDesktopOrTablet && (
-            <Svg src={search} width="24" height="24" title="search" />
+          {filter.length < 1 ? (
+            <Mobile>
+              <Svg src={search} width="20" height="20" title="search" />
+            </Mobile>
+          ) : (
+            <Mobile>
+              <Svg src={clear} width="20" height="20" title="clear" />
+            </Mobile>
           )}
-        </Button>
-        <ButtonClear type="submit" onClick={handleClear}>
-          <Mobile>
-            <Svg src={clear} width="20" height="20" title="clear" />
-          </Mobile>
-          {isDesktopOrTablet && (
+          {isDesktopOrTablet && filter.length < 1 ? (
+            <Svg src={search} width="24" height="24" title="search" />
+          ) : (
             <Svg src={clear} width="24" height="24" title="clear" />
           )}
-        </ButtonClear>
+        </Button>
       </Form>
     </Box>
   );
