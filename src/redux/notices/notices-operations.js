@@ -2,14 +2,18 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // axios.defaults.headers.common.Authorization = `Bearer `;
-
 // axios.defaults.baseURL = "https://petly-back.onrender.com/api";
 
-export const getNotices = createAsyncThunk(
+const getNotices = async () => {
+  const response = await axios.get("/notices");
+  return response.data;
+};
+
+export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
-  async (_, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const response = await axios.get("/notices/sell");
+      const response = await getNotices(`/notices/${data.data.category}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -53,7 +57,7 @@ export const getFavUserNotice = createAsyncThunk(
   }
 );
 
-export const favoriteNotice = createAsyncThunk(
+export const addFavoriteNotice = createAsyncThunk(
   "notices/favoriteNotice",
   async (token, _id, thunkAPI) => {
     try {
@@ -83,7 +87,7 @@ export const deleteFavoriteNotice = createAsyncThunk(
   }
 );
 
-export const deleteNotices = createAsyncThunk(
+export const deleteNotice = createAsyncThunk(
   "notices/deleteNotices",
   async (token, _id, thunkAPI) => {
     try {
