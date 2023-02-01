@@ -100,20 +100,15 @@ const User = () => {
           {modal === 1 && (
             <>
               <InputText>Name pet</InputText>
-              <FormInput
-                type="text"
-                placeholder="Type name pet"
-              />
+              <FormInput type="text" required placeholder="Type name pet" />
               <InputText>Date of birth</InputText>
               <FormInput
                 type="text"
+                required
                 placeholder="Type date of birth"
               />
               <InputText>Breed</InputText>
-              <FormInput
-                type="text"
-                placeholder="Type breed"
-              />
+              <FormInput type="text" required placeholder="Type breed" />
               <ModalFooter>
                 <CancelBtn onClick={() => setModalActive(false)}>
                   Cancel
@@ -130,16 +125,15 @@ const User = () => {
               <FormInputImg
                 type="file"
                 id="addPhoto"
-                // placeholder="Type name pet"
               />
               <AddPhoto for="addPhoto">
                 <AddIcon src={addIcon} alt="sd" />
               </AddPhoto>
-              <InputTextModa2>Comments</InputTextModa2>
+              <InputTextModa2 required>Comments</InputTextModa2>
               <FormInputText type="text" placeholder="Type comments" />
               <ModalFooter>
                 <CancelBtn onClick={() => setModal(1)}>Back</CancelBtn>
-                <NextBtn> Done </NextBtn>
+                <NextBtn type="submit"> Done </NextBtn>
               </ModalFooter>
             </>
           )}

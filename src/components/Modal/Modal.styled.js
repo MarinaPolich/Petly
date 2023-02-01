@@ -50,5 +50,6 @@ export const CloseIcon = styled(Close)`
   &:hover {
     fill: #f59256;
     transition: 0.5s;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   }
 `;
