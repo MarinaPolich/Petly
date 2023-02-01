@@ -4,17 +4,13 @@
 // import { Mobile } from "components/Container/Mobile";
 // import { Tablet } from "components/Container/Tablet";
 // import { Desktop } from "components/Container/Desktop";
-import { Text, HomeSection, Container } from "./Home.styled";
+import { Text, Container } from "./Home.styled";
 
 const Home = () => {
   return (
-    <>
-      <HomeSection>
-        <Container>
-          <Text>Take good care of your small pets</Text>
-        </Container>
-      </HomeSection>
-    </>
+    <Container>
+      <Text>Take good care of your small pets</Text>
+    </Container>
   );
 };
 
