@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getNoticesByCategory, addNotice } from "./notices-operations";
+import {
+  getNotices,
+  addNotice,
+  userNotice,
+  getFavUserNotice,
+  favoriteNotice,
+  deleteFavoriteNotice,
+  deleteNotices,
+} from "./notices-operations";
 
 const initialState = {
   notices: {
@@ -20,25 +28,87 @@ const noticesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getNoticesByCategory.pending, ({ notices }) => {
+      .addCase(getNotices.pending, ({ notices }) => {
         notices.isLoading = true;
+      })
+
+      .addCase(getNotices.fulfilled, ({ notices }) => {
+        notices.isLoading = false;
+        notices.error = "";
+      })
+      .addCase(getNotices.rejected, ({ notices }, { payload }) => {
+        notices.error = payload;
+        notices.isLoading = false;
       })
       .addCase(addNotice.pending, ({ notices }) => {
         notices.isLoading = true;
       })
-      .addCase(getNoticesByCategory.fulfilled, ({ notices }) => {
+      .addCase(addNotice.fulfilled, ({ notices }, { payload }) => {
         notices.isLoading = false;
         notices.error = "";
+        notices.items = payload;
       })
-      .addCase(addNotice.fulfilled, ({ notices }) => {
-        notices.isLoading = false;
-        notices.error = "";
-      })
-      .addCase(getNoticesByCategory.rejected, ({ notices }, { payload }) => {
+      .addCase(addNotice.rejected, ({ notices }, { payload }) => {
         notices.error = payload;
         notices.isLoading = false;
       })
-      .addCase(addNotice.rejected, ({ notices }, { payload }) => {
+      .addCase(userNotice.pending, ({ notices }) => {
+        notices.isLoading = true;
+      })
+      .addCase(userNotice.fulfilled, ({ notices }, { payload }) => {
+        notices.isLoading = false;
+        notices.error = "";
+        notices.items = payload;
+      })
+      .addCase(userNotice.rejected, ({ notices }, { payload }) => {
+        notices.error = payload;
+        notices.isLoading = false;
+      })
+      .addCase(getFavUserNotice.pending, ({ notices }) => {
+        notices.isLoading = true;
+      })
+      .addCase(getFavUserNotice.fulfilled, ({ notices }, { payload }) => {
+        notices.isLoading = false;
+        notices.error = "";
+        notices.items = payload;
+      })
+      .addCase(getFavUserNotice.rejected, ({ notices }, { payload }) => {
+        notices.error = payload;
+        notices.isLoading = false;
+      })
+      .addCase(favoriteNotice.pending, ({ notices }) => {
+        notices.isLoading = true;
+      })
+      .addCase(favoriteNotice.fulfilled, ({ notices }, { payload }) => {
+        notices.isLoading = false;
+        notices.error = "";
+        notices.items = payload;
+      })
+      .addCase(favoriteNotice.rejected, ({ notices }, { payload }) => {
+        notices.error = payload;
+        notices.isLoading = false;
+      })
+      .addCase(deleteFavoriteNotice.pending, ({ notices }) => {
+        notices.isLoading = true;
+      })
+      .addCase(deleteFavoriteNotice.fulfilled, ({ notices }, { payload }) => {
+        notices.isLoading = false;
+        notices.error = "";
+        notices.items = payload;
+      })
+      .addCase(deleteFavoriteNotice.rejected, ({ notices }, { payload }) => {
+        notices.error = payload;
+        notices.isLoading = false;
+      })
+      .addCase(deleteNotices.pending, ({ notices }) => {
+        notices.isLoading = true;
+      })
+      .addCase(deleteNotices.fulfilled, ({ notices }, { payload }) => {
+        notices.isLoading = false;
+        notices.error = "";
+        notices.items = payload;
+      })
+      .addCase(deleteNotices.rejected, ({ notices }, { payload }) => {
         notices.error = payload;
         notices.isLoading = false;
       });
@@ -47,42 +117,3 @@ const noticesSlice = createSlice({
 
 export const { filterNotices } = noticesSlice.actions;
 export const noticesReducer = noticesSlice.reducer;
-
-//       .addCase(deleteTransactionThunk.pending, state => {
-//         state.isLoading = true;
-//       })
-
-//       .addCase(deleteTransactionThunk.fulfilled, (state, action) => {
-//         state.transactions = calcBalance(sortFunc(state.transactions.filter(
-//           transaction => transaction.id !== action.payload
-//         )));
-//         state.isLoading = false;
-//         state.error = '';
-//       })
-
-//       .addCase(deleteTransactionThunk.rejected, (state, action) => {
-//         state.error = action.payload;
-//         state.isLoading = false;
-//       })
-
-//       .addCase(editTransactionThunk.pending, state => {
-//         state.isLoading = true;
-//       })
-
-//       .addCase(editTransactionThunk.fulfilled, (state, action) => {
-//         state.transactions = calcBalance(sortFunc(state.transactions.map(item => {
-//           if (item.id === action.payload.id) {
-//             return action.payload;
-//           }
-//           return item;
-//         })));
-//         state.isLoading = false;
-//         state.error = '';
-//       })
-
-//       .addCase(editTransactionThunk.rejected, (state, action) => {
-//         state.error = action.payload;
-//         state.isLoading = false;
-//       });
-//   },
-// });
