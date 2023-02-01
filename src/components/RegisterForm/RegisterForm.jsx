@@ -20,10 +20,21 @@ import {
 } from "./RegisterForm.styled";
 
 const RegistrationSchema = Yup.object().shape({
-  email: Yup.string().email().required("Enter email"),
+  email: Yup.string()
+    .email()
+    .matches(
+      /^([a-zA-Z0-9]{1}[\w\-.]{0,}[a-zA-Z0-9]{1})+@([\w-]+.)+[\w]{2,4}$/,
+      "Invalid email"
+    )
+    .min(10, "Email is too short, at least 10!")
+    .max(63, "Email is too long, at maximum 63!")
+    .required("Enter email"),
   password: Yup.string()
-    .matches()
     .min(7, "Password is too short, at least 7!")
+    .matches(
+      /^[a-zA-Z0-9]+$/,
+      "Invalid password, it must contain only letters and numbers!"
+    )
     .max(32, "Password is too long, at maximum 32!")
     .required("Enter password"),
   confirm: Yup.string()
@@ -32,50 +43,53 @@ const RegistrationSchema = Yup.object().shape({
       [Yup.ref("password"), null],
       "Your passwords are different, try harder!"
     ),
-  username: Yup.string()
+  name: Yup.string()
+    .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
     .min(2, "Too Short, at least 2!")
-    .max(16, "Too Long, at maximum 16!")
-    .required("Enter name"),
-  location: Yup.string(),
-  // .matches(/^w+,sw+$/, "Enter city, region"),
+    .max(16, "Too Long, at maximum 16!"),
+  cityRegion: Yup.string().matches(
+    /^([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})+,\s([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})$/,
+    "Invalid city, region"
+  ),
   phone: Yup.string()
+    .matches(/^\+380[0-9]{9}$/, "Invalid mobile phone")
     // .phone("IN", true, "Phone must be a valid phone number for region +38...")
-    .required("Phone must be a valid phone number for region +38..."),
+    .max(13, "Too Long, at maximum 13!"),
 });
 
 export const RegisterForm = () => {
   const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
-  const handelSubmit = async ({
-    email,
-    password,
-    username,
-    location,
-    phone,
-  }) => {
-    console.log({
-      email,
-      password,
-      username,
-      location,
-      phone,
-    });
-    const isRegister = await dispatch(
-      registration({ email, password, name: username, city: location, phone })
-    );
-    if (!isRegister.error)
-      //redirect ....
-      console.log("isRegister", isRegister);
-  };
+  const [isRegistration, setIsRegistration] = useState(false);
+  const [emailUser, setEmailUser] = useState("");
 
+  const dispatch = useDispatch();
+  const handelSubmit = async ({ email, password, name, cityRegion, phone }) => {
+    const isRegister = await dispatch(
+      registration({ email, password, name, cityRegion, phone })
+    );
+    if (isRegister.meta.requestStatus === "fulfilled") {
+      setIsRegistration(true);
+      setEmailUser(email);
+    }
+  };
+  if (isRegistration) {
+    return (
+      <Container>
+        <TitleForm>
+          A verification link has been sent to your email{" "}
+          <span>{emailUser}</span>
+        </TitleForm>
+      </Container>
+    );
+  }
   return (
     <Formik
       initialValues={{
         email: "",
         password: "",
         confirm: "",
-        username: "",
-        location: "",
+        name: "",
+        cityRegion: "",
         phone: "",
       }}
       validationSchema={RegistrationSchema}
@@ -131,23 +145,23 @@ export const RegisterForm = () => {
               <>
                 <InputForm
                   type="text"
-                  name="username"
-                  value={values.username}
+                  name="name"
+                  value={values.name}
                   onChange={handleChange}
                   placeholder="Name"
                 />
-                {errors.username && touched.username ? (
-                  <TextError>{errors.username}</TextError>
+                {errors.name && touched.name ? (
+                  <TextError>{errors.name}</TextError>
                 ) : null}
                 <InputForm
                   type="text"
-                  name="location"
-                  value={values.location}
+                  name="cityRegion"
+                  value={values.cityRegion}
                   onChange={handleChange}
                   placeholder="City, region"
                 />
-                {errors.location && touched.location ? (
-                  <TextError>{errors.location}</TextError>
+                {errors.cityRegion && touched.cityRegion ? (
+                  <TextError>{errors.cityRegion}</TextError>
                 ) : null}
                 <InputForm
                   type="tel"

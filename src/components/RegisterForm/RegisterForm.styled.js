@@ -44,6 +44,10 @@ export const TitleForm = styled.h2`
     font-size: 36px;
     line-height: 1.36;
   }
+
+  & span {
+    text-decoration: underline;
+  }
 `;
 
 export const FormBox = styled(Form)`

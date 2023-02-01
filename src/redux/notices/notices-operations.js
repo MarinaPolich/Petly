@@ -1,7 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "https://petly-back.onrender.com/api";
+// axios.defaults.headers.common.Authorization = `Bearer `;
+
+// axios.defaults.baseURL = "https://petly-back.onrender.com/api";
 
 export const getNotices = createAsyncThunk(
   "notices/fetchAll",
