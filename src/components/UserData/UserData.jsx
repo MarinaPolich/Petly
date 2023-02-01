@@ -1,11 +1,19 @@
+import SVG from "react-inlinesvg";
+import { camera } from "assets/icon";
+
 import UserDataItem from "components/UserDataItem/UserDataItem";
+
 import {
   UserInfo,
   UserInfoPhotoBox,
   UserPhoto,
-  InputPhoto,
   LabelInputPhoto,
 } from "./UserData.styled";
+
+const onChange = (data) => {
+  console.log(data);
+};
+
 const UserData = ({ user }) => {
   return (
     <UserInfo>
@@ -15,7 +23,20 @@ const UserData = ({ user }) => {
           alt="PhotoUser"
         ></UserPhoto>
         <LabelInputPhoto>
-          Edit photo<InputPhoto type="file"></InputPhoto>
+          <SVG src={camera} width={20} height={20} />
+          Edit photo
+          <input
+            hidden={true}
+            type="file"
+            onChange={({ target: { files } }) => {
+              const file = files?.item(0);
+              console.log(file);
+              if (!file) return;
+              const formData = new FormData();
+              formData.append("image", file);
+              onChange(formData);
+            }}
+          ></input>
         </LabelInputPhoto>
       </UserInfoPhotoBox>
       <UserDataItem user={user} />
