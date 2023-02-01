@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
 import { noticesSelector } from "redux/notices/notices-selector";
 import { getNotices } from "redux/notices/notices-operations";
-import { del, favoriteDefault, favorite } from "assets/icon";
+import { 
+  // del, favoriteDefault, 
+  favorite } from "assets/icon";
 import {
   BoxList,
   Notice,
@@ -18,8 +20,8 @@ import {
   SpanPlace,
   SpanAge,
   ButtonMore,
-  ButtonDelete,
-  SvgDelete,
+  // ButtonDelete,
+  // SvgDelete,
 } from "./NoticesCategoriesList.styled";
 import { useEffect } from "react";
 
