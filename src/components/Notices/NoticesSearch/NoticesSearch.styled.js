@@ -42,6 +42,7 @@ export const Button = styled.button`
   padding: 10px 12px;
   background-color: transparent;
   border: 0;
+  border-radius: var(--border-input);
 
   cursor: pointer;
 `;
@@ -55,6 +56,7 @@ export const ButtonClear = styled.button`
   padding: 10px 12px;
   background-color: transparent;
   border: 0;
+  border-radius: var(--border-input);
 
   cursor: pointer;
 `;
@@ -73,11 +75,10 @@ export const Input = styled.input`
 
   background: var(--white);
   box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
-  border-color: transparent;
+  border: 1px solid transparent;
   border-radius: var(--border-input);
   outline: none;
 
-  &:hover,
   &:focus {
     border: 1px solid rgba(245, 146, 86, 0.5);
 
