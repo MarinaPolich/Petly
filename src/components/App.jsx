@@ -1,5 +1,8 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { refreshToken } from "redux/auth/auth-operations";
+import { getIsRefreshing } from "redux/auth/auth-selector";
 import { Loader } from "./Loader/Loader";
 import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
@@ -14,7 +17,16 @@ const OurFriends = lazy(() => import("../pages/OurFriends/OurFriends"));
 const User = lazy(() => import("../pages/User/User"));
 
 export const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(getIsRefreshing);
+
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <Loader />
+  ) : (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Home />} />

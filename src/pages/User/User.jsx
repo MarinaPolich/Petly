@@ -127,7 +127,9 @@ const User = () => {
           )}
           {modal === 2 && (
             <>
-              <InputTextImgModa2>Add photo and some comments</InputTextImgModa2>
+              <InputTextImgModa2>
+                Add photo and some comments{" "}
+              </InputTextImgModa2>
               <FormInputImg type="file" id="addPhoto" />
               <AddPhoto for="addPhoto">
                 <AddIcon src={addIcon} alt="sd" />

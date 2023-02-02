@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  clearAuthHeader,
-  logIn,
-  refreshToken,
-  registration,
-  patchData,
-} from "./auth-operations";
+import { logIn, logOut, refreshToken, registration, patchData, } from "./auth-operations";
+
 
 const handlePending = (state) => {
   state.isLoggedIn = false;
@@ -26,14 +21,6 @@ const authSlice = createSlice({
     isRefreshing: false,
     error: null,
   },
-  reducers: {
-    logOut: (state, _) => {
-      state.user = {};
-      state.accessToken = null;
-      state.refreshToken = null;
-      clearAuthHeader();
-    },
-  },
 
   extraReducers: (builder) =>
     builder
@@ -49,11 +36,20 @@ const authSlice = createSlice({
       .addCase(logIn.pending, handlePending)
       .addCase(logIn.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.accessToken = payload.token;
-        // state.refreshToken = payload.refreshToken;
+        state.accessToken = payload.accessToken;
+        state.refreshToken = payload.refreshToken;
         state.isLoggedIn = true;
       })
       .addCase(logIn.rejected, handleRejected)
+
+      .addCase(logOut.pending, handlePending)
+      .addCase(logOut.fulfilled, (state) => {
+        state.user = {};
+        state.accessToken = null;
+        state.refreshToken = null;
+        state.isLoggedIn = false;
+      })
+      .addCase(logOut.rejected, handleRejected)
 
       .addCase(refreshToken.pending, (state) => {
         state.isLoggedIn = true;

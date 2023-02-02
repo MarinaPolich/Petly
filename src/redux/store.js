@@ -15,7 +15,6 @@ import { friendsReducer } from "./friends/friends-slice";
 import { newsReducer } from "./news/news-slice";
 import { noticesReducer } from "./notices/notices-slice";
 
-
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
@@ -27,7 +26,7 @@ const middleware = [
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["accessToken", "refreshToken"],
+  whitelist: ["refreshToken"],
 };
 
 export const store = configureStore({

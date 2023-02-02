@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "stylesheet/breakpoints";
 
 
 export const SearchInput = styled.input` 
@@ -10,12 +11,24 @@ box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
 border-radius: 20px;
 padding: 9px 12px;
 
+@media ${device.tabDesk} {
+    
+    width: 608px;
+    height: 44px;
+    
+}
+
 
 `
 
 export const Form = styled.form` 
 position: relative;
 margin-bottom: 40px;
+
+@media ${device.tabDesk} {
+    display: flex;
+    justify-content: center;
+}
 `
 
 export const StyledButton = styled.button` 
@@ -30,4 +43,13 @@ background-color: transparent;
 display: flex;
 justify-content: center;
 align-items: center;
+
+@media ${device.tablet} {
+    top: 10px;
+    right: 57.5px;
+}
+@media ${device.desktop} {
+    top: 11px;
+    right: 333px;
+}
 `
