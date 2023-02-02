@@ -7,10 +7,15 @@ import { search } from "assets/icon";
 
 export default function SearchForm() {
   const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch();
   const getDataFromInput = (e) => {
+    
+    if(e.target.value === "") {
+ dispatch(changeFilterAction(""))
+    }
     setInputValue(e.target.value);
   };
-  const dispatch = useDispatch();
+ 
   const changeFilter = (e) => {
     e.preventDefault();
     dispatch(changeFilterAction(inputValue));

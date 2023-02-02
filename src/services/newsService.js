@@ -5,5 +5,6 @@ import axios from "axios";
 
 export const getNews = async () => {
   const { data } = await axios.get("/news"); //newsInstance.get()
-  return data;
+  console.log('data', data)
+  return data.data.result;
 };
