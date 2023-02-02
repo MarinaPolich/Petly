@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import React, { useState } from "react";
 import SVG from "react-inlinesvg";
 import { addBtnIcon } from "assets/icon";
@@ -23,6 +23,7 @@ import {
   FormInputText,
   AddPhoto,
   AddIcon,
+  FormInputDate,
 } from "./User.styled";
 import PetsData from "components/PetsData/PetsData";
 import Modal from "../../components/Modal/Modal";
@@ -75,6 +76,34 @@ const User = () => {
   };
   const [modalActive, setModalActive] = useState(false);
   const [modal, setModal] = useState(1);
+
+  const [formData, updateFormData] = useState([]);
+  const handleChange = (e) => {
+    updateFormData({ ...formData, [e.target.name]: e.target.value.trim() });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setModalActive();
+    setTimeout(() => {
+      setModal(1);
+    }, 500);
+  };
+
+  const closeModal = () => {
+    setModalActive(false);
+    setTimeout(() => {
+      setModal(1);
+    }, 500);
+  };
+
+  useEffect(() => {
+    if (modalActive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [modalActive]);
   return (
     <UserPageBox>
       <UserInfoBox>
@@ -98,26 +127,40 @@ const User = () => {
         title={"Add pet"}
         active={modalActive}
         setActive={setModalActive}
-        setModalClose={() => setModalActive(false)}
+        setModalClose={closeModal}
         modal={setModal}
       >
         <FormWrapper action="">
           {modal === 1 && (
             <>
               <InputText>Name pet</InputText>
-              <FormInput type="text" required placeholder="Type name pet" />
-              <InputText>Date of birth</InputText>
               <FormInput
+                onChange={handleChange}
                 type="text"
                 required
+                placeholder="Type name pet"
+                name="name"
+              />
+              <InputText>Date of birth</InputText>
+              <FormInputDate
+                onChange={handleChange}
+                type="text"
+                onFocus={(e) => (e.target.type = "date")}
+                onBlur={(e) => (e.target.type = "text")}
+                required
                 placeholder="Type date of birth"
+                name="dateOfBirth"
               />
               <InputText>Breed</InputText>
-              <FormInput type="text" required placeholder="Type breed" />
+              <FormInput
+                onChange={handleChange}
+                type="text"
+                required
+                placeholder="Type breed"
+                name="breed"
+              />
               <ModalFooter>
-                <CancelBtn onClick={() => setModalActive(false)}>
-                  Cancel
-                </CancelBtn>
+                <CancelBtn onClick={() => closeModal()}>Cancel</CancelBtn>
                 <NextBtn onClick={() => setModal(2)}> Next </NextBtn>
               </ModalFooter>
             </>
@@ -132,10 +175,17 @@ const User = () => {
                 <AddIcon src={addIcon} alt="sd" />
               </AddPhoto>
               <InputTextModa2 required>Comments</InputTextModa2>
-              <FormInputText type="text" placeholder="Type comments" />
+              <FormInputText
+                onChange={handleChange}
+                type="text"
+                placeholder="Type comments"
+                name="comments"
+              />
               <ModalFooter>
                 <CancelBtn onClick={() => setModal(1)}>Back</CancelBtn>
-                <NextBtn type="submit"> Done </NextBtn>
+                <NextBtn type="submit" onClick={handleSubmit}>
+                  Done
+                </NextBtn>
               </ModalFooter>
             </>
           )}

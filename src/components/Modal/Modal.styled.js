@@ -12,6 +12,7 @@ export const ModalWrapper = styled.div`
   align-items: center;
   justify-content: center;
   opacity: ${props => props.actv ? 1 : 0
+  
   };
   pointer-events: ${props => (props.actv ? 'all' : 'none')};
   transition: 0.5s;
