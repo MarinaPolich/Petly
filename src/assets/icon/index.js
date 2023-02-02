@@ -21,6 +21,7 @@ import addBtnIcon from "./addBtnIcon.svg";
 import confirm from "./confirm.svg";
 import pencil from "./pencil.svg";
 import camera from "./camera.svg";
+import door from "./door.svg";
 
 export {
   account_circle,
@@ -46,4 +47,5 @@ export {
   favoriteDefault,
   favorite,
   account_m,
+  door,
 };

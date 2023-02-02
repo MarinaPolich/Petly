@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // const friendsInstance = axios.create({
 //     baseURL: "https://petly-back.onrender.com/api/friends"
 // })

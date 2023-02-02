@@ -7,11 +7,12 @@ import {
   PetsInfoItem,
   PetsInfoSpan,
   PetsList,
+  OrEmptyTextHolder,
 } from "./PetsData.styled";
 const PetsData = ({ user }) => {
   const pets = user.myPets;
 
-  return (
+  return pets ? (
     <PetsList>
       {pets.map((pet) => {
         return (
@@ -51,7 +52,8 @@ const PetsData = ({ user }) => {
         );
       })}
     </PetsList>
+  ) : (
+    <OrEmptyTextHolder>Add your first pet</OrEmptyTextHolder>
   );
 };
-
 export default PetsData;

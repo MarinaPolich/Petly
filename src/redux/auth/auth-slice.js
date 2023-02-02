@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logIn, logOut, refreshToken, registration } from "./auth-operations";
+import { logIn, logOut, refreshToken, registration, patchData, } from "./auth-operations";
+
 
 const handlePending = (state) => {
   state.isLoggedIn = false;
@@ -68,6 +69,9 @@ const authSlice = createSlice({
         state.isRefreshing = false;
         state.isLoggedIn = false;
         state.error = payload;
+      })
+      .addCase(patchData.fulfilled, (state, { payload }) => {
+        state.user = payload;
       }),
 });
 

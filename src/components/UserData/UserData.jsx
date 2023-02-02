@@ -1,5 +1,9 @@
 import SVG from "react-inlinesvg";
-import { camera } from "assets/icon";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { patchData } from "redux/auth/auth-operations";
+import { camera, door } from "assets/icon";
 
 import UserDataItem from "components/UserDataItem/UserDataItem";
 
@@ -8,20 +12,29 @@ import {
   UserInfoPhotoBox,
   UserPhoto,
   LabelInputPhoto,
+  LogOutBtn,
 } from "./UserData.styled";
 
-const onChange = (data) => {
-  console.log(data);
-};
-
 const UserData = ({ user }) => {
+  const [newPhoto, setNewPhoto] = useState(null);
+  const dispatch = useDispatch();
+
+  const onChange = (data) => {
+    console.log(data);
+    setNewPhoto(data);
+    console.log(newPhoto);
+  };
+
+  useEffect(() => {
+    if (newPhoto) {
+      dispatch(patchData(newPhoto));
+      console.log(newPhoto);
+    }
+  }, [newPhoto, dispatch]);
   return (
     <UserInfo>
       <UserInfoPhotoBox>
-        <UserPhoto
-          src="https://www.gravatar.com/avatar/0312d0d39585741666c19c217ed769f7"
-          alt="PhotoUser"
-        ></UserPhoto>
+        <UserPhoto src={user.avatarURL} alt={user.name}></UserPhoto>
         <LabelInputPhoto>
           <SVG src={camera} width={20} height={20} />
           Edit photo
@@ -40,6 +53,11 @@ const UserData = ({ user }) => {
         </LabelInputPhoto>
       </UserInfoPhotoBox>
       <UserDataItem user={user} />
+
+      <LogOutBtn type="button">
+        <SVG src={door} width={20} height={20} />
+        Log Out
+      </LogOutBtn>
     </UserInfo>
   );
 };

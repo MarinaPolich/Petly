@@ -103,3 +103,6 @@ export const PetsInfoItem = styled.li`
 export const PetsInfoSpan = styled.span`
   font-weight: 500;
 `;
+export const OrEmptyTextHolder = styled.h2`
+  text-align: center;
+`;

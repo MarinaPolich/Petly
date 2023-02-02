@@ -80,3 +80,17 @@ export const refreshToken = createAsyncThunk(
     }
   }
 );
+
+// tut moyo
+
+export const patchData = createAsyncThunk(
+  "/user/update",
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.patch("/user/update", data);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

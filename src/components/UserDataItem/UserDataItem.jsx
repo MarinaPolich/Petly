@@ -1,7 +1,8 @@
 import { Formik, Form } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 // import * as yup from 'yup';
+
 import moment from "moment";
 import SVG from "react-inlinesvg";
 import { confirm, pencil } from "assets/icon";
@@ -16,6 +17,8 @@ import {
   EditBtn,
   FormBox,
 } from "./UserDataItem.styled";
+import { useDispatch } from "react-redux";
+import { patchData } from "redux/auth/auth-operations";
 
 const UserDataItem = ({ user }) => {
   const [name, setName] = useState(false);
@@ -24,8 +27,10 @@ const UserDataItem = ({ user }) => {
   const [phone, setPhone] = useState(false);
   const [city, setCity] = useState(false);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
-
+  const [newData, setNewData] = useState(null);
   const [fieldValue, setFieldValue] = useState(user.birtsday ?? new Date());
+
+  const dispatch = useDispatch();
   const confirmIcon = <SVG src={confirm} width={15} height={15} />;
   const editIcon = <SVG src={pencil} width={15} height={15} />;
 
@@ -68,10 +73,15 @@ const UserDataItem = ({ user }) => {
     setIsActiveBtn(false);
   };
   const onSubmit = (value) => {
-    console.log(value);
-
+    setNewData(value);
     defaulSeating();
   };
+  useEffect(() => {
+    if (newData) {
+      dispatch(patchData(newData));
+      console.log(newData);
+    }
+  }, [newData, dispatch]);
 
   const ExampleCustomInput = React.forwardRef(
     ({ value, onClick, onChange }, ref) => {
@@ -244,13 +254,16 @@ const UserDataItem = ({ user }) => {
         <InfoLabel>City:</InfoLabel>
         {city ? (
           <>
-            <Formik initialValues={{ city: user.city }} onSubmit={onSubmit}>
+            <Formik
+              initialValues={{ cityRegion: user.cityRegion }}
+              onSubmit={onSubmit}
+            >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <InfoInput
-                    name="city"
+                    name="cityRegion"
                     type="text"
-                    value={values.city}
+                    value={values.cityRegion}
                     onChange={handleChange}
                   />
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
@@ -260,7 +273,7 @@ const UserDataItem = ({ user }) => {
           </>
         ) : (
           <>
-            <InfoHolder>{user.city}</InfoHolder>
+            <InfoHolder>{user.cityRegion}</InfoHolder>
             <EditBtn
               type="button"
               id="city"
