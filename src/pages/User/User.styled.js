@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { device } from "stylesheet/breakpoints";
 
-
 export const UserPageBox = styled.div`
   position: relative;
   padding-top: 88px;
@@ -82,7 +81,7 @@ export const FormInput = styled.input`
   padding-left: 16px;
   padding-bottom: 11px;
   margin-bottom: 28px;
-  &:last-child {
+  &:last-of-type {
     margin-bottom: 40px;
   }
   ::placeholder {
@@ -97,6 +96,36 @@ export const FormInput = styled.input`
     border: 3px solid rgb(245, 146, 86);
   }
 `;
+
+export const FormInputDate = styled.input`
+  width: 448px;
+  height: 48px;
+  background: #fdf7f2;
+  border: 1px solid rgba(245, 146, 86, 0.5);
+  border-radius: 40px;
+  text-decoration: none;
+  outline: none;
+  padding-top: 11px;
+  padding-left: 16px;
+  padding-bottom: 11px;
+  margin-bottom: 28px;
+
+  &:last-of-type {
+    margin-bottom: 40px;
+  }
+  ::placeholder {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(17, 17, 17, 0.6);
+  }
+  &:focus {
+    border: 3px solid rgb(245, 146, 86);
+  }
+`;
+
 export const ModalFooter = styled.div`
   display: flex;
   flex-direction: row;
@@ -164,11 +193,11 @@ export const InputTextImgModa2 = styled.label`
 
 export const FormInputImg = styled.input`
   opacity: 0;
- position: absolute;
- z-index: -1;
+  position: absolute;
+  z-index: -1;
 `;
 
-export const FormInputText = styled.input`
+export const FormInputText = styled.textarea`
   width: 394px;
   height: 116px;
   background: #fdf7f2;
@@ -180,6 +209,8 @@ export const FormInputText = styled.input`
   padding-left: 16px;
   padding-bottom: 73px;
   margin-bottom: 40px;
+  overflow: hidden;
+  resize: none;
   ::placeholder {
     font-family: "Manrope";
     font-style: normal;
@@ -194,7 +225,7 @@ export const FormInputText = styled.input`
 `;
 
 export const AddPhoto = styled.label`
-position: relative;
+  position: relative;
   width: 182px;
   height: 182px;
   background: #fdf7f2;
@@ -210,8 +241,7 @@ position: relative;
 
 export const AddIcon = styled.img`
   position: absolute;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-
