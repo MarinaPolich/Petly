@@ -10,7 +10,7 @@ export const Navigation = ({ onClick = () => {} }) => {
         Find pet
       </StyledLink>
       <StyledLink to="/friends" onClick={onClick}>
-        Our friennds
+        Our friends
       </StyledLink>
     </NavBox>
   );

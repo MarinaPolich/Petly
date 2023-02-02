@@ -52,7 +52,7 @@ export const StyledLinkLogin = styled(StyledLink)`
   &.active,
   &:hover,
   &:focus {
-    background-color: transparent;
+    background-color: var(--white);
     color: var(--black);
   }
 `;
@@ -72,5 +72,45 @@ export const StyledLinkLoginMob = styled(StyledLink)`
 
   @media ${device.mobile} {
     margin-right: 12px;
+  }
+`;
+
+export const StyledLinkPrimaryWithIcon = styled(StyledLinkLogin)`
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & svg {
+    margin-right: 12px;
+    color: currentColor;
+  }
+
+  & span {
+    font-size: 16px;
+  }
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--black);
+  }
+`;
+
+export const StyledLinkPrimaryMinWithIcon = styled(StyledLinkLoginMob)`
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 35px;
+  margin: 0;
+
+  & svg {
+    margin-right: 12px;
+    color: currentColor;
+  }
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--black);
   }
 `;

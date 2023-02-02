@@ -1,18 +1,19 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import SVG from "react-inlinesvg";
+import { addBtnIcon } from "assets/icon";
 import UserData from "components/UserData/UserData";
 import {
   UserPageBox,
   UserInfoBox,
-  UserPetsBox,
   UserHeader,
   AddBtnLabel,
   AddBtn,
   FormWrapper,
   InputText,
   FormInput,
+  HeadingBox,
   ModalFooter,
   CancelBtn,
   NextBtn,
@@ -98,16 +99,19 @@ const User = () => {
         <UserHeader>My information:</UserHeader>
         <UserData user={userData} />
       </UserInfoBox>
-      <UserPetsBox>
-        <UserHeader>My pets:</UserHeader>
+      <div>
+        <HeadingBox>
+          <UserHeader>My pets:</UserHeader>
+
+          <AddBtnLabel>
+            Add pet
+            <AddBtn onClick={() => setModalActive(true)} type="button">
+              <SVG src={addBtnIcon} width={16} height={16} />
+            </AddBtn>
+          </AddBtnLabel>
+        </HeadingBox>
         <PetsData user={userData} />
-        <AddBtnLabel>
-          <UserHeader>Add pet</UserHeader>
-          <AddBtn onClick={() => setModalActive(true)} type="button">
-            +
-          </AddBtn>
-        </AddBtnLabel>
-      </UserPetsBox>
+      </div>
       <Modal
         title={"Add pet"}
         active={modalActive}

@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 
-axios.defaults.baseURL = "https://petly-back.onrender.com/api";
+axios.defaults.baseURL = "https://pet-ly.onrender.com/api";
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -17,14 +17,14 @@ export const registration = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await axios.post("/auth/register", credentials);
-      setAuthHeader(res.data.accessToken);
+      setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
       if (error.response.status === 400) {
         Notify.failure("Validation error");
       }
       if (error.response.status === 409) {
-        return Notify.failure("User with such email already exists");
+        Notify.failure("User with such email already exists");
       }
       return rejectWithValue(error.message);
     }

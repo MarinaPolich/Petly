@@ -54,7 +54,6 @@ export const Category = styled.p`
   left: 0;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   width: 158px;
   padding: 6px;
   padding-left: 20px;
@@ -126,9 +125,6 @@ export const ListItem = styled.li`
 
   &:not(:last-child) {
     margin-bottom: 8px;
-  }
-
-  @media ${device.desktop} {
   }
 `;
 
