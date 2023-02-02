@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SVG from "react-inlinesvg";
@@ -85,7 +84,18 @@ const User = () => {
     e.preventDefault();
     console.log(formData);
     setModalActive();
+    setTimeout(() => {
+      setModal(1);
+    }, 500);
   };
+
+  const closeModal = () => {
+    setModalActive(false);
+    setTimeout(() => {
+      setModal(1);
+    }, 500);
+  };
+
   useEffect(() => {
     if (modalActive) {
       document.body.style.overflow = "hidden";
@@ -116,7 +126,7 @@ const User = () => {
         title={"Add pet"}
         active={modalActive}
         setActive={setModalActive}
-        setModalClose={() => setModalActive(false)}
+        setModalClose={closeModal}
         modal={setModal}
       >
         <FormWrapper action="">
@@ -133,7 +143,9 @@ const User = () => {
               <InputText>Date of birth</InputText>
               <FormInputDate
                 onChange={handleChange}
-                type="date"
+                type="text"
+                onFocus={(e) => (e.target.type = "date")}
+                onBlur={(e) => (e.target.type = "text")}
                 required
                 placeholder="Type date of birth"
                 name="dateOfBirth"
@@ -147,9 +159,7 @@ const User = () => {
                 name="breed"
               />
               <ModalFooter>
-                <CancelBtn onClick={() => setModalActive(false)}>
-                  Cancel
-                </CancelBtn>
+                <CancelBtn onClick={() => closeModal()}>Cancel</CancelBtn>
                 <NextBtn onClick={() => setModal(2)}> Next </NextBtn>
               </ModalFooter>
             </>
