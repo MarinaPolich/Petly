@@ -1,6 +1,6 @@
 // import { useEffect, useState } from "react";
-import axios from "axios";
-import React, { useState } from "react";
+// import axios from "axios";
+import React, { useState, useEffect } from "react";
 import SVG from "react-inlinesvg";
 import { addBtnIcon } from "assets/icon";
 import UserData from "components/UserData/UserData";
