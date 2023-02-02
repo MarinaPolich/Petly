@@ -30,7 +30,7 @@ const UserDataItem = ({ user }) => {
   const editIcon = <SVG src={pencil} width={15} height={15} />;
 
   const btnClick = (e) => {
-    const click = e.target.id;
+    const click = e.currentTarget.id;
 
     switch (click) {
       case "name":
