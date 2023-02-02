@@ -11,7 +11,7 @@ import {
 const PetsData = ({ user }) => {
   const pets = user.myPets;
 
-  return (
+  return pets ? (
     <PetsList>
       {pets.map((pet) => {
         return (
@@ -51,7 +51,8 @@ const PetsData = ({ user }) => {
         );
       })}
     </PetsList>
+  ) : (
+    <p>lalala</p>
   );
 };
-
 export default PetsData;

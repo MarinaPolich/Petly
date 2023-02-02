@@ -11,7 +11,7 @@ export const UserInfo = styled.div`
   @media ${device.tablet} {
     position: relative;
     left: -32px;
-    padding: 40px 40px 24px 32px;
+    padding: 24px 40px 24px 32px;
     display: flex;
     justify-content: space-between;
     width: 736px;
@@ -72,5 +72,24 @@ export const LabelInputPhoto = styled.label`
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+`;
+
+export const LogOutBtn = styled.button`
+  display: flex;
+  align-items: center;
+  width: 95px;
+  justify-content: space-between;
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+
+  @media ${device.tablet} {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+  @media ${device.desktop} {
+    margin-left: 0;
   }
 `;

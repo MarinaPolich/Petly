@@ -37,7 +37,9 @@ export const UserHeader = styled.h2`
   }
 `;
 
-export const UserPetsBox = styled.div``;
+export const PetsBox = styled.div`
+  width: 100%;
+`;
 export const AddBtnLabel = styled.label`
   display: flex;
   align-items: center;

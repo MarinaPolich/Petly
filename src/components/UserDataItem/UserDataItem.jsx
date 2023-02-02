@@ -2,6 +2,7 @@ import { Formik, Form } from "formik";
 import { useState } from "react";
 import React from "react";
 // import * as yup from 'yup';
+
 import moment from "moment";
 import SVG from "react-inlinesvg";
 import { confirm, pencil } from "assets/icon";
@@ -244,13 +245,16 @@ const UserDataItem = ({ user }) => {
         <InfoLabel>City:</InfoLabel>
         {city ? (
           <>
-            <Formik initialValues={{ city: user.city }} onSubmit={onSubmit}>
+            <Formik
+              initialValues={{ city: user.cityRegion }}
+              onSubmit={onSubmit}
+            >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <InfoInput
                     name="city"
                     type="text"
-                    value={values.city}
+                    value={values.cityRegion}
                     onChange={handleChange}
                   />
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
@@ -260,7 +264,7 @@ const UserDataItem = ({ user }) => {
           </>
         ) : (
           <>
-            <InfoHolder>{user.city}</InfoHolder>
+            <InfoHolder>{user.cityRegion}</InfoHolder>
             <EditBtn
               type="button"
               id="city"

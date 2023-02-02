@@ -81,6 +81,7 @@ export const InfoHolder = styled.p`
   font-size: 12px;
   line-height: 1.33;
   color: var(--black);
+  overflow: hidden;
 
   letter-spacing: 0.04em;
   @media ${device.tablet} {

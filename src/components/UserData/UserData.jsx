@@ -1,5 +1,5 @@
 import SVG from "react-inlinesvg";
-import { camera } from "assets/icon";
+import { camera, door } from "assets/icon";
 
 import UserDataItem from "components/UserDataItem/UserDataItem";
 
@@ -8,6 +8,7 @@ import {
   UserInfoPhotoBox,
   UserPhoto,
   LabelInputPhoto,
+  LogOutBtn,
 } from "./UserData.styled";
 
 const onChange = (data) => {
@@ -15,13 +16,11 @@ const onChange = (data) => {
 };
 
 const UserData = ({ user }) => {
+  console.log(user);
   return (
     <UserInfo>
       <UserInfoPhotoBox>
-        <UserPhoto
-          src="https://www.gravatar.com/avatar/0312d0d39585741666c19c217ed769f7"
-          alt="PhotoUser"
-        ></UserPhoto>
+        <UserPhoto src={user.avatarURL} alt={user.name}></UserPhoto>
         <LabelInputPhoto>
           <SVG src={camera} width={20} height={20} />
           Edit photo
@@ -40,6 +39,11 @@ const UserData = ({ user }) => {
         </LabelInputPhoto>
       </UserInfoPhotoBox>
       <UserDataItem user={user} />
+
+      <LogOutBtn type="button">
+        <SVG src={door} width={20} height={20} />
+        Log Out
+      </LogOutBtn>
     </UserInfo>
   );
 };
