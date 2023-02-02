@@ -37,6 +37,10 @@ export const UserInfoPhotoBox = styled.div`
   align-items: end;
   margin-bottom: 12px;
 
+  @media ${device.tablet} {
+    margin-bottom: 0;
+  }
+
   @media ${device.desktop} {
     display: block;
 
@@ -61,6 +65,8 @@ export const UserPhoto = styled.img`
 export const LabelInputPhoto = styled.label`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 90px;
   font-family: var(--font-manrope);
   font-weight: 400;
   font-size: 12px;
@@ -76,17 +82,20 @@ export const LabelInputPhoto = styled.label`
 `;
 
 export const LogOutBtn = styled.button`
+  width: 95px;
+  margin-left: auto;
+  margin-top: 24px;
   display: flex;
   align-items: center;
-  width: 95px;
   justify-content: space-between;
   background-color: transparent;
   border: none;
-  margin-left: auto;
+
+  color: var(--gray);
 
   @media ${device.tablet} {
     position: absolute;
-    bottom: 20px;
+    bottom: 24px;
     left: 20px;
   }
   @media ${device.desktop} {

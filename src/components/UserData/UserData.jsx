@@ -1,4 +1,8 @@
 import SVG from "react-inlinesvg";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { patchData } from "redux/auth/auth-operations";
 import { camera, door } from "assets/icon";
 
 import UserDataItem from "components/UserDataItem/UserDataItem";
@@ -11,12 +15,22 @@ import {
   LogOutBtn,
 } from "./UserData.styled";
 
-const onChange = (data) => {
-  console.log(data);
-};
-
 const UserData = ({ user }) => {
-  console.log(user);
+  const [newPhoto, setNewPhoto] = useState(null);
+  const dispatch = useDispatch();
+
+  const onChange = (data) => {
+    console.log(data);
+    setNewPhoto(data);
+    console.log(newPhoto);
+  };
+
+  useEffect(() => {
+    if (newPhoto) {
+      dispatch(patchData(newPhoto));
+      console.log(newPhoto);
+    }
+  }, [newPhoto, dispatch]);
   return (
     <UserInfo>
       <UserInfoPhotoBox>

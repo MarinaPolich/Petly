@@ -12,6 +12,10 @@ export const UserInfoStats = styled.li`
   width: 100%;
   height: 32px;
   margin-bottom: 8px;
+  text-transform: capitalize;
+  :nth-child(2) {
+    text-transform: none;
+  }
 `;
 export const FormBox = styled(Form)`
   display: flex;
@@ -41,7 +45,7 @@ export const InfoInput = styled.input`
   width: 159px;
   height: 24px;
   margin-right: 9px;
-  padding: 0 15px;
+  padding: 0 18px;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.33;
@@ -56,7 +60,7 @@ export const InfoInput = styled.input`
     margin: 0 25px;
     width: 216px;
     height: 32px;
-    padding: 0 18px;
+    padding: 0 12px;
     font-size: 18px;
     line-height: 1.38;
   }
@@ -64,7 +68,7 @@ export const InfoInput = styled.input`
     margin: 0 25px;
     width: 216px;
     height: 32px;
-    padding: 0 18px;
+    padding: 0 12px;
     font-size: 18px;
     line-height: 1.38;
   }
@@ -84,6 +88,7 @@ export const InfoHolder = styled.p`
   overflow: hidden;
 
   letter-spacing: 0.04em;
+
   @media ${device.tablet} {
     margin: 0 25px;
     width: 216px;

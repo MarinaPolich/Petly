@@ -7,6 +7,7 @@ import {
   PetsInfoItem,
   PetsInfoSpan,
   PetsList,
+  OrEmptyTextHolder,
 } from "./PetsData.styled";
 const PetsData = ({ user }) => {
   const pets = user.myPets;
@@ -52,7 +53,7 @@ const PetsData = ({ user }) => {
       })}
     </PetsList>
   ) : (
-    <p>lalala</p>
+    <OrEmptyTextHolder>Add your first pet</OrEmptyTextHolder>
   );
 };
 export default PetsData;

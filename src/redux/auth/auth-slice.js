@@ -4,6 +4,7 @@ import {
   logIn,
   refreshToken,
   registration,
+  patchData,
 } from "./auth-operations";
 
 const handlePending = (state) => {
@@ -72,6 +73,9 @@ const authSlice = createSlice({
         state.isRefreshing = false;
         state.isLoggedIn = false;
         state.error = payload;
+      })
+      .addCase(patchData.fulfilled, (state, { payload }) => {
+        state.user = payload;
       }),
 });
 

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SVG from "react-inlinesvg";
 import { addBtnIcon } from "assets/icon";
@@ -30,8 +29,6 @@ import PetsData from "components/PetsData/PetsData";
 import Modal from "../../components/Modal/Modal";
 import addIcon from "../../assets/icon/Icon_add_photo.svg";
 import { getUser } from "redux/auth/auth-selector";
-
-axios.defaults.baseURL = "https://petly-back.onrender.com/api/";
 
 const User = () => {
   const [modalActive, setModalActive] = useState(false);
