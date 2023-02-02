@@ -2,7 +2,7 @@ import SVG from "react-inlinesvg";
 import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { patchData } from "redux/auth/auth-operations";
+import { logOut, patchData } from "redux/auth/auth-operations";
 import { camera, door } from "assets/icon";
 
 import UserDataItem from "components/UserDataItem/UserDataItem";
@@ -31,6 +31,7 @@ const UserData = ({ user }) => {
       console.log(newPhoto);
     }
   }, [newPhoto, dispatch]);
+
   return (
     <UserInfo>
       <UserInfoPhotoBox>
@@ -54,7 +55,12 @@ const UserData = ({ user }) => {
       </UserInfoPhotoBox>
       <UserDataItem user={user} />
 
-      <LogOutBtn type="button">
+      <LogOutBtn
+        type="button"
+        onClick={() => {
+          dispatch(logOut());
+        }}
+      >
         <SVG src={door} width={20} height={20} />
         Log Out
       </LogOutBtn>

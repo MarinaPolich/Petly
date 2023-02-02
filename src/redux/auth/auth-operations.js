@@ -74,6 +74,7 @@ export const refreshToken = createAsyncThunk(
       const res = await axios.post("/auth/refresh-tokens", {
         refreshToken: persistedToken,
       });
+      setAuthHeader(res.data.accessToken);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -81,7 +82,7 @@ export const refreshToken = createAsyncThunk(
   }
 );
 
-// tut moyo
+// tut moyo ))))
 
 export const patchData = createAsyncThunk(
   "/user/update",
