@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import React, { useState } from "react";
 import SVG from "react-inlinesvg";
 import { addBtnIcon } from "assets/icon";
@@ -28,7 +28,7 @@ import PetsData from "components/PetsData/PetsData";
 import Modal from "../../components/Modal/Modal";
 import addIcon from "../../assets/icon/Icon_add_photo.svg";
 
-axios.defaults.baseURL = "https://petly-back.onrender.com/api/";
+// axios.defaults.baseURL = "https://petly-back.onrender.com/api/";
 
 const User = () => {
   // const [user, setUser] = useState({});
@@ -127,10 +127,7 @@ const User = () => {
               <InputTextImgModa2>
                 Add photo and some comments{" "}
               </InputTextImgModa2>
-              <FormInputImg
-                type="file"
-                id="addPhoto"
-              />
+              <FormInputImg type="file" id="addPhoto" />
               <AddPhoto for="addPhoto">
                 <AddIcon src={addIcon} alt="sd" />
               </AddPhoto>

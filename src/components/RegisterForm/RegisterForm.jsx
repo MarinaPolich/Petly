@@ -49,11 +49,10 @@ const RegistrationSchema = Yup.object().shape({
     .max(16, "Too Long, at maximum 16!"),
   cityRegion: Yup.string().matches(
     /^([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})+,\s([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})$/,
-    "Invalid city, region"
+    "Сity, region must be capitalized and separated by commas"
   ),
   phone: Yup.string()
-    .matches(/^\+380[0-9]{9}$/, "Invalid mobile phone")
-    // .phone("IN", true, "Phone must be a valid phone number for region +38...")
+    .matches(/^\+380[0-9]{9}$/, "Phone number must be in the format +38...")
     .max(13, "Too Long, at maximum 13!"),
 });
 
