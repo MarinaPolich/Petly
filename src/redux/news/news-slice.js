@@ -15,6 +15,7 @@ const newsSlice = createSlice({
          state.isLoading = true;
          state.error = null;
         }).addCase(newsOperation.fulfilled, (state, action)=> {
+            console.log('action.payload', action.payload)
             state.items = action.payload;
             state.isLoading = false;
         }).addCase(newsOperation.rejected, (state, action)=> {
