@@ -1,0 +1,1 @@
+export const daysOfWeek = ["MN", "TU", "WE", "TH", "FR", "SA", "SU"];

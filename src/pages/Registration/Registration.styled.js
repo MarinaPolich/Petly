@@ -36,7 +36,7 @@ export const ContainerReg = styled.main`
     }
 
     @media ${device.desktop} {
-      height: 412px;
+      height: 496px;
       background-image: url(${waveLog_d});
     }
   }

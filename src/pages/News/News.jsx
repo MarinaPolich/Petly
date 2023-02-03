@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { newsOperation } from "redux/news/news-operations";
 import { selectFilteredNews } from "redux/news/news-selector";
+import { NewsContainer, NewsTitle, StyledUl } from "./News.styled";
+
 
 const News = () => {
   const dispatch = useDispatch();
@@ -15,15 +17,20 @@ const News = () => {
   }, [dispatch]);
 
   return (
-    <>
+    
+    <NewsContainer>
+    
+    <NewsTitle>News</NewsTitle>
+   
+    
       <SearchForm />
-      <ul>
+      <StyledUl>
         {filteredNews.map((item) => (
           <NewsItem item={item} key={item._id} />
         ))}
-      </ul>
-      ;
-    </>
+      </StyledUl>
+      </NewsContainer>
+    
   );
 };
 

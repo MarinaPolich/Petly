@@ -1,24 +1,69 @@
+import SVG from "react-inlinesvg";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { logOut, patchData } from "redux/auth/auth-operations";
+import { camera, door } from "assets/icon";
+
 import UserDataItem from "components/UserDataItem/UserDataItem";
+
 import {
   UserInfo,
   UserInfoPhotoBox,
   UserPhoto,
-  InputPhoto,
   LabelInputPhoto,
+  LogOutBtn,
 } from "./UserData.styled";
+
 const UserData = ({ user }) => {
+  const [newPhoto, setNewPhoto] = useState(null);
+  const dispatch = useDispatch();
+
+  const onChange = (data) => {
+    console.log(data);
+    setNewPhoto(data);
+    console.log(newPhoto);
+  };
+
+  useEffect(() => {
+    if (newPhoto) {
+      dispatch(patchData(newPhoto));
+      console.log(newPhoto);
+    }
+  }, [newPhoto, dispatch]);
+
   return (
     <UserInfo>
       <UserInfoPhotoBox>
-        <UserPhoto
-          src="https://www.gravatar.com/avatar/0312d0d39585741666c19c217ed769f7"
-          alt="PhotoUser"
-        ></UserPhoto>
+        <UserPhoto src={user.avatarURL} alt={user.name}></UserPhoto>
         <LabelInputPhoto>
-          Edit photo<InputPhoto type="file"></InputPhoto>
+          <SVG src={camera} width={20} height={20} />
+          Edit photo
+          <input
+            hidden={true}
+            type="file"
+            onChange={({ target: { files } }) => {
+              const file = files?.item(0);
+              console.log(file);
+              if (!file) return;
+              const formData = new FormData();
+              formData.append("image", file);
+              onChange(formData);
+            }}
+          ></input>
         </LabelInputPhoto>
       </UserInfoPhotoBox>
       <UserDataItem user={user} />
+
+      <LogOutBtn
+        type="button"
+        onClick={() => {
+          dispatch(logOut());
+        }}
+      >
+        <SVG src={door} width={20} height={20} />
+        Log Out
+      </LogOutBtn>
     </UserInfo>
   );
 };
