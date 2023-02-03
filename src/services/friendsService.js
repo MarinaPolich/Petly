@@ -5,6 +5,10 @@ import axios from "axios";
 // })
 
 export const getFriends = async () => {
-  const { data } = await axios.get("https://petly-back.onrender.com/api/friends");
-  return data;
+  try {
+    const { data } = await axios.get("https://pet-ly.onrender.com/api/friends");
+    return data.data.result;
+  } catch (error) {
+    console.log(error);
+  }
 };

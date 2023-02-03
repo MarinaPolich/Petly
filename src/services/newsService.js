@@ -4,12 +4,10 @@ import axios from "axios";
 // })
 
 export const getNews = async () => {
-
   try {
-    const { data } = await axios.get("https://petly-back.onrender.com/api/news");
-    console.log(data);
-    return data
+    const { data } = await axios.get("https://pet-ly.onrender.com/api/news");
+    return data.data.result;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
