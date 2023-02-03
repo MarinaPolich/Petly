@@ -4,7 +4,12 @@ import axios from "axios";
 // })
 
 export const getNews = async () => {
-  const { data } = await axios.get("/news"); //newsInstance.get()
-  console.log('data', data)
-  return data.data.result;
+
+  try {
+    const { data } = await axios.get("https://petly-back.onrender.com/api/news");
+    console.log(data);
+    return data
+  } catch (error) {
+    console.log(error)
+  }
 };

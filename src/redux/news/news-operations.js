@@ -3,7 +3,7 @@ import { getNews } from "services/newsService";
 
 export const newsOperation = createAsyncThunk(
   "news/getAll",
-  async (data, thunkApi) => {
+  async (_, thunkApi) => {
     try {
       return await getNews();
     } catch (error) {

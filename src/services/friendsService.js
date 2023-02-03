@@ -5,6 +5,6 @@ import axios from "axios";
 // })
 
 export const getFriends = async () => {
-  const { data } = await axios.get("/friends");
+  const { data } = await axios.get("https://petly-back.onrender.com/api/friends");
   return data;
 };
