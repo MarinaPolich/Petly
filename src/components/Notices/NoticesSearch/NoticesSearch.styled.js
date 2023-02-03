@@ -47,20 +47,6 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
-// export const ButtonClear = styled.button`
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-
-//   display: none;
-//   padding: 10px 12px;
-//   background-color: transparent;
-//   border: 0;
-//   border-radius: var(--border-input);
-
-//   cursor: pointer;
-// `;
-
 export const Input = styled.input`
   width: 100%;
   padding: 9px 12px;

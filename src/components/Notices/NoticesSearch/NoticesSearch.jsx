@@ -35,15 +35,13 @@ const NoticesSearch = () => {
           onChange={onChange}
         />
         <Button type="submit">
-          {filter.length < 1 ? (
-            <Mobile>
+          <Mobile>
+            {filter.length < 1 ? (
               <Svg src={search} width="20" height="20" title="search" />
-            </Mobile>
-          ) : (
-            <Mobile>
+            ) : (
               <Svg src={clear} width="20" height="20" title="clear" />
-            </Mobile>
-          )}
+            )}
+          </Mobile>
           {isDesktopOrTablet && filter.length < 1 ? (
             <Svg src={search} width="24" height="24" title="search" />
           ) : (
