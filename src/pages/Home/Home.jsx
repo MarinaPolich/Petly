@@ -1,5 +1,11 @@
+import { Text, Container } from "./Home.styled";
+
 const Home = () => {
-  return <div></div>;
+  return (
+    <Container>
+      <Text>Take good care of your small pets</Text>
+    </Container>
+  );
 };
 
 export default Home;
