@@ -21,8 +21,12 @@ const UserData = ({ user }) => {
 
   const onChange = (data) => {
     console.log(data);
+
+    for (let [name, key] of data) {
+      console.log(name, key);
+    }
+
     setNewPhoto(data);
-    console.log(newPhoto);
   };
 
   useEffect(() => {
@@ -44,10 +48,10 @@ const UserData = ({ user }) => {
             type="file"
             onChange={({ target: { files } }) => {
               const file = files?.item(0);
-              console.log(file);
+              // console.log(file);
               if (!file) return;
               const formData = new FormData();
-              formData.append("image", file);
+              formData.append("avatarURL", file);
               onChange(formData);
             }}
           ></input>

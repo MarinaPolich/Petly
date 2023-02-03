@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SVG from "react-inlinesvg";
 import { addBtnIcon } from "assets/icon";
 import UserData from "components/UserData/UserData";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   UserPageBox,
   UserInfoBox,
@@ -29,6 +29,7 @@ import PetsData from "components/PetsData/PetsData";
 import Modal from "../../components/Modal/Modal";
 import addIcon from "../../assets/icon/Icon_add_photo.svg";
 import { getUser } from "redux/auth/auth-selector";
+import { currentUser } from "redux/auth/auth-operations";
 
 const User = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -37,6 +38,7 @@ const User = () => {
   const [formData, updateFormData] = useState([]);
 
   const userData = useSelector(getUser);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     updateFormData({ ...formData, [e.target.name]: e.target.value.trim() });
@@ -58,12 +60,17 @@ const User = () => {
   };
 
   useEffect(() => {
+    if (userData === {}) {
+      dispatch(currentUser());
+      console.log("111");
+    }
+
     if (modalActive) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-  }, [modalActive]);
+  }, [modalActive, dispatch, userData]);
   return (
     <UserPageBox>
       <UserInfoBox>
