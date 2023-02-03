@@ -182,7 +182,7 @@ const UserDataItem = ({ user }) => {
                 return (
                   <FormBox onSubmit={handleSubmit}>
                     <DatePicker
-                      selected={values.birtsday}
+                      selected={fieldValue}
                       value={values.birtsday}
                       type="date"
                       name="birtsday"

@@ -83,6 +83,17 @@ export const refreshToken = createAsyncThunk(
 );
 
 // tut moyo ))))
+export const currentUser = createAsyncThunk(
+  "/user/current",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get("/user/current");
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const patchData = createAsyncThunk(
   "/user/update",
