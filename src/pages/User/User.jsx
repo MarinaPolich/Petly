@@ -60,17 +60,19 @@ const User = () => {
   };
 
   useEffect(() => {
-    if (userData === {}) {
-      dispatch(currentUser());
-      console.log("111");
-    }
-
     if (modalActive) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-  }, [modalActive, dispatch, userData]);
+  }, [modalActive]);
+
+  useEffect(() => {
+    if (!userData.hasOwnProperty("name")) {
+      dispatch(currentUser());
+    }
+  }, [dispatch, userData]);
+
   return (
     <UserPageBox>
       <UserInfoBox>

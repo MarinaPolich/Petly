@@ -77,7 +77,7 @@ const authSlice = createSlice({
         state.error = payload;
       })
       .addCase(currentUser.fulfilled, (state, { payload }) => {
-        state.user = payload;
+        state.user = payload.data.result;
       })
       .addCase(patchData.fulfilled, (state, { payload }) => {
         state.user = payload;
