@@ -23,12 +23,15 @@ import { patchData } from "redux/auth/auth-operations";
 const UserDataItem = ({ user }) => {
   const [name, setName] = useState(false);
   const [email, setEmail] = useState(false);
-  const [birtsday, setBirtsday] = useState(false);
+  const [birthday, setbirthday] = useState(false);
   const [phone, setPhone] = useState(false);
   const [city, setCity] = useState(false);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [newData, setNewData] = useState(null);
-  const [fieldValue, setFieldValue] = useState(user.birtsday ?? new Date());
+
+  const [customInput, setCustomInput] = useState(
+    new Date(user.birthday) ?? new Date()
+  );
 
   const dispatch = useDispatch();
   const confirmIcon = <SVG src={confirm} width={15} height={15} />;
@@ -46,8 +49,8 @@ const UserDataItem = ({ user }) => {
         setEmail(true);
         setIsActiveBtn(true);
         break;
-      case "birtsday":
-        setBirtsday(true);
+      case "birthday":
+        setbirthday(true);
         setIsActiveBtn(true);
         break;
       case "phone":
@@ -67,7 +70,7 @@ const UserDataItem = ({ user }) => {
     setName(false);
 
     setEmail(false);
-    setBirtsday(false);
+    setbirthday(false);
     setPhone(false);
     setCity(false);
     setIsActiveBtn(false);
@@ -79,29 +82,19 @@ const UserDataItem = ({ user }) => {
   useEffect(() => {
     if (newData) {
       dispatch(patchData(newData));
-      console.log(newData);
     }
   }, [newData, dispatch]);
 
-  const ExampleCustomInput = React.forwardRef(
-    ({ value, onClick, onChange }, ref) => {
-      // console.log(moment(fieldValue).format("DD.MM.YYYY"));
-      return (
-        <InfoInput
-          onClick={onClick}
-          onChange={
-            () => {}
-            // console.log(moment(fieldValue).format("DD.MM.YYYY"))
-            // console.log(onChange)
-            // console.log(value)
-          }
-          ref={ref}
-          selected={value}
-          defaultValue={value}
-        ></InfoInput>
-      );
-    }
-  );
+  const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => {
+    return (
+      <InfoInput
+        onClick={onClick}
+        ref={ref}
+        selected={value}
+        defaultValue={value}
+      ></InfoInput>
+    );
+  });
 
   return (
     <ul>
@@ -172,29 +165,31 @@ const UserDataItem = ({ user }) => {
       </UserInfoStats>
       <UserInfoStats>
         <InfoLabel>Birthday:</InfoLabel>
-        {birtsday ? (
+        {birthday ? (
           <>
             <Formik
-              initialValues={{ birtsday: fieldValue }}
+              initialValues={{ birthday: customInput }}
               onSubmit={onSubmit}
             >
-              {({ values, errors, handleChange, handleSubmit }) => {
+              {({
+                values,
+                errors,
+                handleChange,
+                handleSubmit,
+                setFieldValue,
+              }) => {
                 return (
                   <FormBox onSubmit={handleSubmit}>
                     <DatePicker
-                      selected={fieldValue}
-                      value={values.birtsday}
+                      selected={customInput}
                       type="date"
-                      name="birtsday"
-                      onChange={(e) => {
-                        setFieldValue(e);
-                        handleChange(fieldValue.toString());
+                      name="birthday"
+                      onChange={(date) => {
+                        setCustomInput(date);
+                        return setFieldValue("birthday", date);
                       }}
                       dateFormat="dd.MM.yyyy"
-                      customInput={
-                        <ExampleCustomInput onChange={handleChange} />
-                      }
-                      required
+                      customInput={<ExampleCustomInput />}
                     />
                     <EditBtn type="submit">{confirmIcon}</EditBtn>
                   </FormBox>
@@ -204,12 +199,10 @@ const UserDataItem = ({ user }) => {
           </>
         ) : (
           <>
-            <InfoHolder>
-              {user.birtsday ?? moment(fieldValue).format("DD.MM.YYYY")}
-            </InfoHolder>
+            <InfoHolder>{moment(customInput).format("DD.MM.YYYY")}</InfoHolder>
             <EditBtn
               type="button"
-              id="birtsday"
+              id="birthday"
               disabled={isActiveBtn}
               onClick={btnClick}
             >

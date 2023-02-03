@@ -1,5 +1,4 @@
 import SVG from "react-inlinesvg";
-import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { logOut, patchData } from "redux/auth/auth-operations";
@@ -16,25 +15,11 @@ import {
 } from "./UserData.styled";
 
 const UserData = ({ user }) => {
-  const [newPhoto, setNewPhoto] = useState(null);
   const dispatch = useDispatch();
 
   const onChange = (data) => {
-    console.log(data);
-
-    for (let [name, key] of data) {
-      console.log(name, key);
-    }
-
-    setNewPhoto(data);
+    dispatch(patchData(data));
   };
-
-  useEffect(() => {
-    if (newPhoto) {
-      dispatch(patchData(newPhoto));
-      console.log(newPhoto);
-    }
-  }, [newPhoto, dispatch]);
 
   return (
     <UserInfo>
@@ -48,10 +33,10 @@ const UserData = ({ user }) => {
             type="file"
             onChange={({ target: { files } }) => {
               const file = files?.item(0);
-              // console.log(file);
+
               if (!file) return;
               const formData = new FormData();
-              formData.append("avatarURL", file);
+              formData.append("avatar", file);
               onChange(formData);
             }}
           ></input>

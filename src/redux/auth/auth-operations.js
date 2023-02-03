@@ -82,7 +82,6 @@ export const refreshToken = createAsyncThunk(
   }
 );
 
-// tut moyo ))))
 export const currentUser = createAsyncThunk(
   "/user/current",
   async (_, thunkAPI) => {
