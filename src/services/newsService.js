@@ -4,7 +4,10 @@ import axios from "axios";
 // })
 
 export const getNews = async () => {
-  const { data } = await axios.get("/news"); //newsInstance.get()
-  console.log('data', data)
-  return data.data.result;
+  try {
+    const { data } = await axios.get("https://pet-ly.onrender.com/api/news");
+    return data.data.result;
+  } catch (error) {
+    console.log(error);
+  }
 };
