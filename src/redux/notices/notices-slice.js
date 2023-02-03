@@ -12,8 +12,6 @@ import {
 const initialState = {
   filter: "",
   items: [],
-  favorite: [],
-  check: false,
   error: null,
   isLoading: false,
 };
@@ -32,7 +30,7 @@ const noticesSlice = createSlice({
         notices.isLoading = true;
       })
 
-      .addCase(getNoticesByCategories.fulfilled, ({ notices }, { payload }) => {
+      .addCase(getNoticesByCategories.fulfilled, ({ notices }) => {
         notices.isLoading = false;
         notices.error = "";
       })
@@ -46,7 +44,6 @@ const noticesSlice = createSlice({
       .addCase(addNotice.fulfilled, ({ notices }, { payload }) => {
         notices.isLoading = false;
         notices.error = "";
-        notices.check = false;
         const newItem = {
           title: payload.title,
           name: payload.name,
@@ -85,8 +82,6 @@ const noticesSlice = createSlice({
       .addCase(getFavUserNotice.fulfilled, ({ notices }, { payload }) => {
         notices.isLoading = false;
         notices.error = "";
-        notices.favorite = payload;
-        notices.check = true;
       })
       .addCase(getFavUserNotice.rejected, ({ notices }, { payload }) => {
         notices.error = payload;
@@ -98,13 +93,12 @@ const noticesSlice = createSlice({
       .addCase(addFavoriteNotice.fulfilled, ({ notices }, { payload }) => {
         notices.isLoading = false;
         notices.error = "";
-        notices.check = true;
-        notices.items.filter((item) => {
-          if (item._id !== payload._id) {
-            notices.favorite.push(item);
-          }
-          return item;
-        });
+        // notices.items.filter((item) => {
+        //   if (item._id !== payload._id) {
+        //     notices.favorite.push(item);
+        //   }
+        //   return item;
+        // });
       })
       .addCase(addFavoriteNotice.rejected, ({ notices }, { payload }) => {
         notices.error = payload;
@@ -116,13 +110,12 @@ const noticesSlice = createSlice({
       .addCase(deleteFavoriteNotice.fulfilled, ({ notices }, { payload }) => {
         notices.isLoading = false;
         notices.error = "";
-        notices.check = false;
-        return notices.favorite.filter((item) => {
-          if (item._id === payload._id) {
-            notices.favorite.unshift(item);
-          }
-          return item;
-        });
+        // return notices.favorite.filter((item) => {
+        //   if (item._id === payload._id) {
+        //     notices.favorite.unshift(item);
+        //   }
+        //   return item;
+        // });
       })
       .addCase(deleteFavoriteNotice.rejected, ({ notices }, { payload }) => {
         notices.error = payload;

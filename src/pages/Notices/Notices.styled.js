@@ -14,3 +14,10 @@ export const Box = styled.div`
     padding-top: 59px 0;
   }
 `;
+
+export const NavBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+`;

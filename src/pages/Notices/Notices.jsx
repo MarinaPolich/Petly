@@ -3,14 +3,19 @@ import {
   NoticesCategoriesList,
   NoticesCategoriesNav,
   NoticesSearch,
+  AddNoticeButton,
 } from "../../components/Notices/index";
-import { Box } from "./Notices.styled";
+import { Box, NavBox } from "./Notices.styled";
 
 const Notices = () => {
   return (
     <Box>
       <NoticesSearch></NoticesSearch>
-      <NoticesCategoriesNav></NoticesCategoriesNav>
+      <NavBox>
+        <NoticesCategoriesNav></NoticesCategoriesNav>
+        <AddNoticeButton></AddNoticeButton>
+      </NavBox>
+
       <NoticesCategoriesList></NoticesCategoriesList>
       <Outlet />
     </Box>
