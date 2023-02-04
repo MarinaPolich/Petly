@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 // import * as yup from "yup";
 
@@ -28,9 +28,10 @@ const UserDataItem = ({ user }) => {
   const [city, setCity] = useState(false);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
 
-  const [customInput, setCustomInput] = useState(
-    new Date(user.birthday) ?? new Date()
-  );
+  const [customInput, setCustomInput] = useState("");
+  useEffect(() => {
+    setCustomInput(user.birthday ? new Date(user.birthday) : new Date());
+  }, [user.birthday]);
 
   const dispatch = useDispatch();
   const confirmIcon = <SVG src={confirm} width={15} height={15} />;
@@ -179,6 +180,10 @@ const UserDataItem = ({ user }) => {
                       }}
                       dateFormat="dd.MM.yyyy"
                       customInput={<ExampleCustomInput />}
+                      showYearDropdown
+                      dateFormatCalendar="MMMM"
+                      yearDropdownItemNumber={100}
+                      scrollableYearDropdown
                     />
                     <EditBtn type="submit">{confirmIcon}</EditBtn>
                   </FormBox>
