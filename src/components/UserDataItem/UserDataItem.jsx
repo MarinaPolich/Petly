@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
-// import * as yup from 'yup';
+// import * as yup from "yup";
 
 import moment from "moment";
 import SVG from "react-inlinesvg";
@@ -27,7 +27,6 @@ const UserDataItem = ({ user }) => {
   const [phone, setPhone] = useState(false);
   const [city, setCity] = useState(false);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
-  const [newData, setNewData] = useState(null);
 
   const [customInput, setCustomInput] = useState(
     new Date(user.birthday) ?? new Date()
@@ -76,14 +75,10 @@ const UserDataItem = ({ user }) => {
     setIsActiveBtn(false);
   };
   const onSubmit = (value) => {
-    setNewData(value);
+    dispatch(patchData(value));
+
     defaulSeating();
   };
-  useEffect(() => {
-    if (newData) {
-      dispatch(patchData(newData));
-    }
-  }, [newData, dispatch]);
 
   const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => {
     return (
@@ -171,13 +166,7 @@ const UserDataItem = ({ user }) => {
               initialValues={{ birthday: customInput }}
               onSubmit={onSubmit}
             >
-              {({
-                values,
-                errors,
-                handleChange,
-                handleSubmit,
-                setFieldValue,
-              }) => {
+              {({ handleSubmit, setFieldValue }) => {
                 return (
                   <FormBox onSubmit={handleSubmit}>
                     <DatePicker
