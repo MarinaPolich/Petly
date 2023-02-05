@@ -14,70 +14,47 @@ export const FriendsContainer = styled.section`
   }
 `;
 
+export const StyledLi = styled.li`
+  background: var(--white);
+  border-radius: 20px;
+  padding: 12px;
+`;
+export const MainWrapper = styled.div`
+  display: flex;
+`;
+export const ImageBox = styled.div`
+  width: 45%;
+  max-width: 45%;
+`;
+export const InfoWrapper = styled.div`
+  width: 55%;
+  max-width: 55%;
+`;
 
-export const StyledLi = styled.li` 
-background: var(--white);
-border-radius: 20px;
-padding: 12px;
+export const StyledImg = styled.img`
+  width: 100px;
+  height: auto;
+  margin: 0;
+`;
 
-`
-export const MainWrapper = styled.div` 
-display: flex;
-`
-export const ImageBox = styled.div` 
-width: 45%;
-max-width: 45%;
-`
-export const InfoWrapper = styled.div` 
-width: 55%;
-max-width: 55%;
+export const StyledHeader = styled.h3`
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-decoration-line: underline;
+  margin-bottom: 12px;
 
-`
+  color: var(--primary);
+  display: flex;
+  justify-content: center;
+`;
 
-export const StyledImg = styled.img` 
-width: 100px;
-height: auto;
-margin: 0;
+export const StyledTime = styled.p``;
 
-`
+export const StyledAddress = styled.p``;
 
-export const StyledHeader = styled.h3` 
-font-weight: 700;
-font-size: 12px;
-line-height: 16px;
-display: flex;
-align-items: center;
-text-decoration-line: underline;
-margin-bottom: 12px;
+export const StyledPhone = styled.p``;
 
-color: var(--primary);
-display: flex;
-justify-content: center;
-
-
-`
-
-export const StyledTime = styled.p` 
-
-
-
-
-`
-
-
-export const StyledAddress = styled.p` 
-
-
-
-`
-
-export const StyledPhone = styled.p` 
-
-
-`
-
-
-export const StyledEmail = styled.p` 
-
-
-`
+export const StyledEmail = styled.p``;
