@@ -20,7 +20,7 @@ import {
 } from "./RegisterForm.styled";
 
 import React from "react";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+// import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const RegistrationSchema = Yup.object().shape({
   email: Yup.string()
@@ -111,7 +111,7 @@ export const RegisterForm = () => {
         return (
           <Container>
             <TitleForm>registration</TitleForm>
-            <GooglePlacesAutocomplete apiKey="AIzaSyDXsNMQ96v2o3zSholVBV80Z3yuTpfR080" />
+            {/* <GooglePlacesAutocomplete apiKey="AIzaSyDXsNMQ96v2o3zSholVBV80Z3yuTpfR080" /> */}
             <FormBox>
               {page === 1 && (
                 <>
