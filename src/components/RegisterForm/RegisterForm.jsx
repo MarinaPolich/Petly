@@ -111,7 +111,7 @@ export const RegisterForm = () => {
         return (
           <Container>
             <TitleForm>registration</TitleForm>
-            {/* <GooglePlacesAutocomplete apiKey="AIzaSyDXsNMQ96v2o3zSholVBV80Z3yuTpfR080" /> */}
+            {/* <GooglePlacesAutocomplete apiKey="" /> */}
             <FormBox>
               {page === 1 && (
                 <>

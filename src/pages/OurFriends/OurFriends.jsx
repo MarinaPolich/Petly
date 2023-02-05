@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { friendsOperation } from "redux/friends/friends-operations";
 import { selectFriends } from "redux/friends/friends-selector";
+import { FriendsWraper, Title } from "./OurFriends.styled";
 
 const OurFriends = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,12 @@ const OurFriends = () => {
 
   return (
     <FriendsContainer>
-    <ul>
-      {friends.map((item) => (
-        <FriendsItem item={item} key={item._id} />
-      ))}
-    </ul>
+      <Title>Our friends</Title>
+      <FriendsWraper>
+        {friends.map((item) => (
+          <FriendsItem item={item} key={item._id} />
+        ))}
+      </FriendsWraper>
     </FriendsContainer>
   );
 };
