@@ -8,6 +8,7 @@ import SVG from "react-inlinesvg";
 import { confirm, pencil } from "assets/icon";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 import {
   UserInfoStats,
@@ -132,16 +133,17 @@ const UserDataItem = ({ user }) => {
               onSubmit={onSubmit}
               validationSchema={NameValidation}
             >
-              {({ values, errors, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit}>
+              {({ values, errors, touched, handleChange, handleSubmit }) => (
+                <FormBox onSubmit={handleSubmit}>
                   <InfoInput
                     name="name"
                     type="text"
                     value={values.name}
                     onChange={handleChange}
                   />
+                  {errors.name && touched.name ? <p>{errors.name}</p> : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
-                </Form>
+                </FormBox>
               )}
             </Formik>
           </>
@@ -168,16 +170,17 @@ const UserDataItem = ({ user }) => {
               onSubmit={onSubmit}
               validationSchema={EmailValidation}
             >
-              {({ values, errors, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit}>
+              {({ values, errors, touched, handleChange, handleSubmit }) => (
+                <FormBox onSubmit={handleSubmit}>
                   <InfoInput
                     name="email"
                     type="email"
                     value={values.email}
                     onChange={handleChange}
                   />
+                  {errors.email && touched.email ? <p>{errors.email}</p> : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
-                </Form>
+                </FormBox>
               )}
             </Formik>
           </>
@@ -250,16 +253,17 @@ const UserDataItem = ({ user }) => {
               onSubmit={onSubmit}
               validationSchema={PhoneValidation}
             >
-              {({ values, errors, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit}>
+              {({ values, errors, touched, handleChange, handleSubmit }) => (
+                <FormBox onSubmit={handleSubmit}>
                   <InfoInput
                     name="phone"
                     type="phone"
                     value={values.phone}
                     onChange={handleChange}
                   />
+                  {errors.phone && touched.phone ? <p>{errors.phone}</p> : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
-                </Form>
+                </FormBox>
               )}
             </Formik>
           </>
@@ -286,16 +290,19 @@ const UserDataItem = ({ user }) => {
               onSubmit={onSubmit}
               validationSchema={CityValidation}
             >
-              {({ values, errors, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit}>
+              {({ values, errors, touched, handleChange, handleSubmit }) => (
+                <FormBox onSubmit={handleSubmit}>
                   <InfoInput
                     name="cityRegion"
                     type="text"
                     value={values.cityRegion}
                     onChange={handleChange}
                   />
+                  {errors.cityRegion && touched.cityRegion ? (
+                    <p>{errors.cityRegion}</p>
+                  ) : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
-                </Form>
+                </FormBox>
               )}
             </Formik>
           </>
