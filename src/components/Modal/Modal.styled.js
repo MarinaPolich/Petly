@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { ReactComponent as Close } from '../../assets/icon/Close copy.svg';
 export const ModalWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background: rgba(17, 17, 17, 0.6);
   backdrop-filter: blur(10px);
   position: fixed;
@@ -11,10 +11,9 @@ export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: ${props => props.actv ? 1 : 0
-  
-  };
-  pointer-events: ${props => (props.actv ? 'all' : 'none')};
+  overflow-y: auto;
+  opacity: ${(props) => (props.actv ? 1 : 0)};
+  pointer-events: ${(props) => (props.actv ? "all" : "none")};
   transition: 0.5s;
 `;
 
@@ -40,7 +39,7 @@ export const ModalTitle = styled.h2`
   font-size: 36px;
   line-height: 1.3;
   color: #111111;
-  margin-top: 31px;
+  margin-top: 40px;
 `;
 
 export const CloseIcon = styled(Close)`

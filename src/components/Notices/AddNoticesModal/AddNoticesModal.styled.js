@@ -1,26 +1,5 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
-  position: fixed;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 18px;
-  border: 0;
-  border-radius: 50%;
-
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-
-  color: var(--white);
-  background: var(--primary);
-  box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
-`;
-
-
 export const FormWrapper = styled.form`
   display: inline-flex;
   flex-direction: column;
@@ -38,7 +17,11 @@ export const InputText = styled.label`
   font-size: 24px;
   line-height: 1.08;
   color: #111111;
-  padding-bottom: 12px;
+ margin-bottom: 12px;
+  &:first-of-type {
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
 `;
 
 export const ModalText = styled.label`
@@ -50,6 +33,7 @@ export const ModalText = styled.label`
   text-align: center;
   letter-spacing: -0.01em;
   color: #000000;
+  margin-top: 20px;
   margin-bottom: 28px;
 `;
 export const Span = styled.span`
@@ -115,7 +99,7 @@ export const ModalFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 49px;
+  margin-bottom: 40px;
 `;
 
 export const CancelBtn = styled.button`
@@ -160,19 +144,18 @@ export const InputTextModa2 = styled.label`
   font-size: 24px;
   line-height: 1, 08;
   color: #111111;
-  padding-bottom: 12px;
+  margin-bottom: 12px;
 `;
 
 export const InputTextImgModa2 = styled.label`
-  text-align: left;
-  font-family: "Inter";
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 1, 2;
-  color: #111111;
-  letter-spacing: -0.01em;
-  margin-bottom: 20px;
+  font-size: 24px;
+  line-height: 1.08;
+  color: #000000;
+  margin-bottom: 12px;
+  text-align: left;
 `;
 
 export const FormInputImg = styled.input`
@@ -182,7 +165,7 @@ export const FormInputImg = styled.input`
 `;
 
 export const FormInputText = styled.textarea`
-  width: 394px;
+  width: 448px;
   background: #fdf7f2;
   border: 1px solid rgba(245, 146, 86, 0.5);
   border-radius: 20px;
@@ -216,7 +199,7 @@ export const AddPhoto = styled.label`
   text-align: left;
   text-decoration: none;
   outline: none;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   &:focus {
     border: 3px solid rgb(245, 146, 86);
   }
@@ -230,7 +213,6 @@ export const AddIcon = styled.img`
 `;
 
 export const Box = styled.div`
-  display: inline-block;
   text-align: left;
 `;
 
@@ -256,8 +238,50 @@ export const RadioInput = styled.input`
 
 export const ImgSex = styled.img`
   display: block;
-  margin-top: 28px;
+  margin-top: 31px;
   margin-bottom: 20px;
   width: 54px;
   height: 54px;
+`;
+
+export const CategoryLabel = styled.label`
+  margin-right: 12px;
+  height: 47px;
+  border: 2px solid #f59256;
+  border-radius: 40px;
+  color: #000000;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.35px;
+  background: #ffffff;
+  padding-top: 20px;
+  padding-left: 28px;
+  padding-bottom: 10px;
+  padding-right: 28px;
+  display: inline-flex;
+  flex-direction: row;
+  cursor: pointer;
+  
+  &:last-of-type {
+    margin-right: 0;
+    margin-top: 16px;
+    margin-bottom: 28px;
+  }
+`;
+
+export const CategoryInut = styled.input`
+  display: none;
+
+  &:checked + ${CategoryLabel} {
+    color: #ffffff;
+    background: #f59256;
+  }
+`;
+
+export const Box2 = styled.div`
+  text-align: left;
+  /* display: flex;
+  flex-direction: row; */
 `;
