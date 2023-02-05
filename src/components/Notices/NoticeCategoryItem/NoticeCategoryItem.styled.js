@@ -59,11 +59,19 @@ export const Category = styled.p`
   backdrop-filter: blur(2px);
 `;
 
-export const ButtonFavorite = styled.button`
+export const FavoriteLabel = styled.label`
   position: absolute;
   top: 12px;
   right: 12px;
 
+  cursor: pointer;
+`;
+
+export const FavoriteCheck = styled.input`
+  display: none;
+`;
+
+export const FavoriteBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,8 +81,6 @@ export const ButtonFavorite = styled.button`
 
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(2px);
-
-  cursor: pointer;
 `;
 
 export const DescriptionBox = styled.div`
