@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import { useEffect, useState } from "react";
 import React from "react";
-// import * as yup from "yup";
+import * as Yup from "yup";
 
 import moment from "moment";
 import SVG from "react-inlinesvg";
@@ -20,6 +20,37 @@ import {
 import { useDispatch } from "react-redux";
 import { patchData } from "redux/auth/auth-operations";
 
+const NameValidation = Yup.object().shape({
+  name: Yup.string()
+    .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
+    .min(2, "Too Short, at least 2!")
+    .max(16, "Too Long, at maximum 16!"),
+});
+const EmailValidation = Yup.object().shape({
+  email: Yup.string()
+    .email()
+    .matches(
+      /^([a-zA-Z0-9]{1}[\w\-.]{0,}[a-zA-Z0-9]{1})+@([\w-]+.)+[\w]{2,4}$/,
+      "Invalid email"
+    )
+    .min(10, "Email is too short, at least 10!")
+    .max(63, "Email is too long, at maximum 63!")
+    .required("Enter email"),
+});
+const PhoneValidation = Yup.object().shape({
+  phone: Yup.string()
+    .matches(/^\+380[0-9]{9}$/, "Phone number must be in the format +38...")
+    .max(13, "Too Long, at maximum 13!"),
+});
+const CityValidation = Yup.object().shape({
+  cityRegion: Yup.string().matches(
+    /^([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})+,\s([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})$/,
+    "Сity, region must be capitalized and separated by commas"
+  ),
+});
+const confirmIcon = <SVG src={confirm} width={15} height={15} />;
+const editIcon = <SVG src={pencil} width={15} height={15} />;
+
 const UserDataItem = ({ user }) => {
   const [name, setName] = useState(false);
   const [email, setEmail] = useState(false);
@@ -27,15 +58,13 @@ const UserDataItem = ({ user }) => {
   const [phone, setPhone] = useState(false);
   const [city, setCity] = useState(false);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
-
   const [customInput, setCustomInput] = useState("");
+
   useEffect(() => {
     setCustomInput(user.birthday ? new Date(user.birthday) : new Date());
   }, [user.birthday]);
 
   const dispatch = useDispatch();
-  const confirmIcon = <SVG src={confirm} width={15} height={15} />;
-  const editIcon = <SVG src={pencil} width={15} height={15} />;
 
   const btnClick = (e) => {
     const click = e.currentTarget.id;
@@ -81,7 +110,7 @@ const UserDataItem = ({ user }) => {
     defaulSeating();
   };
 
-  const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => {
+  const CustomInput = React.forwardRef(({ value, onClick }, ref) => {
     return (
       <InfoInput
         onClick={onClick}
@@ -98,7 +127,11 @@ const UserDataItem = ({ user }) => {
         <InfoLabel htmlFor="nameInput">Name:</InfoLabel>
         {name ? (
           <>
-            <Formik initialValues={{ name: user.name }} onSubmit={onSubmit}>
+            <Formik
+              initialValues={{ name: user.name }}
+              onSubmit={onSubmit}
+              validationSchema={NameValidation}
+            >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <InfoInput
@@ -130,7 +163,11 @@ const UserDataItem = ({ user }) => {
         <InfoLabel>Email:</InfoLabel>
         {email ? (
           <>
-            <Formik initialValues={{ email: user.email }} onSubmit={onSubmit}>
+            <Formik
+              initialValues={{ email: user.email }}
+              onSubmit={onSubmit}
+              validationSchema={EmailValidation}
+            >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <InfoInput
@@ -138,7 +175,6 @@ const UserDataItem = ({ user }) => {
                     type="email"
                     value={values.email}
                     onChange={handleChange}
-                    pattern="[/^([a-zA-Z0-9]{1}[\w-\.]{0,}[a-zA-Z0-9]{1})+@([\w-]+\.)+[\w-]{2,4}$/]"
                   />
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </Form>
@@ -179,7 +215,7 @@ const UserDataItem = ({ user }) => {
                         return setFieldValue("birthday", date);
                       }}
                       dateFormat="dd.MM.yyyy"
-                      customInput={<ExampleCustomInput />}
+                      customInput={<CustomInput />}
                       showYearDropdown
                       dateFormatCalendar="MMMM"
                       yearDropdownItemNumber={100}
@@ -209,7 +245,11 @@ const UserDataItem = ({ user }) => {
         <InfoLabel>Phone:</InfoLabel>
         {phone ? (
           <>
-            <Formik initialValues={{ phone: user.phone }} onSubmit={onSubmit}>
+            <Formik
+              initialValues={{ phone: user.phone }}
+              onSubmit={onSubmit}
+              validationSchema={PhoneValidation}
+            >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <InfoInput
@@ -244,6 +284,7 @@ const UserDataItem = ({ user }) => {
             <Formik
               initialValues={{ cityRegion: user.cityRegion }}
               onSubmit={onSubmit}
+              validationSchema={CityValidation}
             >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
