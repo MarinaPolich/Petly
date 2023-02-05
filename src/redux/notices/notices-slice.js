@@ -26,24 +26,25 @@ const noticesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getNoticesByCategories.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(getNoticesByCategories.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
 
-      .addCase(getNoticesByCategories.fulfilled, ({ notices }) => {
-        notices.isLoading = false;
-        notices.error = "";
+      .addCase(getNoticesByCategories.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.items = payload;
       })
-      .addCase(getNoticesByCategories.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(getNoticesByCategories.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       })
-      .addCase(addNotice.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(addNotice.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(addNotice.fulfilled, ({ notices }, { payload }) => {
-        notices.isLoading = false;
-        notices.error = "";
+      .addCase(addNotice.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
         const newItem = {
           title: payload.title,
           name: payload.name,
@@ -53,46 +54,46 @@ const noticesSlice = createSlice({
           comments: payload.comments,
           price: payload.price,
         };
-        notices.items.filter((item) => {
+        state.items.filter((item) => {
           if (item._id !== payload._id) {
-            notices.items.push(newItem);
+            state.items.push(newItem);
           }
           return newItem;
         });
       })
-      .addCase(addNotice.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(addNotice.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       })
-      .addCase(userNotice.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(userNotice.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(userNotice.fulfilled, ({ notices }, { payload }) => {
-        notices.isLoading = false;
-        notices.error = "";
-        notices.items = payload;
+      .addCase(userNotice.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.items = payload;
       })
-      .addCase(userNotice.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(userNotice.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       })
-      .addCase(getFavUserNotice.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(getFavUserNotice.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(getFavUserNotice.fulfilled, ({ notices }, { payload }) => {
-        notices.isLoading = false;
-        notices.error = "";
+      .addCase(getFavUserNotice.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
       })
-      .addCase(getFavUserNotice.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(getFavUserNotice.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       })
-      .addCase(addFavoriteNotice.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(addFavoriteNotice.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(addFavoriteNotice.fulfilled, ({ notices }, { payload }) => {
-        notices.isLoading = false;
-        notices.error = "";
+      .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
         // notices.items.filter((item) => {
         //   if (item._id !== payload._id) {
         //     notices.favorite.push(item);
@@ -100,16 +101,16 @@ const noticesSlice = createSlice({
         //   return item;
         // });
       })
-      .addCase(addFavoriteNotice.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(addFavoriteNotice.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       })
-      .addCase(deleteFavoriteNotice.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(deleteFavoriteNotice.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(deleteFavoriteNotice.fulfilled, ({ notices }, { payload }) => {
-        notices.isLoading = false;
-        notices.error = "";
+      .addCase(deleteFavoriteNotice.fulfilled, (state) => {
+        state.isLoading = false;
         // return notices.favorite.filter((item) => {
         //   if (item._id === payload._id) {
         //     notices.favorite.unshift(item);
@@ -117,21 +118,21 @@ const noticesSlice = createSlice({
         //   return item;
         // });
       })
-      .addCase(deleteFavoriteNotice.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(deleteFavoriteNotice.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       })
-      .addCase(deleteNotice.pending, ({ notices }) => {
-        notices.isLoading = true;
+      .addCase(deleteNotice.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(deleteNotice.fulfilled, ({ notices }, { payload }) => {
-        notices.isLoading = false;
-        notices.error = "";
-        return notices.items.filter((item) => item._id !== payload._id);
+      .addCase(deleteNotice.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        return state.items.filter((item) => item._id !== payload._id);
       })
-      .addCase(deleteNotice.rejected, ({ notices }, { payload }) => {
-        notices.error = payload;
-        notices.isLoading = false;
+      .addCase(deleteNotice.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.isLoading = false;
       });
   },
 });
