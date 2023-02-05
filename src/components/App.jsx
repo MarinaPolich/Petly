@@ -1,9 +1,19 @@
-import { lazy, Suspense, useEffect } from "react";
+import {
+  lazy,
+  //  Suspense,
+  useEffect,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import {
+  Navigate,
+  // Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { refreshToken } from "redux/auth/auth-operations";
 import { getIsRefreshing } from "redux/auth/auth-selector";
 import { Loader } from "./Loader/Loader";
+import { NoticesCategoriesList } from "./Notices";
 import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
 import { SharedLayout } from "./SharedLayout/SharedLayout";
@@ -39,24 +49,31 @@ export const App = () => {
         <Route
           path="notices"
           element={
-            <Suspense fallback={<Loader />}>
-              <Outlet />
-            </Suspense>
+            // <Suspense fallback={<Loader />}>
+            //   <Outlet />
+            // </Suspense>
+            <Notices />
           }
         >
           <Route
             path="favorite"
             element={
-              <PrivateRoute redirectTo="/login" component={<Notices />} />
+              <PrivateRoute
+                redirectTo="/login"
+                component={<NoticesCategoriesList />}
+              />
             }
           />
           <Route
             path="own"
             element={
-              <PrivateRoute redirectTo="/login" component={<Notices />} />
+              <PrivateRoute
+                redirectTo="/login"
+                component={<NoticesCategoriesList />}
+              />
             }
           />
-          <Route path=":categoryName" element={<Notices />} />
+          <Route path=":category" element={<NoticesCategoriesList />} />
           <Route path="" element={<Navigate to="sell" />} />
         </Route>
         <Route path="friends" element={<OurFriends />} />
