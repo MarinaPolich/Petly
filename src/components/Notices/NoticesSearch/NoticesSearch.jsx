@@ -11,7 +11,7 @@ const NoticesSearch = () => {
   const [filter, setFilter] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  // const query = searchParams.get("query");
+  searchParams.get("query");
   const isDesktopOrTablet = useDesktopOrTablet();
 
   const onChange = (event) => {

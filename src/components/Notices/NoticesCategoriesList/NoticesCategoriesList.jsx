@@ -11,11 +11,11 @@ const NoticesCategoriesList = () => {
   const dispatch = useDispatch();
 
   const notices = useSelector(noticesSelector);
-  console.log(notices);
+  // console.log(notices);
 
   useEffect(() => {
     dispatch(getNoticesByCategories(category));
-  }, [dispatch]);
+  }, [dispatch, category]);
 
   return (
     <BoxList>
