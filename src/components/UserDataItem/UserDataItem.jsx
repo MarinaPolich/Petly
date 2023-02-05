@@ -1,4 +1,4 @@
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import React from "react";
 import * as Yup from "yup";
@@ -141,7 +141,10 @@ const UserDataItem = ({ user }) => {
                     value={values.name}
                     onChange={handleChange}
                   />
-                  {errors.name && touched.name ? <p>{errors.name}</p> : null}
+
+                  {errors.name && touched.name
+                    ? Notify.failure(errors.name)
+                    : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
@@ -178,7 +181,9 @@ const UserDataItem = ({ user }) => {
                     value={values.email}
                     onChange={handleChange}
                   />
-                  {errors.email && touched.email ? <p>{errors.email}</p> : null}
+                  {errors.email && touched.email
+                    ? Notify.failure(errors.email)
+                    : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
@@ -261,7 +266,9 @@ const UserDataItem = ({ user }) => {
                     value={values.phone}
                     onChange={handleChange}
                   />
-                  {errors.phone && touched.phone ? <p>{errors.phone}</p> : null}
+                  {errors.phone && touched.phone
+                    ? Notify.failure(errors.phone)
+                    : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
@@ -298,9 +305,9 @@ const UserDataItem = ({ user }) => {
                     value={values.cityRegion}
                     onChange={handleChange}
                   />
-                  {errors.cityRegion && touched.cityRegion ? (
-                    <p>{errors.cityRegion}</p>
-                  ) : null}
+                  {errors.cityRegion && touched.cityRegion
+                    ? Notify.failure(errors.cityRegion)
+                    : null}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
