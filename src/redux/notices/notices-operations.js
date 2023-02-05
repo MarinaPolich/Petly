@@ -4,17 +4,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 // axios.defaults.headers.common.Authorization = `Bearer `;
 // axios.defaults.baseURL = "https://petly-back.onrender.com/api";
 
-const getNotices = async () => {
-  const response = await axios.get("/notices");
-  return response.data;
-};
-
 export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
-  async (data, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const response = await getNotices(`/notices/${data.data.category}`);
-      return response.data;
+      const response = await axios.get('/notices');
+      return response.data.data.notices;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -23,9 +18,9 @@ export const getNoticesByCategories = createAsyncThunk(
 
 export const addNotice = createAsyncThunk(
   "notices/addNotice",
-  async (data, thunkAPI) => {
+  async (notice, thunkAPI) => {
     try {
-      const response = await axios.post("/notices/addnotice", data);
+      const response = await axios.post("/notices/addnotice", notice);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

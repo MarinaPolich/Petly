@@ -42,11 +42,11 @@ const NoticesSearch = () => {
               <Svg src={clear} width="20" height="20" title="clear" />
             )}
           </Mobile>
-          {isDesktopOrTablet && filter.length < 1 ? (
+          {isDesktopOrTablet && (filter.length < 1 ? (
             <Svg src={search} width="24" height="24" title="search" />
           ) : (
             <Svg src={clear} width="24" height="24" title="clear" />
-          )}
+          ))}
         </Button>
       </Form>
     </Box>
