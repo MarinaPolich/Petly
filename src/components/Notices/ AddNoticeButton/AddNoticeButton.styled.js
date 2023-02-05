@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Button = styled.button`
   position: fixed;
   right: 20px;
+  top: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,4 +19,12 @@ export const Button = styled.button`
   color: var(--white);
   background: var(--primary);
   box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
+
+  z-index: 1;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background: #FF6101;
+  }
 `;
