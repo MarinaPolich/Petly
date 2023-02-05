@@ -106,6 +106,22 @@ export const patchData = createAsyncThunk(
       const res = await axios.patch("/user/update", data);
       return res.data;
     } catch (error) {
+      if (error.response.status === 400) {
+        Notify.failure(error.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deletePet = createAsyncThunk(
+  "/user/pets/delete/",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.patch(`/user/pets/delete/${id}`);
+
+      return res.data;
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }

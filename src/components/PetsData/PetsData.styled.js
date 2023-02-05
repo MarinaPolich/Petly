@@ -36,12 +36,14 @@ export const PetPhoto = styled.img`
 
   background-color: gray;
   @media ${device.tablet} {
+    margin: 0;
     width: 161px;
     height: 161px;
     margin-right: 32px;
     margin-bottom: 0;
   }
   @media screen {
+    margin: 0;
     width: 161px;
     height: 161px;
     margin-right: 32px;

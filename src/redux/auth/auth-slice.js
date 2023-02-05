@@ -6,6 +6,7 @@ import {
   registration,
   patchData,
   currentUser,
+  deletePet,
 } from "./auth-operations";
 
 const handlePending = (state) => {
@@ -80,6 +81,9 @@ const authSlice = createSlice({
       })
       .addCase(patchData.fulfilled, (state, { payload }) => {
         state.user = payload;
+      })
+      .addCase(deletePet.fulfilled, (state, { payload }) => {
+        state.user.pets.splice(payload.data, 1);
       }),
 });
 
