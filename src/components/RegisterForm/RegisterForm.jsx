@@ -19,6 +19,9 @@ import {
   TitleForm,
 } from "./RegisterForm.styled";
 
+import React from "react";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+
 const RegistrationSchema = Yup.object().shape({
   email: Yup.string()
     .email()
@@ -49,7 +52,7 @@ const RegistrationSchema = Yup.object().shape({
     .max(16, "Too Long, at maximum 16!"),
   cityRegion: Yup.string().matches(
     /^([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})+,\s([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})$/,
-    "Сity, region must be capitalized and separated by commas"
+    "Сity, region must be separated by commas"
   ),
   phone: Yup.string()
     .matches(/^\+380[0-9]{9}$/, "Phone number must be in the format +38...")
@@ -62,13 +65,22 @@ export const RegisterForm = () => {
   const [emailUser, setEmailUser] = useState("");
 
   const dispatch = useDispatch();
-  const handelSubmit = async ({ email, password, name, cityRegion, phone }) => {
+  const handelSubmit = async (
+    { email, password, name, cityRegion, phone },
+    { setErrors }
+  ) => {
     const isRegister = await dispatch(
       registration({ email, password, name, cityRegion, phone })
     );
     if (isRegister.meta.requestStatus === "fulfilled") {
       setIsRegistration(true);
       setEmailUser(email);
+    } else {
+      const errors = isRegister.payload;
+      if (errors) {
+        if (errors.email || errors.password) setPage(1);
+        setErrors(errors);
+      }
     }
   };
   if (isRegistration) {
@@ -81,6 +93,7 @@ export const RegisterForm = () => {
       </Container>
     );
   }
+
   return (
     <Formik
       initialValues={{
@@ -94,104 +107,130 @@ export const RegisterForm = () => {
       validationSchema={RegistrationSchema}
       onSubmit={handelSubmit}
     >
-      {({ handleChange, values, errors, touched }) => (
-        <Container>
-          <TitleForm>registration</TitleForm>
-          <FormBox>
-            {page === 1 && (
-              <>
-                <InputForm
-                  type="email"
-                  name="email"
-                  autoComplete="username"
-                  value={values.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                />
-                {errors.email && touched.email ? (
-                  <TextError>{errors.email}</TextError>
-                ) : null}
-                <InputForm
-                  type="password"
-                  name="password"
-                  autoComplete="current-password"
-                  value={values.password}
-                  onChange={handleChange}
-                  placeholder="Password"
-                />
-                {errors.password && touched.password ? (
-                  <TextError>{errors.password}</TextError>
-                ) : null}
-                <InputForm
-                  type="password"
-                  name="confirm"
-                  value={values.confirm}
-                  onChange={handleChange}
-                  placeholder="Confirm Password"
-                />
-                {errors.confirm && touched.confirm ? (
-                  <TextError>{errors.confirm}</TextError>
-                ) : null}
-                <ButtonPrimaryMax
-                  type="button"
-                  marginTop="24"
-                  onClick={() => setPage(2)}
-                  title="next"
-                />
-              </>
-            )}
-            {page === 2 && (
-              <>
-                <InputForm
-                  type="text"
-                  name="name"
-                  value={values.name}
-                  onChange={handleChange}
-                  placeholder="Name"
-                />
-                {errors.name && touched.name ? (
-                  <TextError>{errors.name}</TextError>
-                ) : null}
-                <InputForm
-                  type="text"
-                  name="cityRegion"
-                  value={values.cityRegion}
-                  onChange={handleChange}
-                  placeholder="City, region"
-                />
-                {errors.cityRegion && touched.cityRegion ? (
-                  <TextError>{errors.cityRegion}</TextError>
-                ) : null}
-                <InputForm
-                  type="tel"
-                  name="phone"
-                  value={values.phone}
-                  onChange={handleChange}
-                  placeholder="Mobile phone"
-                />
-                {errors.phone && touched.phone ? (
-                  <TextError>{errors.phone}</TextError>
-                ) : null}
-                <ButtonPrimaryMax
-                  marginBottom={16}
-                  marginTop="24"
-                  type="submit"
-                  title="register"
-                />
-                <ButtonWithBorderMax
-                  type="button"
-                  onClick={() => setPage(1)}
-                  title="back"
-                />
-              </>
-            )}
-          </FormBox>
-          <BoxLink>
-            <TextLink>Already have an account?</TextLink>
-            <StyledLink to="/login">login</StyledLink>
-          </BoxLink>
-        </Container>
-      )}
+      {({ handleChange, values, errors, touched, setFieldTouched }) => {
+        return (
+          <Container>
+            <TitleForm>registration</TitleForm>
+            <GooglePlacesAutocomplete apiKey="AIzaSyDXsNMQ96v2o3zSholVBV80Z3yuTpfR080" />
+            <FormBox>
+              {page === 1 && (
+                <>
+                  <InputForm
+                    type="email"
+                    name="email"
+                    autoComplete="username"
+                    value={values.email}
+                    onChange={handleChange}
+                    placeholder="Email"
+                    className={errors.email && touched.email ? "error" : ""}
+                  />
+                  {errors.email && touched.email ? (
+                    <TextError>{errors.email}</TextError>
+                  ) : null}
+                  <InputForm
+                    type="password"
+                    name="password"
+                    autoComplete="current-password"
+                    value={values.password}
+                    onChange={handleChange}
+                    placeholder="Password"
+                    className={
+                      errors.password && touched.password ? "error" : ""
+                    }
+                  />
+                  {errors.password && touched.password ? (
+                    <TextError>{errors.password}</TextError>
+                  ) : null}
+                  <InputForm
+                    type="password"
+                    name="confirm"
+                    value={values.confirm}
+                    onChange={handleChange}
+                    placeholder="Confirm Password"
+                    className={errors.confirm && touched.confirm ? "error" : ""}
+                  />
+                  {errors.confirm && touched.confirm ? (
+                    <TextError>{errors.confirm}</TextError>
+                  ) : null}
+                  <ButtonPrimaryMax
+                    type="button"
+                    marginTop="24"
+                    onClick={async () => {
+                      if (
+                        !(touched.email && touched.password && touched.confirm)
+                      ) {
+                        setFieldTouched("email");
+                        setFieldTouched("password");
+                        setFieldTouched("confirm");
+                        return;
+                      }
+
+                      if (errors.email || errors.password || errors.confirm)
+                        return;
+                      setPage(2);
+                    }}
+                    title="next"
+                  />
+                </>
+              )}
+              {page === 2 && (
+                <>
+                  <InputForm
+                    type="text"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    placeholder="Name"
+                    className={errors.name && touched.name ? "error" : ""}
+                  />
+                  {errors.name && touched.name ? (
+                    <TextError>{errors.name}</TextError>
+                  ) : null}
+                  <InputForm
+                    type="text"
+                    name="cityRegion"
+                    value={values.cityRegion}
+                    onChange={handleChange}
+                    placeholder="City, region"
+                    className={
+                      errors.cityRegion && touched.cityRegion ? "error" : ""
+                    }
+                  />
+                  {errors.cityRegion && touched.cityRegion ? (
+                    <TextError>{errors.cityRegion}</TextError>
+                  ) : null}
+                  <InputForm
+                    type="tel"
+                    name="phone"
+                    value={values.phone}
+                    onChange={handleChange}
+                    placeholder="Mobile phone"
+                    className={errors.phone && touched.phone ? "error" : ""}
+                  />
+                  {errors.phone && touched.phone ? (
+                    <TextError>{errors.phone}</TextError>
+                  ) : null}
+                  <ButtonPrimaryMax
+                    marginBottom={16}
+                    marginTop="24"
+                    type="submit"
+                    title="register"
+                  />
+                  <ButtonWithBorderMax
+                    type="button"
+                    onClick={() => setPage(1)}
+                    title="back"
+                  />
+                </>
+              )}
+            </FormBox>
+            <BoxLink>
+              <TextLink>Already have an account?</TextLink>
+              <StyledLink to="/login">login</StyledLink>
+            </BoxLink>
+          </Container>
+        );
+      }}
     </Formik>
   );
 };

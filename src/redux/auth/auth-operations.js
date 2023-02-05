@@ -21,12 +21,17 @@ export const registration = createAsyncThunk(
       return res.data;
     } catch (error) {
       if (error.response.status === 400) {
-        Notify.failure("Validation error");
+        Notify.failure("Validation error", { closeButton: true });
       }
       if (error.response.status === 409) {
-        Notify.failure("User with such email already exists");
+        Notify.failure("User with such email already exists", {
+          closeButton: true,
+        });
+        return rejectWithValue({
+          email: "User with such email already exists",
+        });
       }
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.errors);
     }
   }
 );

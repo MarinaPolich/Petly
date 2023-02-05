@@ -67,6 +67,10 @@ export const InputForm = styled(Field)`
   & .active {
   }
 
+  &.error {
+    border: 2px solid var(--warning);
+  }
+
   @media ${device.tabDesk} {
     padding: 14px 32px 13px 32px;
     font-size: 18px;
