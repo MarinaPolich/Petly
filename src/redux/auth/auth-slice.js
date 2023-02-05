@@ -74,7 +74,6 @@ const authSlice = createSlice({
         state.refreshToken = null;
         state.isRefreshing = false;
         state.isLoggedIn = false;
-        state.error = payload;
       })
       .addCase(currentUser.fulfilled, (state, { payload }) => {
         state.user = payload.data.result;
