@@ -1,14 +1,14 @@
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import React from "react";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 import moment from "moment";
 import SVG from "react-inlinesvg";
 import { confirm, pencil } from "assets/icon";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Notify } from "notiflix/build/notiflix-notify-aio";
+// import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 import {
   UserInfoStats,
@@ -21,34 +21,34 @@ import {
 import { useDispatch } from "react-redux";
 import { patchData } from "redux/auth/auth-operations";
 
-const NameValidation = Yup.object().shape({
-  name: Yup.string()
-    .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
-    .min(2, "Too Short, at least 2!")
-    .max(16, "Too Long, at maximum 16!"),
-});
-const EmailValidation = Yup.object().shape({
-  email: Yup.string()
-    .email()
-    .matches(
-      /^([a-zA-Z0-9]{1}[\w\-.]{0,}[a-zA-Z0-9]{1})+@([\w-]+.)+[\w]{2,4}$/,
-      "Invalid email"
-    )
-    .min(10, "Email is too short, at least 10!")
-    .max(63, "Email is too long, at maximum 63!")
-    .required("Enter email"),
-});
-const PhoneValidation = Yup.object().shape({
-  phone: Yup.string()
-    .matches(/^\+380[0-9]{9}$/, "Phone number must be in the format +38...")
-    .max(13, "Too Long, at maximum 13!"),
-});
-const CityValidation = Yup.object().shape({
-  cityRegion: Yup.string().matches(
-    /^([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})+,\s([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})$/,
-    "Сity, region must be capitalized and separated by commas"
-  ),
-});
+// const NameValidation = Yup.object().shape({
+//   name: Yup.string()
+//     .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
+//     .min(2, "Too Short, at least 2!")
+//     .max(16, "Too Long, at maximum 16!"),
+// });
+// const EmailValidation = Yup.object().shape({
+//   email: Yup.string()
+//     .email()
+//     .matches(
+//       /^([a-zA-Z0-9]{1}[\w\-.]{0,}[a-zA-Z0-9]{1})+@([\w-]+.)+[\w]{2,4}$/,
+//       "Invalid email"
+//     )
+//     .min(10, "Email is too short, at least 10!")
+//     .max(63, "Email is too long, at maximum 63!")
+//     .required("Enter email"),
+// });
+// const PhoneValidation = Yup.object().shape({
+//   phone: Yup.string()
+//     .matches(/^\+380[0-9]{9}$/, "Phone number must be in the format +38...")
+//     .max(13, "Too Long, at maximum 13!"),
+// });
+// const CityValidation = Yup.object().shape({
+//   cityRegion: Yup.string().matches(
+//     /^([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})+,\s([a-zA-Zа-яА-я]{1}[a-zA-Zа-яА-я\w-\s]{1,}[a-zа-я]{1})$/,
+//     "Сity, region must be capitalized and separated by commas"
+//   ),
+// });
 const confirmIcon = <SVG src={confirm} width={15} height={15} />;
 const editIcon = <SVG src={pencil} width={15} height={15} />;
 
@@ -131,7 +131,7 @@ const UserDataItem = ({ user }) => {
             <Formik
               initialValues={{ name: user.name }}
               onSubmit={onSubmit}
-              validationSchema={NameValidation}
+              // validationSchema={NameValidation}
             >
               {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <FormBox onSubmit={handleSubmit}>
@@ -141,10 +141,8 @@ const UserDataItem = ({ user }) => {
                     value={values.name}
                     onChange={handleChange}
                   />
-
-                  {errors.name && touched.name
-                    ? Notify.failure(errors.name)
-                    : null}
+                  {/* 
+                  {errors.name && touched.name ? null : null} */}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
@@ -171,7 +169,7 @@ const UserDataItem = ({ user }) => {
             <Formik
               initialValues={{ email: user.email }}
               onSubmit={onSubmit}
-              validationSchema={EmailValidation}
+              // validationSchema={EmailValidation}
             >
               {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <FormBox onSubmit={handleSubmit}>
@@ -181,9 +179,9 @@ const UserDataItem = ({ user }) => {
                     value={values.email}
                     onChange={handleChange}
                   />
-                  {errors.email && touched.email
+                  {/* {errors.email && touched.email
                     ? Notify.failure(errors.email)
-                    : null}
+                    : null} */}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
@@ -256,7 +254,7 @@ const UserDataItem = ({ user }) => {
             <Formik
               initialValues={{ phone: user.phone }}
               onSubmit={onSubmit}
-              validationSchema={PhoneValidation}
+              // validationSchema={PhoneValidation}
             >
               {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <FormBox onSubmit={handleSubmit}>
@@ -266,9 +264,9 @@ const UserDataItem = ({ user }) => {
                     value={values.phone}
                     onChange={handleChange}
                   />
-                  {errors.phone && touched.phone
+                  {/* {errors.phone && touched.phone
                     ? Notify.failure(errors.phone)
-                    : null}
+                    : null} */}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
@@ -295,7 +293,7 @@ const UserDataItem = ({ user }) => {
             <Formik
               initialValues={{ cityRegion: user.cityRegion }}
               onSubmit={onSubmit}
-              validationSchema={CityValidation}
+              // validationSchema={CityValidation}
             >
               {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <FormBox onSubmit={handleSubmit}>
@@ -305,9 +303,9 @@ const UserDataItem = ({ user }) => {
                     value={values.cityRegion}
                     onChange={handleChange}
                   />
-                  {errors.cityRegion && touched.cityRegion
+                  {/* {errors.cityRegion && touched.cityRegion
                     ? Notify.failure(errors.cityRegion)
-                    : null}
+                    : null} */}
                   <EditBtn type="submit">{confirmIcon}</EditBtn>
                 </FormBox>
               )}
