@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { device } from "stylesheet/breakpoints";
 import { Form } from "formik";
-
 
 export const FormWrapper = styled(Form)`
   display: inline-flex;
