@@ -17,7 +17,6 @@ const NoticesCategoriesList = () => {
   const filteredNotices = useSelector(filteredNoticesSelector);
 
   useEffect(() => {
-    dispatch(getNoticesByCategories({ category }));
     dispatch(
       getNoticesByCategories(
         category === "for-free" ? "in-good-hands" : { category }
