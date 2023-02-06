@@ -53,10 +53,10 @@ export default function NoticeCategoryItem({ item }) {
     }
 
     if (checked) {
-      dispatch(addFavoriteNotice());
+      dispatch(addFavoriteNotice(item._id));
       // user.favorite.push();
     } else {
-      dispatch(deleteFavoriteNotice());
+      dispatch(deleteFavoriteNotice(item._id));
       // user.favorite.unshift();
     }
     setIsCheck(checked);
