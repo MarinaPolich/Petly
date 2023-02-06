@@ -20,7 +20,7 @@ export default function FriendsItem({ item }) {
   const outOfFocusAndHover = () => {
     setVisible(false);
   };
-
+console.log('item.imageURL', item.imageUrl)
   return (
     <StyledLi>
       <StyledHeader>
@@ -32,7 +32,7 @@ export default function FriendsItem({ item }) {
         <ImageBox>
           <StyledImg
             src={
-              item._id === "63afa181d5fafaa0a7f2300c"
+              item._id === "63d3f885a36bb03c27db886f"
                 ? "https://animals-city.org/wp-content/themes/animals-city/img/logo.svg"
                 : item.imageUrl
             }
