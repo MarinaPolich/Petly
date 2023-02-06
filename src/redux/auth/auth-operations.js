@@ -126,3 +126,15 @@ export const deletePet = createAsyncThunk(
     }
   }
 );
+
+export const addPets = createAsyncThunk("/user/pets/add", async (data, thunkAPI) => {
+  try {
+    const res = await axios.post("/user/pets/add", data);
+    return res.data;
+  } catch (error) {
+    if (error.response.status === 400) {
+      Notify.failure(error.response.data.message);
+    }
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
