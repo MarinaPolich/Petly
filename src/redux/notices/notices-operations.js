@@ -6,6 +6,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
+
   async (data /*  {category, q, limit, page} */, thunkAPI) => {
     const params = Object.entries(data)
       .map(([key, value]) => `${key}=${value}`)
@@ -57,12 +58,9 @@ export const getFavUserNotice = createAsyncThunk(
 
 export const addFavoriteNotice = createAsyncThunk(
   "notices/favoriteNotice",
-  async (token, _id, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await axios.patch(
-        `/notices/user/${_id}/favorites`,
-        token
-      );
+      const response = await axios.patch(`/notices/${id}/favorites`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -72,12 +70,9 @@ export const addFavoriteNotice = createAsyncThunk(
 
 export const deleteFavoriteNotice = createAsyncThunk(
   "notices/deleteFavoriteNotice",
-  async (token, _id, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await axios.delete(
-        `/notices/user/${_id}/favorites`,
-        token
-      );
+      const response = await axios.delete(`/notices/${id}/favorites`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

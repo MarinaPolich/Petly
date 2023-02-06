@@ -10,6 +10,10 @@ export const List = styled.ul`
 
   list-style: none;
 
+  @media ${device.tablet} {
+    max-width: 500px;
+  }
+
   @media ${device.tabDesk} {
     margin-bottom: 60px;
     gap: 16px 12px;

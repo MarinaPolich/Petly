@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  useDispatch,
-  // useSelector
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
 // import { getUser } from "redux/auth/auth-selector";
 // import { noticesSelector } from "redux/notices/notices-selector";
@@ -11,6 +8,7 @@ import {
   deleteFavoriteNotice,
   // deleteNotice,
 } from "redux/notices/notices-operations";
+import { getIsLoggedIn } from "redux/auth/auth-selector";
 import {
   // del,
   favoriteDefault,
@@ -37,9 +35,10 @@ import {
 } from "./NoticeCategoryItem.styled";
 
 export default function NoticeCategoryItem({ item }) {
-  const [check, setCheck] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
   // const user = useSelector(getUser);
+  const isLogin = useSelector(getIsLoggedIn);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -47,14 +46,20 @@ export default function NoticeCategoryItem({ item }) {
     const age = now.getFullYear() - birthDate.getFullYear();
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
-
   const favoriteCheckbox = ({ target: { checked } }) => {
-    if (checked) {
-      dispatch(addFavoriteNotice());
-    } else {
-      dispatch(deleteFavoriteNotice());
+    if (!isLogin) {
+      console.log("Login false");
+      return;
     }
-    setCheck(checked);
+
+    if (checked) {
+      dispatch(addFavoriteNotice(item._id));
+      // user.favorite.push();
+    } else {
+      dispatch(deleteFavoriteNotice(item._id));
+      // user.favorite.unshift();
+    }
+    setIsCheck(checked);
   };
 
   return (
@@ -67,19 +72,14 @@ export default function NoticeCategoryItem({ item }) {
             <FavoriteCheck
               type="checkbox"
               name="favorite-check"
-              checked={check}
+              checked={isCheck}
               onChange={favoriteCheckbox}
             />
             <FavoriteBox>
-              {!check ? (
-                <SVG
-                  src={favoriteDefault}
-                  width="28"
-                  height="28"
-                  title="favorite default"
-                />
+              {!isCheck ? (
+                <SVG src={favoriteDefault} width="28" height="28" />
               ) : (
-                <SVG src={favorite} width="28" height="28" title="favorite" />
+                <SVG src={favorite} width="28" height="28" />
               )}
             </FavoriteBox>
           </FavoriteLabel>
