@@ -46,12 +46,13 @@ export default function NoticeCategoryItem({ item }) {
     const age = now.getFullYear() - birthDate.getFullYear();
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
-  console.log(check);
   const favoriteCheckbox = ({ target: { checked } }) => {
+    console.log(checked);
     if (!isLogin) {
       console.log("Login false");
       return;
     }
+
     if (checked) {
       dispatch(addFavoriteNotice());
       // user.favorite.push();
@@ -76,15 +77,10 @@ export default function NoticeCategoryItem({ item }) {
               onChange={favoriteCheckbox}
             />
             <FavoriteBox>
-              {(!check && (
-                <SVG
-                  src={favoriteDefault}
-                  width="28"
-                  height="28"
-                  title="favorite default"
-                />
-              )) || (
-                <SVG src={favorite} width="28" height="28" title="favorite" />
+              {!check ? (
+                <SVG src={favoriteDefault} width="28" height="28" />
+              ) : (
+                <SVG src={favorite} width="28" height="28" />
               )}
             </FavoriteBox>
           </FavoriteLabel>

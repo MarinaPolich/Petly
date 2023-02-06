@@ -1,31 +1,27 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { search, clear } from "assets/icon";
-import { filterNotices } from "redux/notices/notices-slice";
 import { Box, Title, Form, Input, Button, Svg } from "./NoticesSearch.styled";
 import { Mobile } from "components/Container/Mobile";
 import { useDesktopOrTablet } from "hooks/useTablet";
+import { getNoticesByCategories } from "redux/notices/notices-operations";
 
 const NoticesSearch = () => {
-  const [filter, setFilter] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  searchParams.get("query");
+  const { category } = useParams();
   const isDesktopOrTablet = useDesktopOrTablet();
-
-  const onChange = (event) => {
-    if (event.target.value === "") {
-      dispatch(filterNotices(""));
-    }
-    setFilter(event.target.value);
-    setSearchParams({ query: event.target.value });
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(filterNotices(filter));
-    setFilter("");
+    dispatch(
+      getNoticesByCategories({
+        category: category === "for-free" ? "in-good-hands" : category,
+        q: query,
+      })
+    );
+
     setSearchParams("");
   };
 
@@ -38,22 +34,22 @@ const NoticesSearch = () => {
           type="text"
           name="filter"
           placeholder="Search"
-          value={filter}
-          onChange={onChange}
+          value={query}
+          onChange={(e) => setSearchParams({ q: e.target.value })}
         />
         <Button type="submit">
           <Mobile>
-            {filter.length < 1 ? (
-              <Svg src={search} width="20" height="20" title="search" />
+            {query.length < 1 ? (
+              <Svg src={search} width="20" height="20" />
             ) : (
-              <Svg src={clear} width="20" height="20" title="clear" />
+              <Svg src={clear} width="20" height="20" />
             )}
           </Mobile>
           {isDesktopOrTablet &&
-            (filter.length < 1 ? (
-              <Svg src={search} width="24" height="24" title="search" />
+            (query.length < 1 ? (
+              <Svg src={search} width="24" height="24" />
             ) : (
-              <Svg src={clear} width="24" height="24" title="clear" />
+              <Svg src={clear} width="24" height="24" />
             ))}
         </Button>
       </Form>
