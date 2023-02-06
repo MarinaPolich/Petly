@@ -102,7 +102,7 @@ const User = () => {
         <FormWrapper action="">
           {modal === 1 && (
             <>
-              <InputText>Name pet</InputText>
+              <InputText htmlFor="name">Name pet</InputText>
               <FormInput
                 onChange={handleChange}
                 type="text"
@@ -110,7 +110,7 @@ const User = () => {
                 placeholder="Type name pet"
                 name="name"
               />
-              <InputText>Date of birth</InputText>
+              <InputText htmlFor="dateOfBirth">Date of birth</InputText>
               <FormInputDate
                 onChange={handleChange}
                 type="text"
@@ -120,7 +120,7 @@ const User = () => {
                 placeholder="Type date of birth"
                 name="dateOfBirth"
               />
-              <InputText>Breed</InputText>
+              <InputText htmlFor="breed">Breed</InputText>
               <FormInput
                 onChange={handleChange}
                 type="text"
@@ -136,14 +136,16 @@ const User = () => {
           )}
           {modal === 2 && (
             <>
-              <InputTextImgModa2>
-                Add photo and some comments{" "}
+              <InputTextImgModa2 htmlFor="addPhoto">
+                Add photo and some comments
               </InputTextImgModa2>
               <FormInputImg type="file" id="addPhoto" />
-              <AddPhoto for="addPhoto">
+              <AddPhoto htmlFor="addPhoto">
                 <AddIcon src={addIcon} alt="sd" />
               </AddPhoto>
-              <InputTextModa2 required>Comments</InputTextModa2>
+              <InputTextModa2 htmlFor="comments" required>
+                Comments
+              </InputTextModa2>
               <FormInputText
                 onChange={handleChange}
                 type="text"
