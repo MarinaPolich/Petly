@@ -137,7 +137,7 @@ export const SpanAge = styled.span`
 
 export const BtnBox = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 12px;

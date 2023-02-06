@@ -55,54 +55,52 @@ export default function NoticeCategoryItem({ item }) {
   };
 
   return (
-    <>
-      <Notice>
-        <BoxImage>
-          <Image src={item.avatarUrl} alt={item.title} />
-          <Category>{item.category}</Category>
-          <FavoriteLabel>
-            <FavoriteCheck
-              type="checkbox"
-              name="favorite-check"
-              checked={isCheck}
-              onChange={favoriteCheckbox}
-            />
-            <FavoriteBox>
-              {!isCheck ? (
-                <SVG src={favoriteDefault} width="28" height="28" />
-              ) : (
-                <SVG src={favorite} width="28" height="28" />
-              )}
-            </FavoriteBox>
-          </FavoriteLabel>
-        </BoxImage>
-        <DescriptionBox>
-          <Title>{item.title}</Title>
-          <List>
-            <ListItem>
-              Breed: <SpanBreed>{item.breed}</SpanBreed>
-            </ListItem>
-            <ListItem>
-              Place: <SpanPlace>{item.location}</SpanPlace>
-            </ListItem>
-            <ListItem>
-              Age: <SpanAge>{birthDateToAge(item.birthday)} year</SpanAge>
-            </ListItem>
-          </List>
-          <BtnBox>
-            <ButtonMore type="submit">Learn more</ButtonMore>
-            {item.category === "own" && (
-              <ButtonDelete
-                type="submit"
-                onClick={() => dispatch(deleteNotice(item._id))}
-              >
-                Delete{" "}
-                <SvgDelete src={del} width="20" height="20" title="delete" />
-              </ButtonDelete>
+    <Notice>
+      <BoxImage>
+        <Image src={item.avatarUrl} alt={item.title} />
+        <Category>{item.category}</Category>
+        <FavoriteLabel>
+          <FavoriteCheck
+            type="checkbox"
+            name="favorite-check"
+            checked={isCheck}
+            onChange={favoriteCheckbox}
+          />
+          <FavoriteBox>
+            {!isCheck ? (
+              <SVG src={favoriteDefault} width="28" height="28" />
+            ) : (
+              <SVG src={favorite} width="28" height="28" />
             )}
-          </BtnBox>
-        </DescriptionBox>
-      </Notice>
-    </>
+          </FavoriteBox>
+        </FavoriteLabel>
+      </BoxImage>
+      <DescriptionBox>
+        <Title>{item.title}</Title>
+        <List>
+          <ListItem>
+            Breed: <SpanBreed>{item.breed}</SpanBreed>
+          </ListItem>
+          <ListItem>
+            Place: <SpanPlace>{item.location}</SpanPlace>
+          </ListItem>
+          <ListItem>
+            Age: <SpanAge>{birthDateToAge(item.birthday)} year</SpanAge>
+          </ListItem>
+        </List>
+        <BtnBox>
+          <ButtonMore type="submit">Learn more</ButtonMore>
+          {item.category === "own" && (
+            <ButtonDelete
+              type="submit"
+              onClick={() => dispatch(deleteNotice(item._id))}
+            >
+              Delete{" "}
+              <SvgDelete src={del} width="20" height="20" title="delete" />
+            </ButtonDelete>
+          )}
+        </BtnBox>
+      </DescriptionBox>
+    </Notice>
   );
 }
