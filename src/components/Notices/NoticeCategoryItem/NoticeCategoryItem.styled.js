@@ -86,7 +86,7 @@ export const FavoriteBox = styled.div`
 
 export const DescriptionBox = styled.div`
   padding: 20px 16px;
-  /* padding-bottom: 12px; */
+  padding-bottom: 12px;
 `;
 
 export const Title = styled.h2`
@@ -104,8 +104,7 @@ export const Title = styled.h2`
 `;
 
 export const List = styled.ul`
-  margin-bottom: 50px;
-  /* margin-bottom: 20px; */
+  margin-bottom: 20px;
 `;
 
 export const ListItem = styled.li`
@@ -136,6 +135,15 @@ export const SpanAge = styled.span`
   margin-left: 55px;
 `;
 
+export const BtnBox = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  height: 96px;
+`;
+
 export const ButtonMore = styled.button`
   display: flex;
   align-items: center;
@@ -144,9 +152,6 @@ export const ButtonMore = styled.button`
   padding: 8px;
   border: 2px solid var(--primary);
   border-radius: var(--border-btn);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 12px;
 
   font-weight: 500;
   font-size: 16px;
@@ -182,8 +187,6 @@ export const ButtonDelete = styled.button`
   padding: 8px;
   border: 2px solid var(--primary);
   border-radius: var(--border-btn);
-  margin-left: auto;
-  margin-right: auto;
 
   font-weight: 500;
   font-size: 16px;
