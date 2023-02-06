@@ -21,37 +21,35 @@ const PetsData = ({ user }) => {
     <PetsList>
       {pets.map((pet) => {
         return (
-          <>
-            <PetsCard key={pet._id}>
-              <PetPhoto src={pet.photoURL} alt={pet.name}></PetPhoto>
-              <ul>
-                <PetsInfoItem>
-                  <PetsInfoSpan>Name: </PetsInfoSpan>
-                  {pet.name}
-                </PetsInfoItem>
-                <PetsInfoItem>
-                  <PetsInfoSpan>Date of birth: </PetsInfoSpan>
-                  {moment(pet.dateOfBirth).format("DD.MM.YYYY")}
-                </PetsInfoItem>
-                <PetsInfoItem>
-                  <PetsInfoSpan>Breed: </PetsInfoSpan>
-                  {pet.breed}
-                </PetsInfoItem>
-                <PetsInfoItem>
-                  <PetsInfoSpan>Comments: </PetsInfoSpan>
-                  {pet.comments}
-                </PetsInfoItem>
-              </ul>
-              <DeleteBtn
-                type="button"
-                onClick={() => {
-                  dispatch(deletePet(pet._id));
-                }}
-              >
-                <SVG src={trash} width={22} height={22} />
-              </DeleteBtn>
-            </PetsCard>
-          </>
+          <PetsCard key={pet._id}>
+            <PetPhoto src={pet.photoURL} alt={pet.name}></PetPhoto>
+            <ul>
+              <PetsInfoItem>
+                <PetsInfoSpan>Name: </PetsInfoSpan>
+                {pet.name}
+              </PetsInfoItem>
+              <PetsInfoItem>
+                <PetsInfoSpan>Date of birth: </PetsInfoSpan>
+                {moment(pet.dateOfBirth).format("DD.MM.YYYY")}
+              </PetsInfoItem>
+              <PetsInfoItem>
+                <PetsInfoSpan>Breed: </PetsInfoSpan>
+                {pet.breed}
+              </PetsInfoItem>
+              <PetsInfoItem>
+                <PetsInfoSpan>Comments: </PetsInfoSpan>
+                {pet.comments}
+              </PetsInfoItem>
+            </ul>
+            <DeleteBtn
+              type="button"
+              onClick={() => {
+                dispatch(deletePet(pet._id));
+              }}
+            >
+              <SVG src={trash} width={22} height={22} />
+            </DeleteBtn>
+          </PetsCard>
         );
       })}
     </PetsList>
