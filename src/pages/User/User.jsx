@@ -18,13 +18,12 @@ import { getUser } from "redux/auth/auth-selector";
 import { currentUser } from "redux/auth/auth-operations";
 import AddPetModal from "components/addPetModal/AddPetModal";
 
-
-
 const User = () => {
  const [isModalActive,setIsModalActive]= useState(false)
   
   const userData = useSelector(getUser);
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (!userData.hasOwnProperty("name")) {
