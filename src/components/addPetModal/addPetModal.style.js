@@ -7,7 +7,6 @@ export const FormWrapper = styled(Form)`
   margin: 0 auto;
   position: relative;
 `;
-
 export const InputText = styled.label`
   text-align: left;
   font-family: "Manrope";
