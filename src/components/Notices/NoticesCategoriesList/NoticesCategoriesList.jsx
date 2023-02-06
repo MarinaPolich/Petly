@@ -14,7 +14,7 @@ const NoticesCategoriesList = () => {
   // console.log(notices);
 
   useEffect(() => {
-    dispatch(getNoticesByCategories(category));
+    dispatch(getNoticesByCategories({ category }));
   }, [dispatch, category]);
 
   return (

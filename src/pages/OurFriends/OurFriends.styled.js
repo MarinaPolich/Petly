@@ -35,6 +35,11 @@ export const FriendsWraper = styled.ul`
   }
 
   @media ${device.desktop} {
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(394px, 1fr));
+    justify-content: center;
+    grid-gap: 32px;
+    margin: 0 auto;
+    max-width: 100%;
   }
 `;
