@@ -68,8 +68,8 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
     <>
       <Modal
         title={"Add pet"}
-        active={modalActive}
-        setActive={setModalActive}
+        active={activeModal}
+        setActive={setActiveModal}
         setModalClose={closeModal}
         modal={setModal}
       >

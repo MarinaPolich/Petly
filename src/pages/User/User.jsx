@@ -35,14 +35,28 @@ const User = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modal, setModal] = useState(1);
 
-  const [formData, updateFormData] = useState([]);
+  // const [data, setData] = useState({
+  //   name: "",
+  //   dateOfBirth: "",
+  //   breed: "",
+  // });
+
+  const [formData, updateFormData] = useState();
 
   const userData = useSelector(getUser);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    updateFormData({ ...formData, [e.target.name]: e.target.value.trim() });
+    updateFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+    
   };
+  // const handleChange = (e) => {
+  //   const formData = { ...data };
+  //   formData[e.target.name] = e.target.value;
+  //   setData(formData);
+  //   console.log(formData);
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -109,6 +123,8 @@ const User = () => {
                 required
                 placeholder="Type name pet"
                 name="name"
+                // id="name"
+                // value={data.name}
               />
               <InputText>Date of birth</InputText>
               <FormInputDate
@@ -119,6 +135,8 @@ const User = () => {
                 required
                 placeholder="Type date of birth"
                 name="dateOfBirth"
+                // id="dateOfBirth"
+                // value={data.dateOfBirth}
               />
               <InputText>Breed</InputText>
               <FormInput
@@ -127,10 +145,12 @@ const User = () => {
                 required
                 placeholder="Type breed"
                 name="breed"
+                // id="breed"
+                // value={data.breed}
               />
               <ModalFooter>
                 <CancelBtn onClick={() => closeModal()}>Cancel</CancelBtn>
-                <NextBtn onClick={() => setModal(2)}> Next </NextBtn>
+                <NextBtn  onClick={() => setModal(2)}>Next </NextBtn>
               </ModalFooter>
             </>
           )}
