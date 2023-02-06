@@ -15,6 +15,9 @@ const NoticesSearch = () => {
   const isDesktopOrTablet = useDesktopOrTablet();
 
   const onChange = (event) => {
+    if (event.target.value === "") {
+      dispatch(filterNotices(""));
+    }
     setFilter(event.target.value);
     setSearchParams({ query: event.target.value });
   };

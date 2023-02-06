@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  useDispatch,
-  // useSelector
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
 // import { getUser } from "redux/auth/auth-selector";
 // import { noticesSelector } from "redux/notices/notices-selector";
@@ -11,6 +8,7 @@ import {
   deleteFavoriteNotice,
   // deleteNotice,
 } from "redux/notices/notices-operations";
+import { getIsLoggedIn } from "redux/auth/auth-selector";
 import {
   // del,
   favoriteDefault,
@@ -40,6 +38,7 @@ export default function NoticeCategoryItem({ item }) {
   const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
   // const user = useSelector(getUser);
+  const isLogin = useSelector(getIsLoggedIn);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -47,12 +46,18 @@ export default function NoticeCategoryItem({ item }) {
     const age = now.getFullYear() - birthDate.getFullYear();
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
-
+  console.log(check);
   const favoriteCheckbox = ({ target: { checked } }) => {
+    if (!isLogin) {
+      console.log("Login false");
+      return;
+    }
     if (checked) {
       dispatch(addFavoriteNotice());
+      // user.favorite.push();
     } else {
       dispatch(deleteFavoriteNotice());
+      // user.favorite.unshift();
     }
     setCheck(checked);
   };
@@ -71,14 +76,14 @@ export default function NoticeCategoryItem({ item }) {
               onChange={favoriteCheckbox}
             />
             <FavoriteBox>
-              {!check ? (
+              {(!check && (
                 <SVG
                   src={favoriteDefault}
                   width="28"
                   height="28"
                   title="favorite default"
                 />
-              ) : (
+              )) || (
                 <SVG src={favorite} width="28" height="28" title="favorite" />
               )}
             </FavoriteBox>

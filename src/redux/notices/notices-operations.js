@@ -6,11 +6,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
-  async (category, query, limit, page, thunkAPI) => {
+  async (data, thunkAPI) => {
+    const params = Object.entries(data)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
     try {
-      const response = await axios.get(
-        `/notices/?=${category}&${query}&${(limit = 8)}&${page}`
-      );
+      const response = await axios.get(`/notices/?${params}`);
       return response.data.data.notices;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -56,11 +57,11 @@ export const getFavUserNotice = createAsyncThunk(
 
 export const addFavoriteNotice = createAsyncThunk(
   "notices/favoriteNotice",
-  async (token, _id, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
+      console.log(data._id);
       const response = await axios.patch(
-        `/notices/user/${_id}/favorites`,
-        token
+        `/notices/user/${data._id}/favorites`
       );
       return response.data;
     } catch (error) {
@@ -71,10 +72,11 @@ export const addFavoriteNotice = createAsyncThunk(
 
 export const deleteFavoriteNotice = createAsyncThunk(
   "notices/deleteFavoriteNotice",
-  async (token, _id, thunkAPI) => {
+  async (data, token, thunkAPI) => {
     try {
+      console.log(data._id);
       const response = await axios.delete(
-        `/notices/user/${_id}/favorites`,
+        `/notices/user/${data._id}/favorites`,
         token
       );
       return response.data;
