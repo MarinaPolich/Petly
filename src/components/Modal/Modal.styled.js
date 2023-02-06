@@ -11,7 +11,7 @@ export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  
   opacity: ${(props) => (props.actv ? 1 : 0)};
   pointer-events: ${(props) => (props.actv ? "all" : "none")};
   transition: 0.5s;
@@ -23,9 +23,12 @@ export const ModalContent = styled.div`
   box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
   border-radius: 40px;
   width: 608px;
+  overflow-y: auto;
+  max-height: calc(100vh - 1rem);
+  overflow-x: hidden;
   /* min-height: 570px; */
   text-align: center;
-  transform: ${props => (props.actv ? 'scale(1)' : 'scale(0.5)')};
+  transform: ${(props) => (props.actv ? "scale(1)" : "scale(0.5)")};
   transition: 0.5s all;
 `;
 
