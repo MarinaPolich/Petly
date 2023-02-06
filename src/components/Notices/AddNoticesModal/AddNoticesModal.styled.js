@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Form } from "formik";
 
-export const FormWrapper = styled.form`
+export const FormWrapper = styled(Form)`
   display: inline-flex;
   flex-direction: column;
   margin: 0 auto;

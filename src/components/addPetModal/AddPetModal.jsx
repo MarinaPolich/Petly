@@ -20,6 +20,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
+import { addPets } from "redux/auth/auth-operations";
 
 const ModalSchema = Yup.object().shape({
   name: Yup.string()
@@ -29,13 +31,11 @@ const ModalSchema = Yup.object().shape({
     .max(16, "Too Long, at maximum 16!"),
   breed: Yup.string()
     .required()
-    .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
+    .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid breed")
     .min(2, "Too Short, at least 2!")
     .max(16, "Too Long, at maximum 16!"),
-
   comments: Yup.string()
     .required()
-    .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
     .min(8, "Too Short, at least 8!")
     .max(120, "Too Long, at maximum 120!"),
 });
@@ -44,24 +44,29 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
   const [modalActive, setModalActive] = useState(isModalActive);
   const [modal, setModal] = useState(1);
   const [customInput, setCustomInput] = useState(new Date());
-  const onSubmit = (value) => {
+  const dispatch = useDispatch();
+  
+  
+  const onSubmit = (value,{resetForm}) => {
+    dispatch(addPets(value));
     console.log(value);
-    setModalActive();
+    setIsModalActive(false);
+    resetForm();
     setTimeout(() => {
       setModal(1);
     }, 500);
   };
 
   const closeModal = () => {
-      setIsModalActive(false)
+    setIsModalActive(false);
     setTimeout(() => {
       setModal(1);
     }, 500);
-    };
-    
-     useEffect(() => {
-       setModalActive(isModalActive);
-     }, [isModalActive]);
+  };
+
+  useEffect(() => {
+    setModalActive(isModalActive);
+  }, [isModalActive]);
 
   useEffect(() => {
     if (modalActive) {
@@ -96,7 +101,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
           dateOfBirth: customInput,
           breed: "",
           comments: "",
-          photoURL: new FormData(),
+          // petsPhoto: "",
         }}
         validationSchema={ModalSchema}
         onSubmit={onSubmit}
@@ -109,6 +114,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
           touched,
           setFieldTouched,
           setFieldValue,
+          resetForm
         }) => {
           return (
             <FormWrapper onSubmit={handleSubmit}>
@@ -184,8 +190,8 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                   <InputTextImgModa2 htmlFor="addPhoto">
                     Add photo and some comments
                   </InputTextImgModa2>
-                  <FormInputImg type="file" id="addPhoto" name="photoURL" />
-                  <AddPhoto htmlFor="addPhoto">
+                  <FormInputImg type="file" id="petsPhoto" name="petsPhoto" />
+                  <AddPhoto htmlFor="petsPhoto">
                     <AddIcon src={addIcon} alt="sd" />
                   </AddPhoto>
                   <InputTextModa2 htmlFor="comments">Comments</InputTextModa2>
