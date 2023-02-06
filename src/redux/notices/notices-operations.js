@@ -6,9 +6,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
-  async (_, thunkAPI) => {
+  async (category, query, limit, page, thunkAPI) => {
     try {
-      const response = await axios.get('/notices');
+      const response = await axios.get(
+        `/notices/?=${category}&${query}&${(limit = 8)}&${page}`
+      );
       return response.data.data.notices;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -21,7 +23,7 @@ export const addNotice = createAsyncThunk(
   async (notice, thunkAPI) => {
     try {
       const response = await axios.post("/notices/addnotice", notice);
-      return response.data;
+      return response.data.data.notices;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -48,7 +48,7 @@ export default function NoticeCategoryItem({ item }) {
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
 
-  const soldCheckbox = ({ target: { checked } }) => {
+  const favoriteCheckbox = ({ target: { checked } }) => {
     if (checked) {
       dispatch(addFavoriteNotice());
     } else {
@@ -68,9 +68,8 @@ export default function NoticeCategoryItem({ item }) {
               type="checkbox"
               name="favorite-check"
               checked={check}
-              onChange={soldCheckbox}
+              onChange={favoriteCheckbox}
             />
-
             <FavoriteBox>
               {!check ? (
                 <SVG

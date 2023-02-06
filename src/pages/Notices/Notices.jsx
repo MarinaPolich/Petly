@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import {
-  NoticesCategoriesList,
   NoticesCategoriesNav,
   NoticesSearch,
   AddNoticeButton,
@@ -15,8 +14,6 @@ const Notices = () => {
         <NoticesCategoriesNav></NoticesCategoriesNav>
         <AddNoticeButton></AddNoticeButton>
       </NavBox>
-
-      <NoticesCategoriesList></NoticesCategoriesList>
       <Outlet />
     </Box>
   );
