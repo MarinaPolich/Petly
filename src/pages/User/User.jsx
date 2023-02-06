@@ -9,77 +9,21 @@ import {
   UserHeader,
   AddBtnLabel,
   AddBtn,
-  FormWrapper,
-  InputText,
-  FormInput,
   HeadingBox,
-  ModalFooter,
-  CancelBtn,
-  NextBtn,
-  FormInputImg,
-  InputTextImgModa2,
-  InputTextModa2,
-  FormInputText,
-  AddPhoto,
-  AddIcon,
-  FormInputDate,
   PetsBox,
 } from "./User.styled";
 import PetsData from "components/PetsData/PetsData";
-import Modal from "../../components/Modal/Modal";
-import addIcon from "../../assets/icon/Icon_add_photo.svg";
+
 import { getUser } from "redux/auth/auth-selector";
 import { currentUser } from "redux/auth/auth-operations";
+import AddPetModal from "components/addPetModal/AddPetModal";
 
 const User = () => {
-  const [modalActive, setModalActive] = useState(false);
-  const [modal, setModal] = useState(1);
-
-  // const [data, setData] = useState({
-  //   name: "",
-  //   dateOfBirth: "",
-  //   breed: "",
-  // });
-
-  const [formData, updateFormData] = useState();
-
+ const [isModalActive,setIsModalActive]= useState(false)
+  
   const userData = useSelector(getUser);
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    updateFormData({ ...formData, [e.target.name]: e.target.value.trim() })
-    
-  };
-  // const handleChange = (e) => {
-  //   const formData = { ...data };
-  //   formData[e.target.name] = e.target.value;
-  //   setData(formData);
-  //   console.log(formData);
-  // };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    setModalActive();
-    setTimeout(() => {
-      setModal(1);
-    }, 500);
-  };
-
-  const closeModal = () => {
-    setModalActive(false);
-    setTimeout(() => {
-      setModal(1);
-    }, 500);
-  };
-
-  useEffect(() => {
-    if (modalActive) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [modalActive]);
 
   useEffect(() => {
     if (!userData.hasOwnProperty("name")) {
@@ -99,87 +43,17 @@ const User = () => {
 
           <AddBtnLabel>
             Add pet
-            <AddBtn onClick={() => setModalActive(true)} type="button">
+            <AddBtn onClick={() => setIsModalActive(true)} type="button">
               <SVG src={addBtnIcon} width={16} height={16} />
             </AddBtn>
           </AddBtnLabel>
         </HeadingBox>
         <PetsData user={userData} />
       </PetsBox>
-      <Modal
-        title={"Add pet"}
-        active={modalActive}
-        setActive={setModalActive}
-        setModalClose={closeModal}
-        modal={setModal}
-      >
-        <FormWrapper action="">
-          {modal === 1 && (
-            <>
-              <InputText>Name pet</InputText>
-              <FormInput
-                onChange={handleChange}
-                type="text"
-                required
-                placeholder="Type name pet"
-                name="name"
-                // id="name"
-                // value={data.name}
-              />
-              <InputText>Date of birth</InputText>
-              <FormInputDate
-                onChange={handleChange}
-                type="text"
-                onFocus={(e) => (e.target.type = "date")}
-                onBlur={(e) => (e.target.type = "text")}
-                required
-                placeholder="Type date of birth"
-                name="dateOfBirth"
-                // id="dateOfBirth"
-                // value={data.dateOfBirth}
-              />
-              <InputText>Breed</InputText>
-              <FormInput
-                onChange={handleChange}
-                type="text"
-                required
-                placeholder="Type breed"
-                name="breed"
-                // id="breed"
-                // value={data.breed}
-              />
-              <ModalFooter>
-                <CancelBtn onClick={() => closeModal()}>Cancel</CancelBtn>
-                <NextBtn  onClick={() => setModal(2)}>Next </NextBtn>
-              </ModalFooter>
-            </>
-          )}
-          {modal === 2 && (
-            <>
-              <InputTextImgModa2>
-                Add photo and some comments{" "}
-              </InputTextImgModa2>
-              <FormInputImg type="file" id="addPhoto" />
-              <AddPhoto for="addPhoto">
-                <AddIcon src={addIcon} alt="sd" />
-              </AddPhoto>
-              <InputTextModa2 required>Comments</InputTextModa2>
-              <FormInputText
-                onChange={handleChange}
-                type="text"
-                placeholder="Type comments"
-                name="comments"
-              />
-              <ModalFooter>
-                <CancelBtn onClick={() => setModal(1)}>Back</CancelBtn>
-                <NextBtn type="submit" onClick={handleSubmit}>
-                  Done
-                </NextBtn>
-              </ModalFooter>
-            </>
-          )}
-        </FormWrapper>
-      </Modal>
+      <AddPetModal
+        isModalActive={isModalActive}
+        setIsModalActive={setIsModalActive}
+      />
     </UserPageBox>
   );
 };
