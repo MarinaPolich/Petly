@@ -4,12 +4,10 @@ import {
   ImageBox,
   InfoWrapper,
   MainWrapper,
-  StyledAddress,
-  StyledEmail,
   StyledHeader,
   StyledImg,
   StyledLi,
-  StyledPhone,
+  StyledText,
 } from "./FriendsItem.styled";
 
 export default function FriendsItem({ item }) {
@@ -25,21 +23,92 @@ export default function FriendsItem({ item }) {
 
   return (
     <StyledLi>
-      <StyledHeader>{item.title}</StyledHeader>
+      <StyledHeader>
+        <a href={`${item.url}`} target="_blank" rel="noreferrer">
+          {item.title}
+        </a>
+      </StyledHeader>
       <MainWrapper>
         <ImageBox>
-          <StyledImg src={item._id === '63afa181d5fafaa0a7f2300c' ? "https://animals-city.org/wp-content/themes/animals-city/img/logo.svg" : item.imageUrl} alt="Company Logo" />
+          <StyledImg
+            src={
+              item._id === "63afa181d5fafaa0a7f2300c"
+                ? "https://animals-city.org/wp-content/themes/animals-city/img/logo.svg"
+                : item.imageUrl
+            }
+            alt="Company Logo"
+          />
         </ImageBox>
         <InfoWrapper>
-          {item.workDays?.length > 0 && (
-            <p onMouseEnter={onHoverAndFocus} onMouseLeave={outOfFocusAndHover}>
-              Time:<br/>8:00-19:00
-            </p>
+          {item.workDays?.length > 0 ? (
+            <StyledText
+              onMouseEnter={onHoverAndFocus}
+              onMouseLeave={outOfFocusAndHover}
+            >
+              Time:
+              <br />
+              <time>
+                {
+                  item.workDays
+                    .map(({ isOpen, from, to }) => ({
+                      isOpen,
+                      time: `${from}-${to}`,
+                    }))
+                    .find((item) => item.isOpen === true)?.time
+                }
+              </time>
+            </StyledText>
+          ) : (
+            <StyledText>
+              Time:
+              <br />
+              <time>--------------</time>
+            </StyledText>
           )}
           {visible && <TimeTable workDays={item.workDays} />}
-          <StyledAddress>Address:<br/>{item.address}</StyledAddress>
-          { item.email && <StyledEmail>Email:<br/>{item.email}</StyledEmail>}
-          {item.phone && <StyledPhone>Phone:<br/>{item.phone}</StyledPhone>}
+          {item.address ? (
+            <StyledText>
+              Address:
+              <br />
+              <address>
+                <a href={`${item.addressUrl}`} target="_blank" rel="noreferrer">
+                  {item.address}
+                </a>
+              </address>
+            </StyledText>
+          ) : (
+            <StyledText>
+              Address:
+              <br />
+              <address>--------------</address>
+            </StyledText>
+          )}
+          {item.email ? (
+            <StyledText>
+              Email:
+              <br />
+              <a href={`mailto:${item.email}`}>{item.email}</a>
+            </StyledText>
+          ) : (
+            <StyledText>
+              Email:
+              <br />
+              <a href={`mailto:""`}>--------------</a>
+            </StyledText>
+          )}
+          {item.phone ? (
+            <StyledText>
+              Phone:
+              <br />
+              <a href={`tel:${item.phone}`}>{item.phone}</a>
+            </StyledText>
+          ) : (
+            <StyledText>
+              Phone:
+              <br />
+              <a href={`tel:""`}>--------------</a>
+            </StyledText>
+          )}
         </InfoWrapper>
       </MainWrapper>
     </StyledLi>

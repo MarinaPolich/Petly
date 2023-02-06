@@ -1,15 +1,18 @@
 import React from "react";
-import { StyledDiv } from "./TimeTable.styled";
+import { StyledDiv, StyledItem } from "./TimeTable.styled";
 import { daysOfWeek } from "constants/daysOfWeek";
 
-export default function TimeTable({workDays}) {
+export default function TimeTable({ workDays }) {
   return (
     <StyledDiv>
-
-      { workDays.map((item, index)=> {
-        return <p>{daysOfWeek[index]}<span>{item.isOpen ? `${item.from} - ${item.to}` : "Closed"}</span></p>
+      {workDays.map((item, index) => {
+        return (
+          <StyledItem>
+            <span>{daysOfWeek[index]}</span>
+            <span>{item.isOpen ? `${item.from}-${item.to}` : "Closed"}</span>
+          </StyledItem>
+        );
       })}
-     
     </StyledDiv>
   );
 }

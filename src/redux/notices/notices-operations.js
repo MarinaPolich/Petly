@@ -6,7 +6,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
-  async (data, thunkAPI) => {
+
+  async (data /*  {category, q, limit, page} */, thunkAPI) => {
     const params = Object.entries(data)
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
@@ -60,9 +61,7 @@ export const addFavoriteNotice = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       console.log(data._id);
-      const response = await axios.patch(
-        `/notices/user/${data._id}/favorites`
-      );
+      const response = await axios.patch(`/notices/user/${data._id}/favorites`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
