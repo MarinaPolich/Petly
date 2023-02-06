@@ -13,7 +13,6 @@ import { BoxList } from "./NoticesCategoriesList.styled";
 const NoticesCategoriesList = () => {
   const { category } = useParams();
   const dispatch = useDispatch();
-  console.log(category);
   const filteredNotices = useSelector(filteredNoticesSelector);
 
   useEffect(() => {
