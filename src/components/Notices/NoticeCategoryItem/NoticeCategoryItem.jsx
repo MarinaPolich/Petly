@@ -35,7 +35,7 @@ import {
 } from "./NoticeCategoryItem.styled";
 
 export default function NoticeCategoryItem({ item }) {
-  const [check, setCheck] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
   // const user = useSelector(getUser);
   const isLogin = useSelector(getIsLoggedIn);
@@ -47,7 +47,6 @@ export default function NoticeCategoryItem({ item }) {
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
   const favoriteCheckbox = ({ target: { checked } }) => {
-    console.log(checked);
     if (!isLogin) {
       console.log("Login false");
       return;
@@ -60,7 +59,7 @@ export default function NoticeCategoryItem({ item }) {
       dispatch(deleteFavoriteNotice());
       // user.favorite.unshift();
     }
-    setCheck(checked);
+    setIsCheck(checked);
   };
 
   return (
@@ -73,11 +72,11 @@ export default function NoticeCategoryItem({ item }) {
             <FavoriteCheck
               type="checkbox"
               name="favorite-check"
-              checked={check}
+              checked={isCheck}
               onChange={favoriteCheckbox}
             />
             <FavoriteBox>
-              {!check ? (
+              {!isCheck ? (
                 <SVG src={favoriteDefault} width="28" height="28" />
               ) : (
                 <SVG src={favorite} width="28" height="28" />

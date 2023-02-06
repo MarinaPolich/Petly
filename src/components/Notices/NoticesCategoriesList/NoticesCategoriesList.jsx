@@ -13,13 +13,13 @@ import { BoxList } from "./NoticesCategoriesList.styled";
 const NoticesCategoriesList = () => {
   const { category } = useParams();
   const dispatch = useDispatch();
-
+  console.log(category);
   const filteredNotices = useSelector(filteredNoticesSelector);
 
   useEffect(() => {
     dispatch(
       getNoticesByCategories(
-        category === "for-free" ? "in-good-hands" : { category }
+        category === "for-free" ? { category: "in-good-hands" } : { category }
       )
     );
     // dispatch(getFavUserNotice());
