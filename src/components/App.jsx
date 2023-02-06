@@ -18,6 +18,12 @@ const User = lazy(() => import("../pages/User/User"));
 const NoticesCategoriesList = lazy(() =>
   import("./Notices/NoticesCategoriesList/NoticesCategoriesList")
 );
+const NoticesFavoriteList = lazy(() =>
+  import("./Notices/NoticesCategoriesList/NoticesFavoriteList")
+);
+const NoticesOwnList = lazy(() =>
+  import("./Notices/NoticesCategoriesList/NoticesOwnList")
+);
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -39,21 +45,13 @@ export const App = () => {
         />
         <Route path="register" element={<Registration />} />
         <Route path="news" element={<News />} />
-        <Route
-          path="notices"
-          element={
-            // <Suspense fallback={<Loader />}>
-            //   <Outlet />
-            // </Suspense>
-            <Notices />
-          }
-        >
+        <Route path="notices" element={<Notices />}>
           <Route
             path="favorite"
             element={
               <PrivateRoute
                 redirectTo="/login"
-                component={<NoticesCategoriesList />}
+                component={<NoticesFavoriteList />}
               />
             }
           />
@@ -62,7 +60,7 @@ export const App = () => {
             element={
               <PrivateRoute
                 redirectTo="/login"
-                component={<NoticesCategoriesList />}
+                component={<NoticesOwnList />}
               />
             }
           />
