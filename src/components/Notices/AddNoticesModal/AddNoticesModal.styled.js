@@ -222,10 +222,10 @@ export const FormInputText = styled.textarea`
   @media ${device.desktop} {
     width: 448px;
     height: 116px;
+  }
 
   &.error {
     border: 2px solid var(--warning);
-
   }
 `;
 
