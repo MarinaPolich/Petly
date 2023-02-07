@@ -4,7 +4,7 @@ export const filteredNoticesSelector = (state) => {
   const notices = noticesSelector(state);
 
   const filter = filterSelector(state);
-  const filteredNotices = notices.filter((item) =>
+  const filteredNotices = notices?.filter((item) =>
     item.title.toLowerCase().includes(filter.toLowerCase())
   );
 
