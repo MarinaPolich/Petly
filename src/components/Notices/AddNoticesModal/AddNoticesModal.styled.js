@@ -18,7 +18,7 @@ export const InputText = styled.label`
   font-size: 24px;
   line-height: 1.08;
   color: #111111;
- margin-bottom: 12px;
+  margin-bottom: 12px;
   &:first-of-type {
     margin-top: 40px;
     margin-bottom: 0;
@@ -66,6 +66,10 @@ export const FormInput = styled.input`
   &:focus {
     border: 3px solid rgb(245, 146, 86);
   }
+
+  &.error {
+    border: 2px solid var(--warning);
+  }
 `;
 
 export const FormInputDate = styled.input`
@@ -93,6 +97,10 @@ export const FormInputDate = styled.input`
   }
   &:focus {
     border: 3px solid rgb(245, 146, 86);
+  }
+
+  &.error {
+    border: 2px solid var(--warning);
   }
 `;
 
@@ -189,6 +197,10 @@ export const FormInputText = styled.textarea`
   &:focus {
     border: 3px solid rgb(245, 146, 86);
   }
+
+  &.error {
+    border: 2px solid var(--warning);
+  }
 `;
 
 export const AddPhoto = styled.label`
@@ -265,7 +277,7 @@ export const CategoryLabel = styled.label`
   display: inline-flex;
   flex-direction: row;
   cursor: pointer;
-  
+
   &:last-of-type {
     margin-right: 0;
     margin-top: 16px;
@@ -280,10 +292,22 @@ export const CategoryInut = styled.input`
     color: #ffffff;
     background: #f59256;
   }
+
+  &.error {
+    border: 2px solid var(--warning);
+  }
 `;
 
 export const Box2 = styled.div`
   text-align: left;
   /* display: flex;
   flex-direction: row; */
+`;
+
+export const TextError = styled.p`
+  margin-top: -15px;
+  margin-left: 32px;
+  font-size: 14px;
+  line-height: 1.333;
+  color: var(--warning);
 `;

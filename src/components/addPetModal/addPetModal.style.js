@@ -16,6 +16,10 @@ export const InputText = styled.label`
   line-height: 1.08;
   color: #111111;
   padding-bottom: 12px;
+
+  &.error {
+    border: 2px solid var(--warning);
+  }
 `;
 
 export const FormInput = styled.input`
@@ -43,6 +47,10 @@ export const FormInput = styled.input`
   }
   &:focus {
     border: 3px solid rgb(245, 146, 86);
+  }
+
+  &.error {
+    border: 2px solid var(--warning);
   }
 `;
 
@@ -72,6 +80,10 @@ export const FormInputDate = styled.input`
   }
   &:focus {
     border: 3px solid rgb(245, 146, 86);
+  }
+
+  &.error {
+    border: 2px solid var(--warning);
   }
 `;
 
@@ -171,6 +183,10 @@ export const FormInputText = styled.textarea`
   &:focus {
     border: 3px solid rgb(245, 146, 86);
   }
+
+  &.error {
+    border: 2px solid var(--warning);
+  }
 `;
 
 export const AddPhoto = styled.label`
@@ -194,4 +210,12 @@ export const AddIcon = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+export const TextError = styled.p`
+  margin-top: -19px;
+  margin-left: 32px;
+  font-size: 14px;
+  line-height: 1.333;
+  color: var(--warning);
 `;

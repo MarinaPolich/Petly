@@ -32,6 +32,7 @@ import {
   CategoryInut,
   CategoryLabel,
   Box2,
+  TextError,
 } from "./AddNoticesModal.styled";
 import { useDispatch } from "react-redux";
 import { addNotice } from "redux/notices/notices-operations";
@@ -201,9 +202,10 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type name"
                       name="title"
                       value={values.title}
+                      className={errors.title && touched.title ? "error" : ""}
                     />
                     {errors.title && touched.title ? (
-                      <p>{errors.title}</p>
+                      <TextError>{errors.title}</TextError>
                     ) : null}
                     <InputText htmlFor="name">Name pet</InputText>
                     <FormInput
@@ -212,8 +214,11 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type name pet"
                       name="name"
                       value={values.name}
+                      className={errors.name && touched.name ? "error" : ""}
                     />
-                    {errors.name && touched.name ? <p>{errors.name}</p> : null}
+                    {errors.name && touched.name ? (
+                      <TextError>{errors.name}</TextError>
+                    ) : null}
                     <InputText htmlFor="birthday">Date of birth</InputText>
                     <DatePicker
                       selected={customInput}
@@ -240,9 +245,10 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type breed"
                       name="breed"
                       value={values.breed}
+                      className={errors.breed && touched.breed ? "error" : ""}
                     />
                     {errors.breed && touched.breed ? (
-                      <p>{errors.breed}</p>
+                      <TextError>{errors.breed}</TextError>
                     ) : null}
                     <ModalFooter>
                       <CancelBtn onClick={() => closeModal()}>Cancel</CancelBtn>
@@ -321,9 +327,12 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type name"
                       name="location"
                       value={values.location}
+                      className={
+                        errors.location && touched.location ? "error" : ""
+                      }
                     />
                     {errors.location && touched.location ? (
-                      <p>{errors.location}</p>
+                      <TextError>{errors.location}</TextError>
                     ) : null}
 
                     {values.category === "sell" ? (
@@ -338,11 +347,14 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                           placeholder="Type name"
                           name="price"
                           value={values.price}
+                          className={
+                            errors.price && touched.price ? "error" : ""
+                          }
                         />
                       </>
                     ) : null}
                     {errors.price && touched.price ? (
-                      <p>{errors.price}</p>
+                      <TextError>{errors.price}</TextError>
                     ) : null}
                     <InputTextImgModa2>Load the pet’s image:</InputTextImgModa2>
                     <FormInputImg
@@ -370,9 +382,12 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type comments"
                       name="comments"
                       value={values.comments}
+                      className={
+                        errors.comments && touched.comments ? "error" : ""
+                      }
                     />
                     {errors.comments && touched.comments ? (
-                      <p>{errors.comments}</p>
+                      <TextError>{errors.comments}</TextError>
                     ) : null}
                     <ModalFooter>
                       <CancelBtn type="button" onClick={() => setModal(1)}>

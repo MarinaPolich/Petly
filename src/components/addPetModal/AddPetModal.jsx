@@ -14,6 +14,7 @@ import {
   AddPhoto,
   AddIcon,
   FormInputDate,
+  TextError,
 } from "./addPetModal.style";
 import Modal from "../Modal/Modal";
 
@@ -146,8 +147,11 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type name pet"
                     name="name"
                     value={values.name}
+                    className={errors.name && touched.name ? "error" : ""}
                   />
-                  {errors.name && touched.name ? <p>{errors.name}</p> : null}
+                  {errors.name && touched.name ? (
+                    <TextError>{errors.name}</TextError>
+                  ) : null}
                   <InputText htmlFor="dateOfBirth">Date of birth</InputText>
                   <DatePicker
                     selected={customInput}
@@ -165,7 +169,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     scrollableYearDropdown
                   />
                   {errors.dateOfBirth && touched.dateOfBirth ? (
-                    <p>{errors.dateOfBirth}</p>
+                    <TextError>{errors.dateOfBirth}</TextError>
                   ) : null}
                   <InputText htmlFor="breed">Breed</InputText>
                   <FormInput
@@ -174,8 +178,11 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type breed"
                     name="breed"
                     value={values.breed}
+                    className={errors.breed && touched.breed ? "error" : ""}
                   />
-                  {errors.breed && touched.breed ? <p>{errors.breed}</p> : null}
+                  {errors.breed && touched.breed ? (
+                    <TextError>{errors.breed}</TextError>
+                  ) : null}
                   <ModalFooter>
                     <CancelBtn type="button" onClick={() => closeModal()}>
                       Cancel
@@ -232,9 +239,12 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type comments"
                     name="comments"
                     value={values.comments}
+                    className={
+                      errors.comments && touched.comments ? "error" : ""
+                    }
                   />
                   {errors.comments && touched.comments ? (
-                    <p>{errors.comments}</p>
+                    <TextError>{errors.comments}</TextError>
                   ) : null}
                   <ModalFooter>
                     <CancelBtn type="button" onClick={() => setModal(1)}>
