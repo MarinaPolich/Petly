@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 import {
   FormWrapper,
   InputText,
@@ -32,6 +33,8 @@ import {
   CategoryLabel,
   Box2,
 } from "./AddNoticesModal.styled";
+import { useDispatch } from "react-redux";
+import { addNotice } from "redux/notices/notices-operations";
 
 const ModalSchema = Yup.object().shape({
   name: Yup.string()
@@ -50,29 +53,41 @@ const ModalSchema = Yup.object().shape({
     .max(120, "Too Long, at maximum 120!"),
 });
 
-
 const AddNoticesModal = ({ activeModal, setActiveModal }) => {
-
   const [modalActive, setModalActive] = useState(activeModal);
-
   const [modal, setModal] = useState(1);
-    const [customInput, setCustomInput] = useState(new Date());
-
+  const [customInput, setCustomInput] = useState(new Date());
+  const [petPhoto, setPetPhoto] = useState(null);
   // const [formData, updateFormData] = useState([]);
   // const handleChange = (e) => {
   //   updateFormData({ ...formData, [e.target.name]: e.target.value.trim() });
   // };
+  const dispatch = useDispatch();
   const onSubmit = (value, { resetForm }) => {
-    console.log(value);
-    setActiveModal(false)
+    const data = new FormData();
+    data.append("category", value.category);
+    data.append("title", value.title);
+    data.append(
+      "birthday",
+      moment(value.birthday).format("DD.MM.YYYY")
+    );
+    data.append("breed", value.breed);
+    data.append("sex", value.sex);
+    data.append("location", value.location);
+    data.append("name", value.name);
+    data.append("price", value.price);
+    data.append("comments", value.comments);
+    data.append("noticePhoto", petPhoto);
+    dispatch(addNotice(data));
+    setPetPhoto(null)
+    setActiveModal(false);
     resetForm();
     setTimeout(() => {
       setModal(1);
     }, 500);
   };
   const closeModal = () => {
-
-      setActiveModal(false)
+    setActiveModal(false);
     setTimeout(() => {
       setModal(1);
     }, 500);
@@ -87,16 +102,16 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
       document.body.style.overflow = "unset";
     }
   }, [modalActive]);
-   const CustomInput = React.forwardRef(({ value, onClick }, ref) => {
-     return (
-       <FormInputDate
-         onClick={onClick}
-         ref={ref}
-         selected={value}
-         defaultValue={value}
-       ></FormInputDate>
-     );
-   });
+  const CustomInput = React.forwardRef(({ value, onClick }, ref) => {
+    return (
+      <FormInputDate
+        onClick={onClick}
+        ref={ref}
+        selected={value}
+        defaultValue={value}
+      ></FormInputDate>
+    );
+  });
 
   return (
     <>
@@ -118,7 +133,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
             location: "",
             price: "",
             comments: "",
-            // petsPhoto: "",
+            petsPhoto: "",
           }}
           validationSchema={ModalSchema}
           onSubmit={onSubmit}
@@ -146,7 +161,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         type="radio"
                         id="Choice1"
                         name="category"
-                        value="lost/found"
+                        value="lost-found"
                       />
                       <CategoryLabel htmlFor="Choice1">
                         lost/found
@@ -156,7 +171,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         type="radio"
                         id="Choice2"
                         name="category"
-                       yyy
+                        value="in-good-hands"
                       />
                       <CategoryLabel htmlFor="Choice2">
                         in good hands
@@ -230,10 +245,12 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                           if (
                             !(
                               // touched.category &&
-                              touched.title &&
-                              touched.name &&
-                              touched.birthday &&
-                              touched.breed 
+                              (
+                                touched.title &&
+                                touched.name &&
+                                touched.birthday &&
+                                touched.breed
+                              )
                             )
                           ) {
                             // setFieldTouched("category");
@@ -249,7 +266,6 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                             errors.name ||
                             errors.birthday ||
                             errors.breed
-
                           )
                             return;
                           setModal(2);
@@ -271,7 +287,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         type="radio"
                         id="male"
                         name="sex"
-                        value="Male"
+                        value="male"
                       />
                       <RadioLabel htmlFor="male">
                         <ImgSex src={male} alt="" /> Male
@@ -281,7 +297,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         type="radio"
                         id="female"
                         name="sex"
-                        value="Female"
+                        value="female"
                       />
                       <RadioLabel htmlFor="female">
                         <ImgSex src={female} alt="" />
@@ -317,7 +333,17 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       <p>{errors.price}</p>
                     ) : null}
                     <InputTextImgModa2>Load the pet’s image:</InputTextImgModa2>
-                    <FormInputImg type="file" id="addPhoto" name="petsPhoto" />
+                    <FormInputImg
+                      type="file"
+                      id="addPhoto"
+                      name="petsPhoto"
+                      onChange={({ target: { files } }) => {
+                        const file = files?.item(0);
+                        console.log(file);
+                        if (!file) return;
+                        setPetPhoto(file);
+                      }}
+                    />
                     <AddPhoto htmlFor="addPhoto">
                       <AddIcon src={addIcon} alt="sd" />
                     </AddPhoto>
