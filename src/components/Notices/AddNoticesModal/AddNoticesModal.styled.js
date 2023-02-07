@@ -92,7 +92,6 @@ export const FormInput = styled.input`
   &.error {
     border: 2px solid var(--warning);
   }
-`;
 
   @media ${device.tablet} {
     width: 448px;
@@ -183,7 +182,6 @@ export const NextBtn = styled.button`
     height: 44px;
   }
 `;
-
 
 export const FormInputImg = styled.input`
   opacity: 0;
@@ -358,10 +356,9 @@ export const Box2 = styled.div`
 `;
 
 export const Error = styled.p`
- margin-top: -15px;
+  margin-top: -15px;
   margin-left: 32px;
   font-size: 14px;
   line-height: 1.333;
   color: var(--warning);
 `;
-

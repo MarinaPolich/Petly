@@ -39,10 +39,9 @@ export const InputText = styled.label`
   }
   @media ${device.desktop} {
     font-size: 24px;
-
+  }
   &.error {
     border: 2px solid var(--warning);
-
   }
 `;
 
@@ -57,7 +56,7 @@ export const FormInput = styled.input`
   padding-left: 16px;
   padding-bottom: 11px;
   margin-bottom: 28px;
-  
+
   ::placeholder {
     font-family: "Manrope";
     font-style: normal;
@@ -73,7 +72,6 @@ export const FormInput = styled.input`
   &.error {
     border: 2px solid var(--warning);
   }
-`;
 
   @media ${device.tablet} {
     width: 448px;
@@ -259,10 +257,9 @@ export const AddIcon = styled.img`
 `;
 
 export const Error = styled.p`
- margin-top: -19px;
+  margin-top: -19px;
   margin-left: 32px;
   font-size: 14px;
   line-height: 1.333;
   color: var(--warning);
-
 `;
