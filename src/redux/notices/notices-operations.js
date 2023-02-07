@@ -57,9 +57,9 @@ export const getFavUserNotice = createAsyncThunk(
 
 export const deleteNotice = createAsyncThunk(
   "notices/deleteNotices",
-  async (_id, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await axios.delete(`/notices/user/${_id}`);
+      const response = await axios.delete(`/notices/user/${id}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userNotice } from "redux/notices/notices-operations";
 import {
-  //filteredNoticesSelector,
   getCategory,
   getTotalCount,
   noticesSelector,
@@ -11,7 +10,6 @@ import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 
 const NoticesCategoriesList = () => {
-  //const [notices, setNotices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [noticesPerPage] = useState(8);
   const innerCategory = "own";
@@ -24,17 +22,9 @@ const NoticesCategoriesList = () => {
     dispatch(userNotice({ page: currentPage, limit: noticesPerPage }));
   }, [dispatch, currentPage, noticesPerPage]);
 
-  // useEffect(() => {
-  //   setNotices(filteredNotices);
-  // }, [filteredNotices]);
-
   if (!notices || innerCategory !== noticeCategory) {
     return;
   }
-
-  // const lastNoticesIndex = currentPage * noticesPerPage;
-  // const firstNoticesIndex = lastNoticesIndex - noticesPerPage;
-  // const currentNotices = notices?.slice(firstNoticesIndex, lastNoticesIndex);
 
   const totalPage = Math.ceil(totalCount / noticesPerPage);
 
@@ -54,7 +44,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && totalPage && (
+        {totalPage !== currentPage && totalPage !== 0 && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>

@@ -44,7 +44,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && totalPage && (
+        {totalPage !== currentPage && totalPage !== 0 && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>
