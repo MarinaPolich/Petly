@@ -36,7 +36,7 @@ export const userNotice = createAsyncThunk(
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
       const response = await axios.get(`/notices/user/own/?${params}`);
-      return response.data.data.notices;
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

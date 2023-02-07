@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userNotice } from "redux/notices/notices-operations";
@@ -11,12 +12,17 @@ const NoticesCategoriesList = () => {
   const [noticesPerPage] = useState(8);
   const dispatch = useDispatch();
   const filteredNotices = useSelector(filteredNoticesSelector);
+  const first = useRef(true);
 
   useEffect(() => {
     dispatch(userNotice(currentPage));
   }, [dispatch, currentPage]);
 
   useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
     setNotices(filteredNotices);
   }, [filteredNotices]);
 
