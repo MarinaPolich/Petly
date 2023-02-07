@@ -7,7 +7,46 @@ export const BoxList = styled.ul`
   flex-wrap: wrap;
   align-items: center;
 
+  margin-bottom: 20px;
+
   @media ${device.mobile} {
     justify-content: center;
+  }
+`;
+
+export const BoxButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+
+  @media ${device.mobile} {
+  }
+`;
+
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+  padding: 8px;
+  border: 2px solid transparent;
+  border-radius: var(--border-btn);
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.375;
+
+  letter-spacing: 0.04em;
+
+  color: var(--white);
+  background: var(--primary);
+
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    border: 2px solid #ff6101;
+    background-color: #ff6101;
   }
 `;
