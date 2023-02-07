@@ -9,13 +9,16 @@ import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 const NoticesCategoriesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
-    // const user = useSelector(getUser);
+  // const user = useSelector(getUser);
   const filteredNotices = useSelector(filteredNoticesSelector);
 
   useEffect(() => {
     dispatch(getFavUserNotice());
   }, [dispatch]);
 
+  if (!filteredNotices) {
+    return;
+  }
   const totalPage = filteredNotices.length / currentPage / 8;
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
@@ -34,7 +37,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && (
+        {totalPage !== currentPage && totalPage && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>

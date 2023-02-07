@@ -21,6 +21,8 @@ export const BoxButton = styled.div`
   gap: 32px;
 
   @media ${device.mobile} {
+    gap: 20px;
+    flex-wrap: wrap;
   }
 `;
 

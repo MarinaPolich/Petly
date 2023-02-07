@@ -20,6 +20,9 @@ const NoticesCategoriesList = () => {
     );
   }, [dispatch, category]);
 
+  if (!filteredNotices) {
+    return;
+  }
   const totalPage = filteredNotices.length / currentPage / 8;
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
@@ -38,7 +41,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && (
+        {totalPage !== currentPage && totalPage && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>
