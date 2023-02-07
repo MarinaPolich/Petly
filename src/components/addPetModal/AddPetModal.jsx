@@ -63,7 +63,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
     data.append("dateOfBirth", value.dateOfBirth);
     data.append("breed", value.breed);
     data.append("comments", value.comments);
-    data.append("petsPhoto", petPhoto);
+    if (petPhoto) data.append("petsPhoto", petPhoto);
 
     dispatch(addPets(data));
 
