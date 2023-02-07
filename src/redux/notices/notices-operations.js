@@ -9,7 +9,7 @@ export const getNoticesByCategories = createAsyncThunk(
       .join("&");
     try {
       const response = await axios.get(`/notices/?${params}`);
-      return response.data.data.notices;
+      return { ...response.data.data, category: data.category };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -36,7 +36,7 @@ export const userNotice = createAsyncThunk(
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
       const response = await axios.get(`/notices/user/own/?${params}`);
-      return response.data.data.notices;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -48,7 +48,7 @@ export const getFavUserNotice = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`/notices/favorite`);
-      return response.data.data.favorite;
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

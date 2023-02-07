@@ -30,6 +30,7 @@ import {
   SvgDelete,
 } from "./NoticeCategoryItem.styled";
 import { Notify } from "notiflix";
+import ModalNotice from "components/ModalNotice/ModalNotice";
 
 export default function NoticeCategoryItem({ item }) {
   const [isCheck, setIsCheck] = useState(false);
@@ -37,6 +38,7 @@ export default function NoticeCategoryItem({ item }) {
   const isLogin = useSelector(getIsLoggedIn);
   const user = useSelector(getUser);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [activeModal, setActiveModal] = useState(false);
 
   useEffect(() => {
     if (user?.favorite) {
@@ -62,6 +64,10 @@ export default function NoticeCategoryItem({ item }) {
       dispatch(deleteFavoriteNotice(item._id));
     }
     setIsCheck(checked);
+  };
+
+  const onClick = () => {
+    setActiveModal(true);
   };
 
   return (
@@ -105,12 +111,17 @@ export default function NoticeCategoryItem({ item }) {
               type="submit"
               onClick={() => dispatch(deleteNotice(item._id))}
             >
-              Delete{" "}
+              Delete
               <SvgDelete src={del} width="20" height="20" title="delete" />
             </ButtonDelete>
           )}
         </BtnBox>
       </DescriptionBox>
+      <ModalNotice
+        activeModal={activeModal}
+        setActiveModal={setActiveModal}
+        idNotice={item._id}
+      />
     </Notice>
   );
 }

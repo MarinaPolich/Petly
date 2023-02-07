@@ -51,8 +51,7 @@ export const Button = styled.button`
 
   cursor: pointer;
 
-  &:hover,
-  &:focus {
+  &:hover {
     border: 2px solid #ff6101;
     background-color: #ff6101;
   }

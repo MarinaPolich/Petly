@@ -15,10 +15,10 @@ export const Box = styled.div`
 
   @media ${device.tablet} {
     width: ${tablet}px;
-    padding: 24px 32px;
+    padding: 24px 32px 0 32px;
   }
   @media ${device.desktop} {
     width: ${desktop}px;
-    padding: 20px 16px;
+    padding: 20px 16px 0 20px;
   }
 `;

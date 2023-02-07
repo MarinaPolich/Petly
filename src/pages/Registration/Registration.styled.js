@@ -10,11 +10,11 @@ export const ContainerReg = styled.main`
   margin: 0 auto;
 
   @media ${device.tablet} {
-    height: calc(100vh - 96px);
+    height: calc(100vh - 72px);
   }
 
   @media ${device.desktop} {
-    height: calc(100vh - 88px);
+    height: calc(100vh - 68px);
   }
 
   &::after {

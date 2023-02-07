@@ -2,28 +2,39 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getNoticesByCategories } from "redux/notices/notices-operations";
-import { filteredNoticesSelector } from "redux/notices/notices-selector";
+import {
+  getCategory,
+  getTotalCount,
+  noticesSelector,
+} from "redux/notices/notices-selector";
 import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 
 const NoticesCategoriesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [noticesPerPage] = useState(8);
   const { category } = useParams();
+  const innerCategory = category === "for-free" ? "in-good-hands" : category;
   const dispatch = useDispatch();
-  const filteredNotices = useSelector(filteredNoticesSelector);
+  const notices = useSelector(noticesSelector);
+  const totalCount = useSelector(getTotalCount);
+  const noticeCategory = useSelector(getCategory);
 
   useEffect(() => {
     dispatch(
-      getNoticesByCategories(
-        category === "for-free" ? { category: "in-good-hands" } : { category }
-      )
+      getNoticesByCategories({
+        category: innerCategory,
+        page: currentPage,
+        limit: noticesPerPage,
+      })
     );
-  }, [dispatch, category]);
+  }, [dispatch, innerCategory, currentPage, noticesPerPage]);
 
-  if (!filteredNotices) {
+  if (!notices || innerCategory !== noticeCategory) {
     return;
   }
-  const totalPage = Math.ceil(filteredNotices.length / currentPage / 8);
+
+  const totalPage = Math.ceil(totalCount / noticesPerPage);
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
@@ -31,7 +42,7 @@ const NoticesCategoriesList = () => {
   return (
     <>
       <BoxList>
-        {filteredNotices.map((item) => (
+        {notices?.map((item) => (
           <NoticeCategoryItem item={item} key={item._id}></NoticeCategoryItem>
         ))}
       </BoxList>
@@ -41,7 +52,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && totalPage !== 0 && (
+        {totalPage !== currentPage && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>
