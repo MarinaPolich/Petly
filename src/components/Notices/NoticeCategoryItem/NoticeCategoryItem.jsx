@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
 // import { getUser } from "redux/auth/auth-selector";
@@ -8,7 +8,7 @@ import {
   deleteFavoriteNotice,
   // deleteNotice,
 } from "redux/notices/notices-operations";
-import { getIsLoggedIn } from "redux/auth/auth-selector";
+import { getIsLoggedIn, getUser } from "redux/auth/auth-selector";
 import {
   // del,
   favoriteDefault,
@@ -33,12 +33,21 @@ import {
   // ButtonDelete,
   // SvgDelete,
 } from "./NoticeCategoryItem.styled";
+import { Notify } from "notiflix";
 
 export default function NoticeCategoryItem({ item }) {
   const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
-  // const user = useSelector(getUser);
   const isLogin = useSelector(getIsLoggedIn);
+  const user = useSelector(getUser);
+  const [isFavorite, setIsFavorite] = useState(false);
+  console.log(isFavorite);
+
+  useEffect(() => {
+    if (user?.favorite) {
+      setIsFavorite(user?.favorite?.includes(item._id));
+    }
+  }, [dispatch, item._id, user?.favorite]);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -48,16 +57,14 @@ export default function NoticeCategoryItem({ item }) {
   }
   const favoriteCheckbox = ({ target: { checked } }) => {
     if (!isLogin) {
-      console.log("Login false");
+      Notify.failure("You need to login");
       return;
     }
 
     if (checked) {
       dispatch(addFavoriteNotice(item._id));
-      // user.favorite.push();
     } else {
       dispatch(deleteFavoriteNotice(item._id));
-      // user.favorite.unshift();
     }
     setIsCheck(checked);
   };
@@ -75,7 +82,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isCheck ? (
+            {!isFavorite ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />
@@ -97,47 +104,7 @@ export default function NoticeCategoryItem({ item }) {
           </ListItem>
         </List>
         <ButtonMore type="submit">Learn more</ButtonMore>
-        {/* <ButtonDelete type="submit" onClick={() => onDeleteNotice(item)}>
-=======
-    <Notice>
-      <BoxImage>
-        <Image src={item.avatarUrl} alt={item.title} />
-        <Category>{item.category}</Category>
-        <FavoriteLabel>
-          <FavoriteCheck
-            type="checkbox"
-            name="favorite-check"
-            checked={isCheck}
-            onChange={favoriteCheckbox}
-          />
-          <FavoriteBox>
-            {!isCheck ? (
-              <SVG src={favoriteDefault} width="28" height="28" />
-            ) : (
-              <SVG src={favorite} width="28" height="28" />
-            )}
-          </FavoriteBox>
-        </FavoriteLabel>
-      </BoxImage>
-      <DescriptionBox>
-        <Title>{item.title}</Title>
-        <List>
-          <ListItem>
-            Breed: <SpanBreed>{item.breed}</SpanBreed>
-          </ListItem>
-          <ListItem>
-            Place: <SpanPlace>{item.location}</SpanPlace>
-          </ListItem>
-          <ListItem>
-            Age: <SpanAge>{birthDateToAge(item.birthday)} year</SpanAge>
-          </ListItem>
-        </List>
-        <ButtonMore type="submit">Learn more</ButtonMore>
-        {/* <ButtonDelete type="submit" onClick={() => onDeleteNotice(item)}>
->>>>>>> Stashed changes
-              Delete{" "}
-              <SvgDelete src={del} width="20" height="20" title="delete" />
-            </ButtonDelete> */}
+        {/* <ButtonDelete type="submit" onClick={() => onDeleteNotice(item)}> */}
       </DescriptionBox>
     </Notice>
   );
