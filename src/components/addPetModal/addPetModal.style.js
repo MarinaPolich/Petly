@@ -183,6 +183,7 @@ export const AddPhoto = styled.label`
   text-decoration: none;
   outline: none;
   margin-bottom: 40px;
+  overflow: hidden;
   &:focus {
     border: 3px solid rgb(245, 146, 86);
   }

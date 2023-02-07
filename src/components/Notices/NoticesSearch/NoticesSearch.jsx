@@ -15,16 +15,19 @@ const NoticesSearch = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     dispatch(
       getNoticesByCategories({
         category: category === "for-free" ? "in-good-hands" : category,
         q: query,
       })
     );
-
     setSearchParams("");
   };
-
+  const onClickBtn = () => {
+    setSearchParams("");
+    return;
+  };
   return (
     <Box>
       <Title>Find your favorite pet</Title>
@@ -37,7 +40,7 @@ const NoticesSearch = () => {
           value={query}
           onChange={(e) => setSearchParams({ q: e.target.value })}
         />
-        <Button type="submit">
+        <Button type="button" onClick={onClickBtn}>
           <Mobile>
             {query.length < 1 ? (
               <Svg src={search} width="20" height="20" />
