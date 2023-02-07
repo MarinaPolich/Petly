@@ -6,14 +6,9 @@ import {
   deleteFavoriteNotice,
   deleteNotice,
 } from "redux/notices/notices-operations";
-import { getIsLoggedIn } from "redux/auth/auth-selector";
 import { del, favoriteDefault, favorite } from "assets/icon";
 import { getIsLoggedIn, getUser } from "redux/auth/auth-selector";
-import {
-  // del,
-  favoriteDefault,
-  favorite,
-} from "assets/icon";
+
 import {
   Notice,
   BoxImage,
@@ -42,7 +37,6 @@ export default function NoticeCategoryItem({ item }) {
   const isLogin = useSelector(getIsLoggedIn);
   const user = useSelector(getUser);
   const [isFavorite, setIsFavorite] = useState(false);
-  console.log(isFavorite);
 
   useEffect(() => {
     if (user?.favorite) {
@@ -83,7 +77,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isCheck ? (
+            {!isFavorite ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />
