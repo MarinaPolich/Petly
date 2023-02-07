@@ -58,6 +58,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
   const [modal, setModal] = useState(1);
   const [customInput, setCustomInput] = useState(new Date());
   const [petPhoto, setPetPhoto] = useState(null);
+  const [previevPet, setPrevievPet] = useState(null);
   // const [formData, updateFormData] = useState([]);
   // const handleChange = (e) => {
   //   updateFormData({ ...formData, [e.target.name]: e.target.value.trim() });
@@ -67,25 +68,31 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
     const data = new FormData();
     data.append("category", value.category);
     data.append("title", value.title);
-    data.append(
-      "birthday",
-      moment(value.birthday).format("DD.MM.YYYY")
-    );
+    data.append("birthday", moment(value.birthday).format("DD.MM.YYYY"));
     data.append("breed", value.breed);
     data.append("sex", value.sex);
-    data.append("location", value.location);
+    if (value.location) data.append("location", value.location);
     data.append("name", value.name);
-    data.append("price", value.price);
-    data.append("comments", value.comments);
-    data.append("noticePhoto", petPhoto);
+    if (value.price) data.append("price", value.price);
+    if (value.comments) data.append("comments", value.comments);
+    if (petPhoto) data.append("noticePhoto", petPhoto);
     dispatch(addNotice(data));
-    setPetPhoto(null)
+    setPetPhoto(null);
     setActiveModal(false);
     resetForm();
     setTimeout(() => {
       setModal(1);
     }, 500);
   };
+
+  const previevFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPrevievPet(reader.result);
+    };
+  };
+
   const closeModal = () => {
     setActiveModal(false);
     setTimeout(() => {
@@ -318,17 +325,22 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                     {errors.location && touched.location ? (
                       <p>{errors.location}</p>
                     ) : null}
-                    <InputText htmlFor="price">
-                      Price<Span>*</Span>:
-                    </InputText>
-                    <FormInput
-                      onChange={handleChange}
-                      type="text"
-                      required
-                      placeholder="Type name"
-                      name="price"
-                      value={values.price}
-                    />
+
+                    {values.category === "sell" ? (
+                      <>
+                        <InputText htmlFor="price">
+                          Price<Span>*</Span>:
+                        </InputText>
+                        <FormInput
+                          onChange={handleChange}
+                          type="text"
+                          required
+                          placeholder="Type name"
+                          name="price"
+                          value={values.price}
+                        />
+                      </>
+                    ) : null}
                     {errors.price && touched.price ? (
                       <p>{errors.price}</p>
                     ) : null}
@@ -342,10 +354,14 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         console.log(file);
                         if (!file) return;
                         setPetPhoto(file);
+                        previevFile(file);
                       }}
                     />
                     <AddPhoto htmlFor="addPhoto">
-                      <AddIcon src={addIcon} alt="sd" />
+                      <AddIcon
+                        src={previevPet ? previevPet : addIcon}
+                        alt="sd"
+                      />
                     </AddPhoto>
                     <InputTextModa2 required>Comments</InputTextModa2>
                     <FormInputText
