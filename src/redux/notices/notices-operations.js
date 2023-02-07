@@ -1,13 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// axios.defaults.headers.common.Authorization = `Bearer `;
-// axios.defaults.baseURL = "https://petly-back.onrender.com/api";
-
 export const getNoticesByCategories = createAsyncThunk(
   "notices/fetchAll",
-
-  async (data /*  {category, q, limit, page} */, thunkAPI) => {
+  async (data, thunkAPI) => {
     const params = Object.entries(data)
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
@@ -34,10 +30,13 @@ export const addNotice = createAsyncThunk(
 
 export const userNotice = createAsyncThunk(
   "notices/userNotice",
-  async (token, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const response = await axios.get("/notices/user/own", token);
-      return response.data;
+      const params = Object.entries(data)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+      const response = await axios.get(`/notices/user/own?${params}`);
+      return response.data.data.notices;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -46,10 +45,13 @@ export const userNotice = createAsyncThunk(
 
 export const getFavUserNotice = createAsyncThunk(
   "notices/getFavUserNotice",
-  async (token, thunkAPI) => {
+  async (data, thunkAPI) => {
+    const params = Object.entries(data)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
     try {
-      const response = await axios.get("/notices/user/favorite", token);
-      return response.data;
+      const response = await axios.get(`/notices/favorite/?${params}`);
+      return response.data.data.notices;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -82,9 +84,9 @@ export const deleteFavoriteNotice = createAsyncThunk(
 
 export const deleteNotice = createAsyncThunk(
   "notices/deleteNotices",
-  async (token, _id, thunkAPI) => {
+  async (_id, thunkAPI) => {
     try {
-      const response = await axios.delete(`/notices/user/${_id}`, token);
+      const response = await axios.delete(`/notices/user/${_id}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
