@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   FormWrapper,
   InputText,
@@ -15,6 +16,7 @@ import {
   FormInputDate,
 } from "./addPetModal.style";
 import Modal from "../Modal/Modal";
+
 import addIcon from "../../assets/icon/Icon_add_photo.svg";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -45,8 +47,16 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
   const [modal, setModal] = useState(1);
   const [customInput, setCustomInput] = useState(new Date());
   const [petPhoto, setPetPhoto] = useState(null);
+  const [previevPet, setPrevievPet] = useState(null);
   const dispatch = useDispatch();
 
+  const previevFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPrevievPet(reader.result);
+    };
+  };
   const onSubmit = (value, { resetForm }) => {
     const data = new FormData();
     data.append("name", value.name);
@@ -56,8 +66,9 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
     data.append("petsPhoto", petPhoto);
 
     dispatch(addPets(data));
-    // console.log(Object.keys(value), Object.values(value));
+
     setPetPhoto(null);
+    setPrevievPet(null);
     setIsModalActive(false);
     resetForm();
     setTimeout(() => {
@@ -204,14 +215,15 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                       const file = files?.item(0);
                       console.log(file);
                       if (!file) return;
+                      previevFile(file);
                       setPetPhoto(file);
-                      // const formData = new FormData();
-                      // formData.append("avatar", file);
-                      // onChange(formData);
                     }}
                   />
                   <AddPhoto htmlFor="petsPhoto">
-                    <AddIcon src={petPhoto ? petPhoto : addIcon} alt="my pet" />
+                    <AddIcon
+                      src={previevPet ? previevPet : addIcon}
+                      alt="my pet"
+                    />
                   </AddPhoto>
                   <InputTextModa2 htmlFor="comments">Comments</InputTextModa2>
                   <FormInputText
