@@ -84,7 +84,10 @@ const authSlice = createSlice({
         state.user = payload;
       })
       .addCase(deletePet.fulfilled, (state, { payload }) => {
-        state.user.pets.splice(payload.data, 1);
+        const idx = state.user.pets.findIndex(
+          (data) => data._id === payload.data
+        );
+        state.user.pets.splice(idx, 1);
       })
       .addCase(addPets.fulfilled, (state, { payload }) => {
         state.user.pets.push(payload.data.pet);
