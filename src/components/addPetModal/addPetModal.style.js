@@ -226,10 +226,10 @@ export const FormInputText = styled.textarea`
   @media ${device.desktop} {
     width: 394px;
     height: 116px;
+  }
 
   &.error {
     border: 2px solid var(--warning);
-
   }
 `;
 
