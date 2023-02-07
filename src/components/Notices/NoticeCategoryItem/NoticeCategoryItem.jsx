@@ -105,7 +105,9 @@ export default function NoticeCategoryItem({ item }) {
           </ListItem>
         </List>
         <BtnBox>
-          <ButtonMore type="submit">Learn more</ButtonMore>
+          <ButtonMore type="submit" onClick={onClick}>
+            Learn more
+          </ButtonMore>
           {item.owner === user?._id && (
             <ButtonDelete
               type="submit"
