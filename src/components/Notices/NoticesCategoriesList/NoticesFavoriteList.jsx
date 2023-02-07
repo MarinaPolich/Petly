@@ -20,9 +20,7 @@ const NoticesCategoriesList = () => {
     setNotices(filteredNotices);
   }, [filteredNotices]);
 
-  if (!filteredNotices) {
-    return;
-  }
+  if (!filteredNotices) return;
 
   const lastNoticesIndex = currentPage * noticesPerPage;
   const firstNoticesIndex = lastNoticesIndex - noticesPerPage;

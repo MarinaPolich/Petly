@@ -28,6 +28,10 @@ import {
 } from "./NoticeCategoryItem.styled";
 import { Notify } from "notiflix";
 import ModalNotice from "components/ModalNotice/ModalNotice";
+import {
+  addFavoriteNotice,
+  deleteFavoriteNotice,
+} from "redux/auth/auth-operations";
 
 export default function NoticeCategoryItem({ item }) {
   const [isCheck, setIsCheck] = useState(false);

@@ -98,11 +98,13 @@ const authSlice = createSlice({
       .addCase(addFavoriteNotice.rejected, handleRejected)
       .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
         state.user.favorite.push(payload.data.noticeId);
+        state.isLoggedIn = true;
       })
       .addCase(deleteFavoriteNotice.pending, handlePending)
       .addCase(deleteFavoriteNotice.rejected, handleRejected)
       .addCase(deleteFavoriteNotice.fulfilled, (state, { payload }) => {
         state.user.favorite.splice(payload.data, 1);
+        state.isLoggedIn = true;
       }),
 });
 
