@@ -14,14 +14,15 @@ export const Container = styled.div`
   overflow: hidden;
 
   @media ${device.tablet} {
-    height: calc(100vh - 96px);
+    height: calc(100vh - 72px);
     padding-top: 88px;
   }
 
   @media ${device.desktop} {
+    flex-direction: initial;
     align-items: start;
     padding-top: 92px;
-    height: calc(100vh - 88px);
+    height: calc(100vh - 68px);
   }
 
   &::after {
@@ -86,20 +87,17 @@ export const Thumba = styled.div`
   }
 
   @media ${device.desktop} {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 50%;
     aspect-ratio: 0.922;
   }
 `;
 
 export const Image = styled.img`
+  display: block;
   width: 100%;
   height: auto;
 
-  @media ${device.tablet} {
-    width: auto;
+  @media ${device.desktop} {
+    width: calc(100vh * 0.8);
     position: absolute;
     bottom: 0;
   }
