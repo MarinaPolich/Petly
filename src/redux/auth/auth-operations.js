@@ -118,7 +118,7 @@ export const deletePet = createAsyncThunk(
   "/user/pets/delete/",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`/user/pets/delete/${id}`);
+      const res = await axios.delete(`/user/pets/delete/${id}`);
 
       return res.data;
     } catch (error) {
@@ -127,14 +127,17 @@ export const deletePet = createAsyncThunk(
   }
 );
 
-export const addPets = createAsyncThunk("/user/pets/add", async (data, thunkAPI) => {
-  try {
-    const res = await axios.post("/user/pets/add", data);
-    return res.data;
-  } catch (error) {
-    if (error.response.status === 400) {
-      Notify.failure(error.response.data.message);
+export const addPets = createAsyncThunk(
+  "/user/pets/add",
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.post("/user/pets/add", data);
+      return res.data;
+    } catch (error) {
+      if (error.response.status === 400) {
+        Notify.failure(error.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(error.message);
     }
-    return thunkAPI.rejectWithValue(error.message);
   }
-});
+);

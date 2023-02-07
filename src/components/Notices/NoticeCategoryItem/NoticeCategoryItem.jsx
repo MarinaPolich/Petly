@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
-// import { getUser } from "redux/auth/auth-selector";
-// import { noticesSelector } from "redux/notices/notices-selector";
 import {
   addFavoriteNotice,
   deleteFavoriteNotice,
-  // deleteNotice,
+  deleteNotice,
 } from "redux/notices/notices-operations";
+import { getIsLoggedIn } from "redux/auth/auth-selector";
+import { del, favoriteDefault, favorite } from "assets/icon";
 import { getIsLoggedIn, getUser } from "redux/auth/auth-selector";
 import {
   // del,
@@ -29,9 +29,10 @@ import {
   SpanBreed,
   SpanPlace,
   SpanAge,
+  BtnBox,
   ButtonMore,
-  // ButtonDelete,
-  // SvgDelete,
+  ButtonDelete,
+  SvgDelete,
 } from "./NoticeCategoryItem.styled";
 import { Notify } from "notiflix";
 
@@ -82,7 +83,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isFavorite ? (
+            {!isCheck ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />
@@ -103,8 +104,18 @@ export default function NoticeCategoryItem({ item }) {
             Age: <SpanAge>{birthDateToAge(item.birthday)} year</SpanAge>
           </ListItem>
         </List>
-        <ButtonMore type="submit">Learn more</ButtonMore>
-        {/* <ButtonDelete type="submit" onClick={() => onDeleteNotice(item)}> */}
+        <BtnBox>
+          <ButtonMore type="submit">Learn more</ButtonMore>
+          {item.category === "own" && (
+            <ButtonDelete
+              type="submit"
+              onClick={() => dispatch(deleteNotice(item._id))}
+            >
+              Delete{" "}
+              <SvgDelete src={del} width="20" height="20" title="delete" />
+            </ButtonDelete>
+          )}
+        </BtnBox>
       </DescriptionBox>
     </Notice>
   );

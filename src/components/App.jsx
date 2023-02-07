@@ -1,7 +1,7 @@
 import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { refreshToken } from "redux/auth/auth-operations";
+import { refreshToken, currentUser } from "redux/auth/auth-operations";
 import { getIsRefreshing } from "redux/auth/auth-selector";
 import { Loader } from "./Loader/Loader";
 import { PrivateRoute } from "./PrivateRoute";
@@ -18,13 +18,19 @@ const User = lazy(() => import("../pages/User/User"));
 const NoticesCategoriesList = lazy(() =>
   import("./Notices/NoticesCategoriesList/NoticesCategoriesList")
 );
+const NoticesFavoriteList = lazy(() =>
+  import("./Notices/NoticesCategoriesList/NoticesFavoriteList")
+);
+const NoticesOwnList = lazy(() =>
+  import("./Notices/NoticesCategoriesList/NoticesOwnList")
+);
 
 export const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(getIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshToken());
+    dispatch(refreshToken()).then(() => dispatch(currentUser()));
   }, [dispatch]);
 
   return isRefreshing ? (
@@ -39,21 +45,13 @@ export const App = () => {
         />
         <Route path="register" element={<Registration />} />
         <Route path="news" element={<News />} />
-        <Route
-          path="notices"
-          element={
-            // <Suspense fallback={<Loader />}>
-            //   <Outlet />
-            // </Suspense>
-            <Notices />
-          }
-        >
+        <Route path="notices" element={<Notices />}>
           <Route
             path="favorite"
             element={
               <PrivateRoute
                 redirectTo="/login"
-                component={<NoticesCategoriesList />}
+                component={<NoticesFavoriteList />}
               />
             }
           />
@@ -62,7 +60,7 @@ export const App = () => {
             element={
               <PrivateRoute
                 redirectTo="/login"
-                component={<NoticesCategoriesList />}
+                component={<NoticesOwnList />}
               />
             }
           />

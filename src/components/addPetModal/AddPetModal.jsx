@@ -44,12 +44,20 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
   const [modalActive, setModalActive] = useState(isModalActive);
   const [modal, setModal] = useState(1);
   const [customInput, setCustomInput] = useState(new Date());
+  const [petPhoto, setPetPhoto] = useState(null);
   const dispatch = useDispatch();
-  
-  
-  const onSubmit = (value,{resetForm}) => {
-    dispatch(addPets(value));
-    console.log(value);
+
+  const onSubmit = (value, { resetForm }) => {
+    const data = new FormData();
+    data.append("name", value.name);
+    data.append("dateOfBirth", value.dateOfBirth);
+    data.append("breed", value.breed);
+    data.append("comments", value.comments);
+    data.append("petsPhoto", petPhoto);
+
+    dispatch(addPets(data));
+    // console.log(Object.keys(value), Object.values(value));
+
     setIsModalActive(false);
     resetForm();
     setTimeout(() => {
@@ -101,7 +109,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
           dateOfBirth: customInput,
           breed: "",
           comments: "",
-          // petsPhoto: "",
+          petsPhoto: "",
         }}
         validationSchema={ModalSchema}
         onSubmit={onSubmit}
@@ -114,7 +122,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
           touched,
           setFieldTouched,
           setFieldValue,
-          resetForm
+          resetForm,
         }) => {
           return (
             <FormWrapper onSubmit={handleSubmit}>
@@ -190,9 +198,22 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                   <InputTextImgModa2 htmlFor="addPhoto">
                     Add photo and some comments
                   </InputTextImgModa2>
-                  <FormInputImg type="file" id="petsPhoto" name="petsPhoto" />
+                  <FormInputImg
+                    type="file"
+                    id="petsPhoto"
+                    name="petsPhoto"
+                    onChange={({ target: { files } }) => {
+                      const file = files?.item(0);
+                      console.log(file);
+                      if (!file) return;
+                      setPetPhoto(file);
+                      // const formData = new FormData();
+                      // formData.append("avatar", file);
+                      // onChange(formData);
+                    }}
+                  />
                   <AddPhoto htmlFor="petsPhoto">
-                    <AddIcon src={addIcon} alt="sd" />
+                    <AddIcon src={petPhoto ? petPhoto : addIcon} alt="my pet" />
                   </AddPhoto>
                   <InputTextModa2 htmlFor="comments">Comments</InputTextModa2>
                   <FormInputText

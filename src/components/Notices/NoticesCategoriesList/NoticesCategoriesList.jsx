@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getNoticesByCategories,
-  // getFavUserNotice,
-  // userNotice,
-} from "redux/notices/notices-operations";
+import { getNoticesByCategories } from "redux/notices/notices-operations";
 import { filteredNoticesSelector } from "redux/notices/notices-selector";
 import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList } from "./NoticesCategoriesList.styled";
@@ -21,8 +17,6 @@ const NoticesCategoriesList = () => {
         category === "for-free" ? { category: "in-good-hands" } : { category }
       )
     );
-    // dispatch(getFavUserNotice());
-    // dispatch(userNotice());
   }, [dispatch, category]);
 
   return (
