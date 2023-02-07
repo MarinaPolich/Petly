@@ -1,24 +1,21 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { changeFilterAction } from "redux/news/news-slice";
 import { SearchInput, Form, StyledButton } from "./SearchForm.styled";
 import SVG from "react-inlinesvg";
 import { search } from "assets/icon";
 
-export default function SearchForm() {
+export default function SearchForm({ onSearch }) {
   const [inputValue, setInputValue] = useState("");
-  const dispatch = useDispatch();
+
   const getDataFromInput = (e) => {
-    
-    if(e.target.value === "") {
- dispatch(changeFilterAction(""))
+    if (e.target.value === "") {
+      onSearch("");
     }
     setInputValue(e.target.value);
   };
- 
+
   const changeFilter = (e) => {
     e.preventDefault();
-    dispatch(changeFilterAction(inputValue));
+    onSearch(inputValue);
   };
 
   return (
@@ -29,7 +26,9 @@ export default function SearchForm() {
         placeholder="Search"
         type="text"
       />
-      <StyledButton type="submit"><SVG src={search} width={25} height={25} title="Search" /></StyledButton>
+      <StyledButton type="submit">
+        <SVG src={search} width={25} height={25} title="Search" />
+      </StyledButton>
     </Form>
   );
 }

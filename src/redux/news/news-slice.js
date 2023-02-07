@@ -4,7 +4,6 @@ import { newsOperation } from "./news-operations";
 const newsSlice = createSlice({
   name: "news",
   initialState: {
-    filter: "",
     items: [],
     isLoading: false,
     error: null,
@@ -23,12 +22,6 @@ const newsSlice = createSlice({
         state.error = action.payload;
       });
   },
-  reducers: {
-    changeFilterAction: (state, action) => {
-      state.filter = action.payload;
-    },
-  },
 });
 
 export const newsReducer = newsSlice.reducer;
-export const { changeFilterAction } = newsSlice.actions;
