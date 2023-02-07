@@ -9,11 +9,10 @@ import {
   NextBtn,
   FormInputImg,
   InputTextImgModa2,
-  InputTextModa2,
   FormInputText,
   AddPhoto,
   AddIcon,
-  FormInputDate,
+  Error,
 } from "./addPetModal.style";
 import Modal from "../Modal/Modal";
 
@@ -37,7 +36,7 @@ const ModalSchema = Yup.object().shape({
     .min(2, "Too Short, at least 2!")
     .max(16, "Too Long, at maximum 16!"),
   comments: Yup.string()
-
+    .required()
     .min(8, "Too Short, at least 8!")
     .max(120, "Too Long, at maximum 120!"),
 });
@@ -97,12 +96,12 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
 
   const CustomInput = React.forwardRef(({ value, onClick }, ref) => {
     return (
-      <FormInputDate
+      <FormInput
         onClick={onClick}
         ref={ref}
         selected={value}
         defaultValue={value}
-      ></FormInputDate>
+      ></FormInput>
     );
   });
 
@@ -147,7 +146,9 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     name="name"
                     value={values.name}
                   />
-                  {errors.name && touched.name ? <p>{errors.name}</p> : null}
+                  {errors.name && touched.name ? (
+                    <Error>{errors.name}</Error>
+                  ) : null}
                   <InputText htmlFor="dateOfBirth">Date of birth</InputText>
                   <DatePicker
                     selected={customInput}
@@ -175,7 +176,9 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     name="breed"
                     value={values.breed}
                   />
-                  {errors.breed && touched.breed ? <p>{errors.breed}</p> : null}
+                  {errors.breed && touched.breed ? (
+                    <Error>{errors.breed}</Error>
+                  ) : null}
                   <ModalFooter>
                     <CancelBtn type="button" onClick={() => closeModal()}>
                       Cancel
@@ -225,7 +228,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                       alt="my pet"
                     />
                   </AddPhoto>
-                  <InputTextModa2 htmlFor="comments">Comments</InputTextModa2>
+                  <InputText htmlFor="comments">Comments</InputText>
                   <FormInputText
                     onChange={handleChange}
                     type="text"
@@ -234,7 +237,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     value={values.comments}
                   />
                   {errors.comments && touched.comments ? (
-                    <p>{errors.comments}</p>
+                    <Error>{errors.comments}</Error>
                   ) : null}
                   <ModalFooter>
                     <CancelBtn type="button" onClick={() => setModal(1)}>
