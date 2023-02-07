@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavUserNotice } from "redux/notices/notices-operations";
-// import { getUser } from "redux/auth/auth-selector";
 import { filteredNoticesSelector } from "redux/notices/notices-selector";
 import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
@@ -9,7 +8,6 @@ import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 const NoticesCategoriesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
-  // const user = useSelector(getUser);
   const filteredNotices = useSelector(filteredNoticesSelector);
 
   useEffect(() => {
@@ -19,7 +17,7 @@ const NoticesCategoriesList = () => {
   if (!filteredNotices) {
     return;
   }
-  const totalPage = filteredNotices.length / currentPage / 8;
+  const totalPage = Math.ceil(filteredNotices.length / currentPage / 8);
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
@@ -37,7 +35,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && totalPage && (
+        {totalPage !== currentPage && totalPage !== 0 && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>
