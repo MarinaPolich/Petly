@@ -230,7 +230,7 @@ export const FormInputText = styled.textarea`
   &.error {
     border: 2px solid var(--warning);
 
-  }
+  }}
 `;
 
 export const AddPhoto = styled.label`
