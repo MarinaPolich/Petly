@@ -89,11 +89,20 @@ export const FormInput = styled.input`
     border: 3px solid rgb(245, 146, 86);
   }
 
+  &.error {
+    border: 2px solid var(--warning);
+  }
+`;
+
   @media ${device.tablet} {
     width: 448px;
   }
   @media ${device.desktop} {
     width: 448px;
+  }
+
+  &.error {
+    border: 2px solid var(--warning);
   }
 `;
 
@@ -208,7 +217,6 @@ export const FormInputText = styled.textarea`
   &:focus {
     border: 3px solid rgb(245, 146, 86);
   }
-
   @media ${device.tablet} {
     width: 448px;
     height: 116px;
@@ -216,6 +224,10 @@ export const FormInputText = styled.textarea`
   @media ${device.desktop} {
     width: 448px;
     height: 116px;
+
+  &.error {
+    border: 2px solid var(--warning);
+
   }
 `;
 
@@ -333,6 +345,10 @@ export const CategoryInut = styled.input`
     color: #ffffff;
     background: #f59256;
   }
+
+  &.error {
+    border: 2px solid var(--warning);
+  }
 `;
 
 export const Box2 = styled.div`
@@ -342,5 +358,10 @@ export const Box2 = styled.div`
 `;
 
 export const Error = styled.p`
-  color: red;
+ margin-top: -15px;
+  margin-left: 32px;
+  font-size: 14px;
+  line-height: 1.333;
+  color: var(--warning);
 `;
+

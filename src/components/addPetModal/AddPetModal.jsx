@@ -145,6 +145,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type name pet"
                     name="name"
                     value={values.name}
+                    className={errors.name && touched.name ? "error" : ""}
                   />
                   {errors.name && touched.name ? (
                     <Error>{errors.name}</Error>
@@ -166,7 +167,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     scrollableYearDropdown
                   />
                   {errors.dateOfBirth && touched.dateOfBirth ? (
-                    <p>{errors.dateOfBirth}</p>
+                    <TextError>{errors.dateOfBirth}</TextError>
                   ) : null}
                   <InputText htmlFor="breed">Breed</InputText>
                   <FormInput
@@ -175,6 +176,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type breed"
                     name="breed"
                     value={values.breed}
+                    className={errors.breed && touched.breed ? "error" : ""}
                   />
                   {errors.breed && touched.breed ? (
                     <Error>{errors.breed}</Error>
@@ -235,6 +237,9 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type comments"
                     name="comments"
                     value={values.comments}
+                    className={
+                      errors.comments && touched.comments ? "error" : ""
+                    }
                   />
                   {errors.comments && touched.comments ? (
                     <Error>{errors.comments}</Error>

@@ -30,6 +30,7 @@ import {
   CategoryLabel,
   Box2,
   Error,
+
 } from "./AddNoticesModal.styled";
 import { useDispatch } from "react-redux";
 import { addNotice } from "redux/notices/notices-operations";
@@ -204,9 +205,11 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type name"
                       name="title"
                       value={values.title}
+                      className={errors.title && touched.title ? "error" : ""}
                     />
                     {errors.title && touched.title ? (
                       <Error>{errors.title}</Error>
+
                     ) : null}
                     <InputText htmlFor="name">Name pet</InputText>
                     <FormInput
@@ -215,6 +218,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type name pet"
                       name="name"
                       value={values.name}
+                      className={errors.name && touched.name ? "error" : ""}
                     />
                     {errors.name && touched.name ? (
                       <Error>{errors.name}</Error>
@@ -245,6 +249,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type breed"
                       name="breed"
                       value={values.breed}
+                      className={errors.breed && touched.breed ? "error" : ""}
                     />
                     {errors.breed && touched.breed ? (
                       <Error>{errors.breed}</Error>
@@ -318,6 +323,9 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type name"
                       name="location"
                       value={values.location}
+                      className={
+                        errors.location && touched.location ? "error" : ""
+                      }
                     />
                     {errors.location && touched.location ? (
                       <Error>{errors.location}</Error>
@@ -334,6 +342,9 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                           placeholder="Type name"
                           name="price"
                           value={values.price}
+                          className={
+                            errors.price && touched.price ? "error" : ""
+                          }
                         />
                       </>
                     ) : null}
@@ -366,6 +377,9 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       placeholder="Type comments"
                       name="comments"
                       value={values.comments}
+                      className={
+                        errors.comments && touched.comments ? "error" : ""
+                      }
                     />
                     {errors.comments && touched.comments ? (
                       <Error>{errors.comments}</Error>

@@ -119,7 +119,11 @@ export default function NoticeCategoryItem({ item }) {
           )}
         </BtnBox>
       </DescriptionBox>
-      <ModalNotice activeModal={activeModal} setActiveModal={setActiveModal} />
+      <ModalNotice
+        activeModal={activeModal}
+        setActiveModal={setActiveModal}
+        idNotice={item._id}
+      />
     </Notice>
   );
 }
