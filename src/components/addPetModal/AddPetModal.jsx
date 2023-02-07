@@ -167,7 +167,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     scrollableYearDropdown
                   />
                   {errors.dateOfBirth && touched.dateOfBirth ? (
-                    <TextError>{errors.dateOfBirth}</TextError>
+                    <Error>{errors.dateOfBirth}</Error>
                   ) : null}
                   <InputText htmlFor="breed">Breed</InputText>
                   <FormInput
