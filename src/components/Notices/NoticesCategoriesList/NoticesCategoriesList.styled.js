@@ -18,11 +18,16 @@ export const BoxButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 120px;
+  
 
   @media ${device.mobile} {
     gap: 20px;
     flex-wrap: wrap;
+  }
+
+  @media ${device.desktop} {
+    gap: 72px;
   }
 `;
 
