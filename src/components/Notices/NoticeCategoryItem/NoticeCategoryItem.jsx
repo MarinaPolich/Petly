@@ -100,7 +100,7 @@ export default function NoticeCategoryItem({ item }) {
         </List>
         <BtnBox>
           <ButtonMore type="submit">Learn more</ButtonMore>
-          {item.category === "own" && (
+          {item.owner === user?._id && (
             <ButtonDelete
               type="submit"
               onClick={() => dispatch(deleteNotice(item._id))}
