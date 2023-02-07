@@ -13,16 +13,12 @@ export const Box = styled.div`
   margin: 0 auto;
   padding: 0 20px;
 
-  /* @media ${device.mobile} {
-    max-height: calc(100vh - 60px);
-    overflow: auto;
-  } */
   @media ${device.tablet} {
     width: ${tablet}px;
-    padding: 24px 32px;
+    padding: 24px 32px 0 32px;
   }
   @media ${device.desktop} {
     width: ${desktop}px;
-    padding: 20px 16px;
+    padding: 20px 16px 0 20px;
   }
 `;

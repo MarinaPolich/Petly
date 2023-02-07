@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   FormWrapper,
   InputText,
@@ -8,13 +9,13 @@ import {
   NextBtn,
   FormInputImg,
   InputTextImgModa2,
-  InputTextModa2,
   FormInputText,
   AddPhoto,
   AddIcon,
-  FormInputDate,
+  Error,
 } from "./addPetModal.style";
 import Modal from "../Modal/Modal";
+
 import addIcon from "../../assets/icon/Icon_add_photo.svg";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -45,19 +46,28 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
   const [modal, setModal] = useState(1);
   const [customInput, setCustomInput] = useState(new Date());
   const [petPhoto, setPetPhoto] = useState(null);
+  const [previevPet, setPrevievPet] = useState(null);
   const dispatch = useDispatch();
 
+  const previevFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPrevievPet(reader.result);
+    };
+  };
   const onSubmit = (value, { resetForm }) => {
     const data = new FormData();
     data.append("name", value.name);
     data.append("dateOfBirth", value.dateOfBirth);
     data.append("breed", value.breed);
     data.append("comments", value.comments);
-    data.append("petsPhoto", petPhoto);
+    if (petPhoto) data.append("petsPhoto", petPhoto);
 
     dispatch(addPets(data));
-    // console.log(Object.keys(value), Object.values(value));
 
+    setPetPhoto(null);
+    setPrevievPet(null);
     setIsModalActive(false);
     resetForm();
     setTimeout(() => {
@@ -86,12 +96,12 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
 
   const CustomInput = React.forwardRef(({ value, onClick }, ref) => {
     return (
-      <FormInputDate
+      <FormInput
         onClick={onClick}
         ref={ref}
         selected={value}
         defaultValue={value}
-      ></FormInputDate>
+      ></FormInput>
     );
   });
 
@@ -135,8 +145,11 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type name pet"
                     name="name"
                     value={values.name}
+                    className={errors.name && touched.name ? "error" : ""}
                   />
-                  {errors.name && touched.name ? <p>{errors.name}</p> : null}
+                  {errors.name && touched.name ? (
+                    <Error>{errors.name}</Error>
+                  ) : null}
                   <InputText htmlFor="dateOfBirth">Date of birth</InputText>
                   <DatePicker
                     selected={customInput}
@@ -154,7 +167,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     scrollableYearDropdown
                   />
                   {errors.dateOfBirth && touched.dateOfBirth ? (
-                    <p>{errors.dateOfBirth}</p>
+                    <Error>{errors.dateOfBirth}</Error>
                   ) : null}
                   <InputText htmlFor="breed">Breed</InputText>
                   <FormInput
@@ -163,8 +176,11 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                     placeholder="Type breed"
                     name="breed"
                     value={values.breed}
+                    className={errors.breed && touched.breed ? "error" : ""}
                   />
-                  {errors.breed && touched.breed ? <p>{errors.breed}</p> : null}
+                  {errors.breed && touched.breed ? (
+                    <Error>{errors.breed}</Error>
+                  ) : null}
                   <ModalFooter>
                     <CancelBtn type="button" onClick={() => closeModal()}>
                       Cancel
@@ -173,18 +189,16 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                       type="button"
                       onClick={async () => {
                         if (
-                          !(
-                            touched.name &&
-                            touched.dateOfBirth &&
-                            touched.breed
-                          )
+                          errors.name ||
+                          values.name === "" ||
+                          errors.breed ||
+                          values.breed === ""
                         ) {
                           setFieldTouched("name");
-                          setFieldTouched("dateOfBirth");
                           setFieldTouched("breed");
                           return;
                         }
-                        if (errors.name || errors.breed) return;
+
                         setModal(2);
                       }}
                     >
@@ -206,25 +220,29 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                       const file = files?.item(0);
                       console.log(file);
                       if (!file) return;
+                      previevFile(file);
                       setPetPhoto(file);
-                      // const formData = new FormData();
-                      // formData.append("avatar", file);
-                      // onChange(formData);
                     }}
                   />
                   <AddPhoto htmlFor="petsPhoto">
-                    <AddIcon src={petPhoto ? petPhoto : addIcon} alt="my pet" />
+                    <AddIcon
+                      src={previevPet ? previevPet : addIcon}
+                      alt="my pet"
+                    />
                   </AddPhoto>
-                  <InputTextModa2 htmlFor="comments">Comments</InputTextModa2>
+                  <InputText htmlFor="comments">Comments</InputText>
                   <FormInputText
                     onChange={handleChange}
                     type="text"
                     placeholder="Type comments"
                     name="comments"
                     value={values.comments}
+                    className={
+                      errors.comments && touched.comments ? "error" : ""
+                    }
                   />
                   {errors.comments && touched.comments ? (
-                    <p>{errors.comments}</p>
+                    <Error>{errors.comments}</Error>
                   ) : null}
                   <ModalFooter>
                     <CancelBtn type="button" onClick={() => setModal(1)}>

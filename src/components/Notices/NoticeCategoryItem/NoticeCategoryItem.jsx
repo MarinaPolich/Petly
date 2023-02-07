@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
 import { deleteNotice } from "redux/notices/notices-operations";
-import {
-  addFavoriteNotice,
-  deleteFavoriteNotice,
-} from "redux/auth/auth-operations";
-import { getIsLoggedIn } from "redux/auth/auth-selector";
+
 import { del, favoriteDefault, favorite } from "assets/icon";
+import { getIsLoggedIn, getUser } from "redux/auth/auth-selector";
+
 import {
   Notice,
   BoxImage,
@@ -29,11 +27,21 @@ import {
   SvgDelete,
 } from "./NoticeCategoryItem.styled";
 import { Notify } from "notiflix";
+import ModalNotice from "components/ModalNotice/ModalNotice";
 
 export default function NoticeCategoryItem({ item }) {
   const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
   const isLogin = useSelector(getIsLoggedIn);
+  const user = useSelector(getUser);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [activeModal, setActiveModal] = useState(false);
+
+  useEffect(() => {
+    if (user?.favorite) {
+      setIsFavorite(user?.favorite?.includes(item._id));
+    }
+  }, [dispatch, item._id, user?.favorite]);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -55,6 +63,10 @@ export default function NoticeCategoryItem({ item }) {
     setIsCheck(checked);
   };
 
+  const onClick = () => {
+    setActiveModal(true);
+  };
+
   return (
     <Notice>
       <BoxImage>
@@ -68,7 +80,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isCheck ? (
+            {!isFavorite ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />
@@ -90,18 +102,25 @@ export default function NoticeCategoryItem({ item }) {
           </ListItem>
         </List>
         <BtnBox>
-          <ButtonMore type="submit">Learn more</ButtonMore>
+          <ButtonMore onClick={onClick} type="button">
+            Learn more
+          </ButtonMore>
           {item.category === "own" && (
             <ButtonDelete
               type="submit"
               onClick={() => dispatch(deleteNotice(item._id))}
             >
-              Delete{" "}
+              Delete
               <SvgDelete src={del} width="20" height="20" title="delete" />
             </ButtonDelete>
           )}
         </BtnBox>
       </DescriptionBox>
+      <ModalNotice
+        activeModal={activeModal}
+        setActiveModal={setActiveModal}
+        idNotice={item._id}
+      />
     </Notice>
   );
 }
