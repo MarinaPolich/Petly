@@ -1,25 +1,34 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavUserNotice } from "redux/notices/notices-operations";
-// import { getUser } from "redux/auth/auth-selector";
 import { filteredNoticesSelector } from "redux/notices/notices-selector";
 import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 
 const NoticesCategoriesList = () => {
+  const [notices, setNotices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [noticesPerPage] = useState(8);
   const dispatch = useDispatch();
-  // const user = useSelector(getUser);
   const filteredNotices = useSelector(filteredNoticesSelector);
 
   useEffect(() => {
     dispatch(getFavUserNotice());
   }, [dispatch]);
 
+  useEffect(() => {
+    setNotices(filteredNotices);
+  }, [filteredNotices]);
+
   if (!filteredNotices) {
     return;
   }
-  const totalPage = filteredNotices.length / currentPage / 8;
+
+  const lastNoticesIndex = currentPage * noticesPerPage;
+  const firstNoticesIndex = lastNoticesIndex - noticesPerPage;
+  const currentNotices = notices?.slice(firstNoticesIndex, lastNoticesIndex);
+
+  const totalPage = Math.ceil(filteredNotices.length / 8);
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
@@ -27,7 +36,7 @@ const NoticesCategoriesList = () => {
   return (
     <>
       <BoxList>
-        {filteredNotices.map((item) => (
+        {currentNotices?.map((item) => (
           <NoticeCategoryItem item={item} key={item._id}></NoticeCategoryItem>
         ))}
       </BoxList>

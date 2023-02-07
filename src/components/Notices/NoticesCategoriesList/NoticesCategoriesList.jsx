@@ -7,7 +7,9 @@ import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 
 const NoticesCategoriesList = () => {
+  const [notices, setNotices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [noticesPerPage] = useState(8);
   const { category } = useParams();
   const dispatch = useDispatch();
   const filteredNotices = useSelector(filteredNoticesSelector);
@@ -20,10 +22,19 @@ const NoticesCategoriesList = () => {
     );
   }, [dispatch, category]);
 
+  useEffect(() => {
+    setNotices(filteredNotices);
+  }, [filteredNotices]);
+
   if (!filteredNotices) {
     return;
   }
-  const totalPage = filteredNotices.length / currentPage / 8;
+
+  const lastNoticesIndex = currentPage * noticesPerPage;
+  const firstNoticesIndex = lastNoticesIndex - noticesPerPage;
+  const currentNotices = notices?.slice(firstNoticesIndex, lastNoticesIndex);
+
+  const totalPage = Math.ceil(filteredNotices.length / 8);
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
@@ -31,7 +42,7 @@ const NoticesCategoriesList = () => {
   return (
     <>
       <BoxList>
-        {filteredNotices.map((item) => (
+        {currentNotices?.map((item) => (
           <NoticeCategoryItem item={item} key={item._id}></NoticeCategoryItem>
         ))}
       </BoxList>
@@ -41,7 +52,7 @@ const NoticesCategoriesList = () => {
             Prev Page
           </Button>
         )}
-        {totalPage !== currentPage && totalPage && (
+        {totalPage !== currentPage && (
           <Button type="submit" onClick={nextPage}>
             Next Page
           </Button>
