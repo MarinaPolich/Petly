@@ -1,7 +1,7 @@
 import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { refreshToken } from "redux/auth/auth-operations";
+import { refreshToken, currentUser } from "redux/auth/auth-operations";
 import { getIsRefreshing } from "redux/auth/auth-selector";
 import { Loader } from "./Loader/Loader";
 import { PrivateRoute } from "./PrivateRoute";
@@ -30,7 +30,7 @@ export const App = () => {
   const isRefreshing = useSelector(getIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshToken());
+    dispatch(refreshToken()).then(() => dispatch(currentUser()));
   }, [dispatch]);
 
   return isRefreshing ? (
