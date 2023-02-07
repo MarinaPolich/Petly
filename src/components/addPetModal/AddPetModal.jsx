@@ -35,7 +35,7 @@ const ModalSchema = Yup.object().shape({
     .min(2, "Too Short, at least 2!")
     .max(16, "Too Long, at maximum 16!"),
   comments: Yup.string()
-    .required()
+
     .min(8, "Too Short, at least 8!")
     .max(120, "Too Long, at maximum 120!"),
 });
@@ -57,7 +57,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
 
     dispatch(addPets(data));
     // console.log(Object.keys(value), Object.values(value));
-
+    setPetPhoto(null);
     setIsModalActive(false);
     resetForm();
     setTimeout(() => {
@@ -173,18 +173,16 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                       type="button"
                       onClick={async () => {
                         if (
-                          !(
-                            touched.name &&
-                            touched.dateOfBirth &&
-                            touched.breed
-                          )
+                          errors.name ||
+                          values.name === "" ||
+                          errors.breed ||
+                          values.breed === ""
                         ) {
                           setFieldTouched("name");
-                          setFieldTouched("dateOfBirth");
                           setFieldTouched("breed");
                           return;
                         }
-                        if (errors.name || errors.breed) return;
+
                         setModal(2);
                       }}
                     >
