@@ -17,12 +17,9 @@ import {
   CancelBtn,
   NextBtn,
   FormInputImg,
-  InputTextImgModa2,
-  InputTextModa2,
   FormInputText,
   AddPhoto,
   AddIcon,
-  FormInputDate,
   ModalText,
   Span,
   Box,
@@ -32,12 +29,17 @@ import {
   CategoryInut,
   CategoryLabel,
   Box2,
-  TextError,
+  Error,
+
 } from "./AddNoticesModal.styled";
 import { useDispatch } from "react-redux";
 import { addNotice } from "redux/notices/notices-operations";
 
 const ModalSchema = Yup.object().shape({
+  title: Yup.string()
+    .required()
+    .min(2, "Too Short, at least 8!")
+    .max(48, "Too Long, at maximum 120!"),
   name: Yup.string()
     .required()
     .matches(/^[a-zA-Zа-яіїєґА-ЯІЇЄҐ]+$/, "Invalid name")
@@ -52,6 +54,8 @@ const ModalSchema = Yup.object().shape({
     .required()
     .min(8, "Too Short, at least 8!")
     .max(120, "Too Long, at maximum 120!"),
+  location: Yup.string().required(),
+  price: Yup.string().required(),
 });
 
 const AddNoticesModal = ({ activeModal, setActiveModal }) => {
@@ -60,10 +64,6 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
   const [customInput, setCustomInput] = useState(new Date());
   const [petPhoto, setPetPhoto] = useState(null);
   const [previevPet, setPrevievPet] = useState(null);
-  // const [formData, updateFormData] = useState([]);
-  // const handleChange = (e) => {
-  //   updateFormData({ ...formData, [e.target.name]: e.target.value.trim() });
-  // };
   const dispatch = useDispatch();
   const onSubmit = (value, { resetForm }) => {
     const data = new FormData();
@@ -112,12 +112,12 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
   }, [modalActive]);
   const CustomInput = React.forwardRef(({ value, onClick }, ref) => {
     return (
-      <FormInputDate
+      <FormInput
         onClick={onClick}
         ref={ref}
         selected={value}
         defaultValue={value}
-      ></FormInputDate>
+      ></FormInput>
     );
   });
 
@@ -171,6 +171,9 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         name="category"
                         value="lost-found"
                       />
+                      {errors.category && touched.category ? (
+                        <Error>{errors.category}</Error>
+                      ) : null}
                       <CategoryLabel htmlFor="Choice1">
                         lost/found
                       </CategoryLabel>
@@ -205,7 +208,8 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       className={errors.title && touched.title ? "error" : ""}
                     />
                     {errors.title && touched.title ? (
-                      <TextError>{errors.title}</TextError>
+                      <Error>{errors.title}</Error>
+
                     ) : null}
                     <InputText htmlFor="name">Name pet</InputText>
                     <FormInput
@@ -217,7 +221,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       className={errors.name && touched.name ? "error" : ""}
                     />
                     {errors.name && touched.name ? (
-                      <TextError>{errors.name}</TextError>
+                      <Error>{errors.name}</Error>
                     ) : null}
                     <InputText htmlFor="birthday">Date of birth</InputText>
                     <DatePicker
@@ -236,7 +240,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       scrollableYearDropdown
                     />
                     {errors.birthday && touched.birthday ? (
-                      <p>{errors.birthday}</p>
+                      <Error>{errors.birthday}</Error>
                     ) : null}
                     <InputText htmlFor="breed">Breed</InputText>
                     <FormInput
@@ -248,7 +252,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       className={errors.breed && touched.breed ? "error" : ""}
                     />
                     {errors.breed && touched.breed ? (
-                      <TextError>{errors.breed}</TextError>
+                      <Error>{errors.breed}</Error>
                     ) : null}
                     <ModalFooter>
                       <CancelBtn onClick={() => closeModal()}>Cancel</CancelBtn>
@@ -256,15 +260,16 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         type="button"
                         onClick={async () => {
                           if (
-                            !(
-                              // touched.category &&
-                              (
-                                touched.title &&
-                                touched.name &&
-                                touched.birthday &&
-                                touched.breed
-                              )
-                            )
+                            errors.category ||
+                            values.category === "" ||
+                            errors.title ||
+                            values.title === "" ||
+                            errors.name ||
+                            values.name === "" ||
+                            errors.birthday ||
+                            values.birthday === "" ||
+                            errors.breed ||
+                            values.breed === ""
                           ) {
                             // setFieldTouched("category");
                             setFieldTouched("title");
@@ -273,14 +278,6 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                             setFieldTouched("breed");
                             return;
                           }
-                          if (
-                            // errors.category ||
-                            errors.title ||
-                            errors.name ||
-                            errors.birthday ||
-                            errors.breed
-                          )
-                            return;
                           setModal(2);
                         }}
                       >
@@ -323,7 +320,6 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                     <FormInput
                       onChange={handleChange}
                       type="text"
-                      required
                       placeholder="Type name"
                       name="location"
                       value={values.location}
@@ -332,7 +328,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       }
                     />
                     {errors.location && touched.location ? (
-                      <TextError>{errors.location}</TextError>
+                      <Error>{errors.location}</Error>
                     ) : null}
 
                     {values.category === "sell" ? (
@@ -343,7 +339,6 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         <FormInput
                           onChange={handleChange}
                           type="text"
-                          required
                           placeholder="Type name"
                           name="price"
                           value={values.price}
@@ -354,9 +349,9 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       </>
                     ) : null}
                     {errors.price && touched.price ? (
-                      <TextError>{errors.price}</TextError>
+                      <Error>{errors.price}</Error>
                     ) : null}
-                    <InputTextImgModa2>Load the pet’s image:</InputTextImgModa2>
+                    <InputText>Load the pet’s image:</InputText>
                     <FormInputImg
                       type="file"
                       id="addPhoto"
@@ -375,7 +370,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                         alt="sd"
                       />
                     </AddPhoto>
-                    <InputTextModa2 required>Comments</InputTextModa2>
+                    <InputText required>Comments</InputText>
                     <FormInputText
                       onChange={handleChange}
                       type="text"
@@ -387,7 +382,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                       }
                     />
                     {errors.comments && touched.comments ? (
-                      <TextError>{errors.comments}</TextError>
+                      <Error>{errors.comments}</Error>
                     ) : null}
                     <ModalFooter>
                       <CancelBtn type="button" onClick={() => setModal(1)}>
