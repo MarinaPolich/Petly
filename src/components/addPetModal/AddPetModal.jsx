@@ -205,9 +205,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
                       console.log(file);
                       if (!file) return;
                       setPetPhoto(file);
-                      // const formData = new FormData();
-                      // formData.append("avatar", file);
-                      // onChange(formData);
+        
                     }}
                   />
                   <AddPhoto htmlFor="petsPhoto">
