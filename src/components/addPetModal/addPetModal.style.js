@@ -43,7 +43,7 @@ export const InputText = styled.label`
   &.error {
     border: 2px solid var(--warning);
 
-  }
+  }}
 `;
 
 export const FormInput = styled.input`
@@ -73,7 +73,7 @@ export const FormInput = styled.input`
   &.error {
     border: 2px solid var(--warning);
   }
-`;
+
 
   @media ${device.tablet} {
     width: 448px;
@@ -232,7 +232,7 @@ export const FormInputText = styled.textarea`
   &.error {
     border: 2px solid var(--warning);
 
-  }
+  }}
 `;
 
 export const AddPhoto = styled.label`
