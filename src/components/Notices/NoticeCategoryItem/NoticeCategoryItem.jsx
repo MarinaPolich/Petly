@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
+import { deleteNotice } from "redux/notices/notices-operations";
 import {
   addFavoriteNotice,
   deleteFavoriteNotice,
-  deleteNotice,
-} from "redux/notices/notices-operations";
+} from "redux/auth/auth-operations";
 import { getIsLoggedIn } from "redux/auth/auth-selector";
 import { del, favoriteDefault, favorite } from "assets/icon";
 import {
@@ -28,6 +28,7 @@ import {
   ButtonDelete,
   SvgDelete,
 } from "./NoticeCategoryItem.styled";
+import { Notify } from "notiflix";
 
 export default function NoticeCategoryItem({ item }) {
   const [isCheck, setIsCheck] = useState(false);
@@ -42,7 +43,7 @@ export default function NoticeCategoryItem({ item }) {
   }
   const favoriteCheckbox = ({ target: { checked } }) => {
     if (!isLogin) {
-      console.log("Login false");
+      Notify.failure("You need to login");
       return;
     }
 

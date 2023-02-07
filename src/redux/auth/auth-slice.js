@@ -8,6 +8,8 @@ import {
   currentUser,
   deletePet,
   addPets,
+  addFavoriteNotice,
+  deleteFavoriteNotice,
 } from "./auth-operations";
 
 const handlePending = (state) => {
@@ -88,6 +90,16 @@ const authSlice = createSlice({
       })
       .addCase(addPets.fulfilled, (state, { payload }) => {
         state.user.pets.push(payload.data.pet);
+      })
+      .addCase(addFavoriteNotice.pending, handlePending)
+      .addCase(addFavoriteNotice.rejected, handleRejected)
+      .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favorite.push(payload.data.noticeId);
+      })
+      .addCase(deleteFavoriteNotice.pending, handlePending)
+      .addCase(deleteFavoriteNotice.rejected, handleRejected)
+      .addCase(deleteFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favorite.splice(payload.data, 1);
       }),
 });
 

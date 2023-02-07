@@ -4,8 +4,6 @@ import {
   addNotice,
   userNotice,
   getFavUserNotice,
-  addFavoriteNotice,
-  deleteFavoriteNotice,
   deleteNotice,
 } from "./notices-operations";
 
@@ -85,40 +83,6 @@ const noticesSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getFavUserNotice.rejected, (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      })
-      .addCase(addFavoriteNotice.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        // notices.items.filter((item) => {
-        //   if (item._id !== payload._id) {
-        //     notices.favorite.push(item);
-        //   }
-        //   return item;
-        // });
-      })
-      .addCase(addFavoriteNotice.rejected, (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      })
-      .addCase(deleteFavoriteNotice.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(deleteFavoriteNotice.fulfilled, (state) => {
-        state.isLoading = false;
-        // return notices.favorite.filter((item) => {
-        //   if (item._id === payload._id) {
-        //     notices.favorite.unshift(item);
-        //   }
-        //   return item;
-        // });
-      })
-      .addCase(deleteFavoriteNotice.rejected, (state, { payload }) => {
         state.error = payload;
         state.isLoading = false;
       })
