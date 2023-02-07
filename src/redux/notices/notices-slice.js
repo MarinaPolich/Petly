@@ -10,6 +10,8 @@ import {
 } from "./notices-operations";
 
 const initialState = {
+  category: "",
+  totalCount: 0,
   filter: "",
   items: [],
   error: null,
@@ -33,7 +35,9 @@ const noticesSlice = createSlice({
 
       .addCase(getNoticesByCategories.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.items = payload;
+        state.items = payload.notices;
+        state.category = payload.category;
+        state.totalCount = payload.totalCount;
       })
       .addCase(getNoticesByCategories.rejected, (state, { payload }) => {
         state.error = payload;
@@ -71,7 +75,9 @@ const noticesSlice = createSlice({
       })
       .addCase(userNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.items = payload;
+        state.items = payload.data;
+        state.category = "own";
+        state.totalCount = payload.counter;
       })
       .addCase(userNotice.rejected, (state, { payload }) => {
         state.error = payload;
@@ -83,7 +89,9 @@ const noticesSlice = createSlice({
       })
       .addCase(getFavUserNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.items = payload;
+        state.items = payload.favorite;
+        state.category = "favorite";
+        state.totalCount = payload.counter;
       })
       .addCase(getFavUserNotice.rejected, (state, { payload }) => {
         state.error = payload;
