@@ -1,58 +1,54 @@
 import styled from "styled-components";
 import { device } from "stylesheet/breakpoints";
-import {
-  pedigree_dog_d,
-  pedigree_dog_m,
-  pedigree_dog_t,
-  BgD,
-  BgM,
-  BgT,
-  Union,
-} from "assets/image/index";
+import { Union } from "assets/image/index";
+import { wave_m, wave_t, wave_d, wave_d2 } from "./../../assets/icon/";
 
 export const Container = styled.div`
-  padding-top: 60px;
-  min-height: 545px;
-  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 0 auto;
+
+  height: calc(100vh - 59px);
+  padding-top: 60px;
+  overflow: hidden;
+
   @media ${device.tablet} {
+    height: calc(100vh - 96px);
     padding-top: 88px;
-    max-width: 768px;
-    min-height: 1121px;
   }
+
   @media ${device.desktop} {
+    align-items: start;
     padding-top: 92px;
     height: calc(100vh - 88px);
-    max-width: 1280px;
   }
 
   &::after {
     content: "";
-    z-index: -11;
-    min-height: 543px;
     position: absolute;
     bottom: 0;
     left: 0;
-    right: 0;
     width: 100%;
+    height: calc(100vh - 59px);
+    background-image: url(${wave_m});
     background-repeat: no-repeat;
-    background-position: bottom;
-    background-image: url(${pedigree_dog_m}), url(${BgM});
-    background-size: 320px 337px, 100vw 470px;
+    background-size: 100vw;
+    background-position: bottom left;
+    z-index: -10;
 
     @media ${device.tablet} {
-      min-height: 1088px;
-      height: calc(100vh - 96px);
-      background-image: url(${pedigree_dog_t}), url(${BgT});
-      background-size: 645px 715px, 100vw 1033px;
-      background-position: bottom;
+      height: calc(100vh - 114px);
+      background-image: url(${wave_t});
+      background-position: left;
     }
 
     @media ${device.desktop} {
-      min-height: 1108px;
-      background-image: url(${pedigree_dog_d}), url(${BgD}), url(${Union});
-      background-size: 590px 640px, 100vw calc(100vw * 0.375), 92px 89px;
-      background-position-x: calc(50% + 330px), center, calc(50% + 118px);
+      min-height: 100vh;
+      background-image: url(${wave_d2}), url(${wave_d}), url(${Union});
+      background-size: 40vw calc(90vw * 0.375), 100vw calc(100vw * 0.375),
+        92px 89px;
+      background-position-x: right, left, calc(50% + 118px);
       background-position-y: bottom, bottom, calc(50% - 204px);
     }
   }
@@ -64,11 +60,47 @@ export const Text = styled.p`
   font-size: 32px;
   line-height: 1.38;
 
-  color: #000000;
+  color: var(--black);
 
   @media ${device.tabDesk} {
     max-width: 588px;
     font-size: 68px;
     line-height: 1.47;
+  }
+`;
+
+export const Thumba = styled.div`
+  width: 100%;
+  aspect-ratio: 0.949;
+  object-fit: cover;
+  z-index: -15px;
+
+  @media ${device.mobile} {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  @media ${device.tablet} {
+    aspect-ratio: 0.902;
+  }
+
+  @media ${device.desktop} {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    aspect-ratio: 0.922;
+  }
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: auto;
+
+  @media ${device.tablet} {
+    width: auto;
+    position: absolute;
+    bottom: 0;
   }
 `;
