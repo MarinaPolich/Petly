@@ -12,7 +12,6 @@ import {
   Image,
   List,
   ListItem,
-  
   Span,
   SpanComments,
   SpanData,
@@ -23,6 +22,7 @@ import {
 } from "./ModalNotice.styled";
 import { FavoriteCheck } from "../Notices/NoticeCategoryItem/NoticeCategoryItem.styled";
 import { favoriteDefault, favorite } from "assets/icon";
+import { ModalFooter, NextBtn } from "components/addPetModal/addPetModal.style";
 
 const ModalNotice = ({
   activeModal,
