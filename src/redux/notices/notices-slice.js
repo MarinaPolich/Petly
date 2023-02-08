@@ -95,7 +95,7 @@ const noticesSlice = createSlice({
       .addCase(deleteNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.items = [];
+        //state.items = [];
       })
       .addCase(deleteNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
