@@ -77,7 +77,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isCheck ? (
+            {!isCheck || !isLogin ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />
@@ -102,7 +102,7 @@ export default function NoticeCategoryItem({ item }) {
           <ButtonMore type="submit" onClick={onClick}>
             Learn more
           </ButtonMore>
-          {item.owner === user?._id && (
+          {(item.owner === user?._id && isLogin) && (
             <ButtonDelete
               type="submit"
               onClick={() => dispatch(deleteNotice(item._id))}
