@@ -82,6 +82,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
     dispatch(addNotice(data));
     setPetPhoto(null);
     setActiveModal(false);
+    setPrevievPet(null)
     resetForm();
     setTimeout(() => {
       setModal(1);

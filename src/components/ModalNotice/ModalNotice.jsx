@@ -1,6 +1,28 @@
 import axios from "axios";
 import Modal from "components/Modal/Modal";
 import { useEffect, useState } from "react";
+import {
+  BoxImage,
+  CancelBtn,
+  Category,
+  Comments,
+  Image,
+  List,
+  ListItem,
+  ModalFooter,
+  NextBtn,
+  SpanBirthday,
+  SpanBreed,
+  SpanComments,
+  SpanEmail,
+  SpanName,
+  SpanPhone,
+  SpanPlace,
+  SpanPrice,
+  SpanTheSex,
+  Title,
+  Wrapper,
+} from "./ModalNotice.styled";
 
 const ModalNotice = ({ activeModal, setActiveModal, idNotice }) => {
   const [modalActive, setModalActive] = useState(activeModal);
@@ -50,11 +72,50 @@ const ModalNotice = ({ activeModal, setActiveModal, idNotice }) => {
       setModalClose={closeModal}
     >
       {dataNotice && user ? (
-        <>
-          <p>
-            ТУТ ВСТАВЛЯЙ СВОЮ МОДАЛКУ И ВЫТЯГИВАЙ ДАННЫЕ С dataNotice И user
-          </p>
-        </>
+        <Wrapper>
+          <BoxImage>
+            <Image src={dataNotice.avatarUrl} alt="" />
+            <Category>{dataNotice.category}</Category>
+          </BoxImage>
+          <Title>{dataNotice.title}</Title>
+          <List>
+            <ListItem>
+              Name: <SpanName>{dataNotice.name}</SpanName>
+            </ListItem>
+            <ListItem>
+              Birthday: <SpanBirthday>{dataNotice.birthday}</SpanBirthday>
+            </ListItem>
+            <ListItem>
+              Breed: <SpanBreed>{dataNotice.breed}</SpanBreed>
+            </ListItem>
+            <ListItem>
+              Lovation: <SpanPlace>{dataNotice.location}</SpanPlace>
+            </ListItem>
+            <ListItem>
+              The sex: <SpanTheSex>{dataNotice.sex}</SpanTheSex>
+            </ListItem>
+            <ListItem>
+              Email: <SpanEmail>{user.email}</SpanEmail>
+            </ListItem>
+            <ListItem>
+              Phone: <SpanPhone>{user.phone}</SpanPhone>
+            </ListItem>
+            <ListItem>
+              Price: <SpanPrice>{dataNotice.price}</SpanPrice>
+            </ListItem>
+          </List>
+          <Comments>
+            <SpanComments>Comments: </SpanComments>
+            {dataNotice.comments}
+          </Comments>
+
+          <ModalFooter>
+            <CancelBtn type="button">
+              Add to
+            </CancelBtn>
+            <NextBtn type="button">Contact</NextBtn>
+          </ModalFooter>
+        </Wrapper>
       ) : null}
     </Modal>
   );
