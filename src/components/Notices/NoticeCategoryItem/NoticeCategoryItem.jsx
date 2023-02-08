@@ -33,7 +33,10 @@ import {
   deleteFavoriteNotice,
 } from "redux/auth/auth-operations";
 
-export default function NoticeCategoryItem({ item }) {
+export default function NoticeCategoryItem({
+  item,
+  onChangeFavorite = () => {},
+}) {
   const dispatch = useDispatch();
   const isLogin = useSelector(getIsLoggedIn);
   const user = useSelector(getUser);
@@ -58,6 +61,7 @@ export default function NoticeCategoryItem({ item }) {
       dispatch(deleteFavoriteNotice(item._id));
     }
     setIsCheck(checked);
+    onChangeFavorite(checked);
   };
 
   const onClick = () => {

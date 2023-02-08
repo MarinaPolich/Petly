@@ -81,7 +81,6 @@ const noticesSlice = createSlice({
       .addCase(getFavUserNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.items = [];
       })
       .addCase(getFavUserNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
