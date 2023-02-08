@@ -19,10 +19,12 @@ import {
   Wrapper,
   FavoriteLabel,
   ContactLink,
+  ModalFooter,
+  NextBtn,
 } from "./ModalNotice.styled";
 import { FavoriteCheck } from "../Notices/NoticeCategoryItem/NoticeCategoryItem.styled";
 import { favoriteDefault, favorite } from "assets/icon";
-import { ModalFooter, NextBtn } from "components/addPetModal/addPetModal.style";
+// import { ModalFooter, NextBtn } from "components/addPetModal/addPetModal.style";
 
 const ModalNotice = ({
   activeModal,
