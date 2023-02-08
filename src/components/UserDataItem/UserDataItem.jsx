@@ -35,7 +35,9 @@ const UserDataItem = ({ user }) => {
 
   useEffect(() => {
     setCustomInput(
-      user.birthday !== undefined ? new Date(user.birthday) : new Date()
+      user.birthday !== undefined && user.birthday !== "00.00.0000"
+        ? new Date(user.birthday)
+        : new Date()
     );
   }, [user.birthday]);
 
