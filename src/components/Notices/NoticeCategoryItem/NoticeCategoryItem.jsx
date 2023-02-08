@@ -43,12 +43,21 @@ export default function NoticeCategoryItem({
   const [isCheck, setIsCheck] = useState(user?.favorite?.includes(item._id));
   const [activeModal, setActiveModal] = useState(false);
 
-  function birthDateToAge(birthDate) {
-    birthDate = new Date(birthDate);
-    const now = new Date();
-    const age = now.getFullYear() - birthDate.getFullYear();
-    return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
+  function birthDateToAge(dateString) {
+    const today = new Date();
+    const birthDate = new Date(
+      dateString[6] + dateString[7] + dateString[8] + dateString[9],
+      dateString[3] + dateString[4] - 1,
+      dateString[0] + dateString[1]
+    );
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
   }
+
   const favoriteCheckbox = async ({ target: { checked } }) => {
     if (!isLogin) {
       Notify.failure("You need to login");
