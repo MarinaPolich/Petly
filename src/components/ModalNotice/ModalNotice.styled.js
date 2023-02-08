@@ -126,12 +126,6 @@ export const SpanComments = styled.span`
   @media ${device.desktop} {
     font-size: 16px;
   }
-
-export const Span = styled.span`
-  display: inline-block;
-  width: 70px;
-  margin-right: 57px;
-
 `;
 
 export const Span = styled.span`
@@ -155,7 +149,6 @@ export const Span = styled.span`
   }
 `;
 
-
 export const SpanData = styled.span`
   font-family: "Manrope";
   font-style: normal;
@@ -165,6 +158,7 @@ export const SpanData = styled.span`
   display: inline-block;
   width: 91px;
   overflow: hidden;
+`;
 
 export const FavoriteBox = styled.div`
   display: flex;
@@ -217,12 +211,6 @@ export const BoxTitle = styled.div`
   }
 `;
 
-
-export const BoxList = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
 export const FavoriteLabel = styled.label`
   cursor: pointer;
 
@@ -230,4 +218,3 @@ export const FavoriteLabel = styled.label`
     width: 100%;
   }
 `;
-
