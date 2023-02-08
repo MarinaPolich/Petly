@@ -30,9 +30,13 @@ const NoticesSearch = () => {
       ? getFavUserNotice({ q: query })
       : userNotice({ q: query });
     dispatch(operation);
-    setSearchParams("");
   };
   const onClickBtn = () => {
+    dispatch(
+      getNoticesByCategories({
+        category: category === "for-free" ? "in-good-hands" : category,
+      })
+    );
     setSearchParams("");
     return;
   };
