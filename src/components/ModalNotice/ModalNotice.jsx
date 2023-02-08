@@ -3,14 +3,15 @@ import Modal from "components/Modal/Modal";
 import { useEffect, useState } from "react";
 import {
   BoxImage,
-  CancelBtn,
+  BoxTabl,
+  BoxTitle,
+  
   Category,
   Comments,
   Image,
   List,
   ListItem,
-  ModalFooter,
-  NextBtn,
+  
   Span,
   SpanComments,
   SpanData,
@@ -67,55 +68,56 @@ const ModalNotice = ({ activeModal, setActiveModal, idNotice }) => {
     >
       {dataNotice && user ? (
         <Wrapper>
-          <BoxImage>
-            <Image src={dataNotice.avatarUrl} alt="" />
-            <Category>{dataNotice.category}</Category>
-          </BoxImage>
-          <Title>{dataNotice.title}</Title>
-          <List>
-            <ListItem>
-              <Span>Name: </Span>
-              <SpanData>{dataNotice.name}</SpanData>
-            </ListItem>
-            <ListItem>
-              <Span>Birthday: </Span>
-              <SpanData>{dataNotice.birthday}</SpanData>
-            </ListItem>
-            <ListItem>
-              <Span>Breed: </Span>
-              <SpanData>{dataNotice.breed}</SpanData>
-            </ListItem>
-            <ListItem>
-              <Span>Lovation: </Span>
-              {dataNotice.location}
-            </ListItem>
-            <ListItem>
-              <Span>The sex: </Span>
-              {dataNotice.sex}
-            </ListItem>
-            <ListItem>
-              <Span>Email: </Span>
-              <SpanData>{user.email}</SpanData>
-            </ListItem>
-            <ListItem>
-              <Span>Phone: </Span>
-              <SpanData>{user.phone}</SpanData>
-            </ListItem>
-            <ListItem>
-              <Span>Price: </Span>
-              <SpanData>{dataNotice.price}</SpanData>
-            </ListItem>
-          </List>
+          <BoxTabl>
+            <BoxImage>
+              <Image src={dataNotice.avatarUrl} alt="" />
+              <Category>{dataNotice.category}</Category>
+            </BoxImage>
+            <BoxTitle>
+              <Title>{dataNotice.title}</Title>
+              <List>
+                <ListItem>
+                  <Span>Name: </Span>
+                  <SpanData>{dataNotice.name}</SpanData>
+                </ListItem>
+                <ListItem>
+                  <Span>Birthday: </Span>
+                  <SpanData>{dataNotice.birthday}</SpanData>
+                </ListItem>
+                <ListItem>
+                  <Span>Breed: </Span>
+                  <SpanData>{dataNotice.breed}</SpanData>
+                </ListItem>
+                <ListItem>
+                  <Span>Lovation: </Span>
+                  {dataNotice.location}
+                </ListItem>
+                <ListItem>
+                  <Span>The sex: </Span>
+                  {dataNotice.sex}
+                </ListItem>
+                <ListItem>
+                  <Span>Email: </Span>
+                  <SpanData>{user.email}</SpanData>
+                </ListItem>
+                <ListItem>
+                  <Span>Phone: </Span>
+                  <SpanData>{user.phone}</SpanData>
+                </ListItem>
+                {dataNotice.price ? (
+                  <ListItem>
+                    <Span>Price: </Span>
+                    <SpanData>{dataNotice.price}</SpanData>
+                  </ListItem>
+                ) : null}
+              </List>
+            </BoxTitle>
+          </BoxTabl>
 
           <Comments>
             <SpanComments>Comments: </SpanComments>
             {dataNotice.comments}
           </Comments>
-
-          <ModalFooter>
-            <CancelBtn type="button">Add to</CancelBtn>
-            <NextBtn type="button">Contact</NextBtn>
-          </ModalFooter>
         </Wrapper>
       ) : null}
     </Modal>
