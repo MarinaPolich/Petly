@@ -68,7 +68,11 @@ export default function NoticeCategoryItem({ item }) {
     <Notice>
       <BoxImage>
         <Image src={item.avatarUrl} alt={item.title} />
-        <Category>{item.category}</Category>
+        {item.category === "in-good-hands" && (
+          <Category>in good hands</Category>
+        )}
+        {item.category === "lost-found" && <Category>lost/found</Category>}
+        {item.category === "sell" && <Category>sell</Category>}
         <FavoriteLabel>
           <FavoriteCheck
             type="checkbox"
