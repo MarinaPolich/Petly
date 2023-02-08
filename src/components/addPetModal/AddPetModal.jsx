@@ -23,6 +23,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { addPets } from "redux/auth/auth-operations";
+import { useRef } from "react";
 
 const ModalSchema = Yup.object().shape({
   name: Yup.string()
@@ -48,6 +49,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
   const [petPhoto, setPetPhoto] = useState(null);
   const [previevPet, setPrevievPet] = useState(null);
   const dispatch = useDispatch();
+  const formikRef = useRef();
 
   const previevFile = (file) => {
     const reader = new FileReader();
@@ -90,6 +92,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
     if (modalActive) {
       document.body.style.overflow = "hidden";
     } else {
+      formikRef.current?.resetForm();
       document.body.style.overflow = "unset";
     }
   }, [modalActive]);
@@ -114,6 +117,7 @@ const AddPetModal = ({ isModalActive, setIsModalActive }) => {
       modal={setModal}
     >
       <Formik
+        innerRef={formikRef}
         initialValues={{
           name: "",
           dateOfBirth: customInput,

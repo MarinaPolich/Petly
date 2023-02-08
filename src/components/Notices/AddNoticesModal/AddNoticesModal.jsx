@@ -1,5 +1,5 @@
 import Modal from "components/Modal/Modal";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import addIcon from "../../../assets/icon/Icon_add_photo.svg";
 import male from "../../../assets/icon/Male.svg";
 import female from "../../../assets/icon/Female.svg";
@@ -67,6 +67,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
   const [petPhoto, setPetPhoto] = useState(null);
   const [previevPet, setPrevievPet] = useState(null);
   const dispatch = useDispatch();
+  const formikRef = useRef();
 
   const onSubmit = (value, { resetForm }) => {
     const data = new FormData();
@@ -111,6 +112,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
     if (modalActive) {
       document.body.style.overflow = "hidden";
     } else {
+      formikRef.current?.resetForm();
       document.body.style.overflow = "unset";
     }
   }, [modalActive]);
@@ -135,6 +137,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
         modal={setModal}
       >
         <Formik
+          innerRef={formikRef}
           initialValues={{
             category: "",
             title: "",
