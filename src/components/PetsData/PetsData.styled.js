@@ -10,7 +10,7 @@ export const PetsList = styled.ul`
 
 export const PetsCard = styled.li`
   position: relative;
-  margin-top: 18px;
+
   margin-bottom: 22px;
   padding: 20px;
   background: var(--white);
