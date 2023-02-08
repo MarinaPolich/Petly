@@ -101,7 +101,7 @@ export const StyledHeader = styled.h3`
   }
 `;
 
-export const StyledText = styled.p`
+export const StyledNoText = styled.p`
   margin-bottom: 4px;
   font-weight: 500;
   font-size: 12px;
@@ -122,11 +122,6 @@ export const StyledText = styled.p`
     color: currentColor;
   }
 
-  &:hover,
-  :focus {
-    color: var(--primary);
-  }
-
   @media ${device.tablet} {
     margin-bottom: 8px;
     font-size: 14px;
@@ -137,5 +132,13 @@ export const StyledText = styled.p`
     margin-bottom: 12px;
     font-size: 16px;
     line-height: 1.375;
+  }
+`;
+
+export const StyledText = styled(StyledNoText)`
+  cursor: pointer;
+  &:hover,
+  :focus {
+    color: var(--primary);
   }
 `;
