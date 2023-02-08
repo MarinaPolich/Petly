@@ -125,7 +125,7 @@ const noticesSlice = createSlice({
       })
       .addCase(deleteNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        return state.items.filter((item) => item._id !== payload._id);
+        state.items = state.items.filter((item) => item._id !== payload._id);
       })
       .addCase(deleteNotice.rejected, (state, { payload }) => {
         state.error = payload;
