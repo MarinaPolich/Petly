@@ -8,6 +8,7 @@ import {
 } from "redux/notices/notices-selector";
 import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
+import { OrEmptyTextHolder } from "../../PetsData/PetsData.styled";
 
 const NoticesCategoriesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +32,7 @@ const NoticesCategoriesList = () => {
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
 
-  return (
+  return notices && notices.length > 0 ? (
     <>
       <BoxList>
         {notices?.map((item) => (
@@ -44,6 +45,7 @@ const NoticesCategoriesList = () => {
               );
             }}
           ></NoticeCategoryItem>
+
         ))}
       </BoxList>
       <BoxButton>
@@ -59,6 +61,8 @@ const NoticesCategoriesList = () => {
         )}
       </BoxButton>
     </>
+  ) : (
+    <OrEmptyTextHolder>Add your first favorite pet</OrEmptyTextHolder>
   );
 };
 
