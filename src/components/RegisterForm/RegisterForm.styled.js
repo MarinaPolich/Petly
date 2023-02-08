@@ -68,7 +68,7 @@ export const InputForm = styled(Field)`
   }
 
   &.error {
-    border: 2px solid var(--warning);
+    border: 1px solid var(--warning);
   }
 
   @media ${device.tabDesk} {
@@ -79,9 +79,10 @@ export const InputForm = styled(Field)`
 `;
 
 export const TextError = styled.p`
-  margin-top: -12px;
+  position: absolute;
+  margin-top: -16px;
   margin-left: 32px;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.333;
   color: var(--warning);
 `;
