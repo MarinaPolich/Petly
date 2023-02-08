@@ -117,6 +117,8 @@ export default function NoticeCategoryItem({ item }) {
         activeModal={activeModal}
         setActiveModal={setActiveModal}
         idNotice={item._id}
+        favoriteCheckbox={favoriteCheckbox}
+        isCheck={isCheck}
       />
     </Notice>
   );

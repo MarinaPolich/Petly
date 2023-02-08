@@ -89,15 +89,15 @@ export const SpanComments = styled.span`
 `;
 
 export const Span = styled.span`
-display: inline-block;
-width: 70px;
-margin-right: 57px;
+  display: inline-block;
+  width: 70px;
+  margin-right: 57px;
 `;
 
 export const SpanData = styled.span`
   display: inline-block;
   width: 91px;
- overflow: hidden;
+  overflow: hidden;
 `;
 
 export const ModalFooter = styled.div`
@@ -117,7 +117,10 @@ export const ModalFooter = styled.div`
   }
 `;
 
-export const CancelBtn = styled.button`
+export const FavoriteBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 44px;
   margin-bottom: 12px;
@@ -152,20 +155,27 @@ export const CancelBtn = styled.button`
   }
 `;
 
+export const ContactLink = styled.a`
+  color: white;
+  text-decoration: none;
+`;
+
 export const NextBtn = styled.button`
   width: 100%;
   height: 44px;
   text-align: center;
   border: 2px solid #f59256;
   border-radius: 40px;
-  color: white;
   background: #f59256;
 
   transition: 0.5s;
 
   &:hover {
-    color: #111111;
     background: white;
+
+    & ${ContactLink} {
+      color: #111111;
+    }
   }
 
   @media ${device.tablet} {
@@ -183,4 +193,6 @@ export const BoxList = styled.div`
   flex-direction: row;
 `;
 
-
+export const FavoriteLabel = styled.label`
+  cursor: pointer;
+`;
