@@ -34,7 +34,6 @@ export const PetPhoto = styled.img`
 
   border-radius: 40px;
 
-  background-color: gray;
   @media ${device.tablet} {
     margin: 0;
     width: 161px;
@@ -42,7 +41,7 @@ export const PetPhoto = styled.img`
     margin-right: 32px;
     margin-bottom: 0;
   }
-  @media screen {
+  @media ${device.desktop} {
     margin: 0;
     width: 161px;
     height: 161px;
