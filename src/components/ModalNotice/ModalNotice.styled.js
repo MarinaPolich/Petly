@@ -14,8 +14,6 @@ export const BoxImage = styled.div`
 `;
 
 export const Image = styled.img`
-
-
   width: 240px;
   height: 240px;
   /* object-fit: cover; */
@@ -57,6 +55,9 @@ export const Title = styled.h2`
 
 export const List = styled.ul`
   margin-bottom: 28px;
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
 `;
 
 export const ListItem = styled.li`
@@ -69,31 +70,6 @@ export const ListItem = styled.li`
   &:not(:last-child) {
     margin-bottom: 8px;
   }
-`;
-
-export const SpanName = styled.span`
-  margin-left: 74px;
-`;
-export const SpanBirthday = styled.span`
-  margin-left: 57px;
-`;
-export const SpanBreed = styled.span`
-  margin-left: 74px;
-`;
-export const SpanPlace = styled.span`
-  margin-left: 55px;
-`;
-export const SpanTheSex = styled.span`
-  margin-left: 61px;
-`;
-export const SpanEmail = styled.span`
-  margin-left: 77px;
-`;
-export const SpanPhone = styled.span`
-  margin-left: 70px;
-`;
-export const SpanPrice = styled.span`
-  margin-left: 79px;
 `;
 
 export const Comments = styled.p`
@@ -189,4 +165,10 @@ export const NextBtn = styled.button`
     height: 44px;
   }
 `;
+
+export const BoxList = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 

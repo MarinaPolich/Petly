@@ -3,6 +3,7 @@ import Modal from "components/Modal/Modal";
 import { useEffect, useState } from "react";
 import {
   BoxImage,
+  BoxList,
   CancelBtn,
   Category,
   Comments,
@@ -11,15 +12,15 @@ import {
   ListItem,
   ModalFooter,
   NextBtn,
-  SpanBirthday,
-  SpanBreed,
+  // SpanBirthday,
+  // SpanBreed,
   SpanComments,
-  SpanEmail,
-  SpanName,
-  SpanPhone,
-  SpanPlace,
-  SpanPrice,
-  SpanTheSex,
+  // SpanEmail,
+  // SpanName,
+  // SpanPhone,
+  // SpanPlace,
+  // SpanPrice,
+  // SpanTheSex,
   Title,
   Wrapper,
 } from "./ModalNotice.styled";
@@ -78,41 +79,35 @@ const ModalNotice = ({ activeModal, setActiveModal, idNotice }) => {
             <Category>{dataNotice.category}</Category>
           </BoxImage>
           <Title>{dataNotice.title}</Title>
-          <List>
-            <ListItem>
-              Name: <SpanName>{dataNotice.name}</SpanName>
-            </ListItem>
-            <ListItem>
-              Birthday: <SpanBirthday>{dataNotice.birthday}</SpanBirthday>
-            </ListItem>
-            <ListItem>
-              Breed: <SpanBreed>{dataNotice.breed}</SpanBreed>
-            </ListItem>
-            <ListItem>
-              Lovation: <SpanPlace>{dataNotice.location}</SpanPlace>
-            </ListItem>
-            <ListItem>
-              The sex: <SpanTheSex>{dataNotice.sex}</SpanTheSex>
-            </ListItem>
-            <ListItem>
-              Email: <SpanEmail>{user.email}</SpanEmail>
-            </ListItem>
-            <ListItem>
-              Phone: <SpanPhone>{user.phone}</SpanPhone>
-            </ListItem>
-            <ListItem>
-              Price: <SpanPrice>{dataNotice.price}</SpanPrice>
-            </ListItem>
-          </List>
+          <BoxList>
+            <List>
+              <ListItem>Name:</ListItem>
+              <ListItem>Birthday:</ListItem>
+              <ListItem>Breed:</ListItem>
+              <ListItem>Lovation:</ListItem>
+              <ListItem>The sex:</ListItem>
+              <ListItem>Email:</ListItem>
+              <ListItem>Phone:</ListItem>
+              <ListItem>Price:</ListItem>
+            </List>
+            <List>
+              <ListItem>{dataNotice.name}</ListItem>
+              <ListItem>{dataNotice.birthday}</ListItem>
+              <ListItem>{dataNotice.breed}</ListItem>
+              <ListItem>{dataNotice.location}</ListItem>
+              <ListItem>{dataNotice.sex}</ListItem>
+              <ListItem>{user.email}</ListItem>
+              <ListItem>{user.phone}</ListItem>
+              <ListItem>{dataNotice.price}</ListItem>
+            </List>
+          </BoxList>
           <Comments>
             <SpanComments>Comments: </SpanComments>
             {dataNotice.comments}
           </Comments>
 
           <ModalFooter>
-            <CancelBtn type="button">
-              Add to
-            </CancelBtn>
+            <CancelBtn type="button">Add to</CancelBtn>
             <NextBtn type="button">Contact</NextBtn>
           </ModalFooter>
         </Wrapper>
