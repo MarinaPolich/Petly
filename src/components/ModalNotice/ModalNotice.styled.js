@@ -225,5 +225,9 @@ export const BoxList = styled.div`
 
 export const FavoriteLabel = styled.label`
   cursor: pointer;
+
+  @media ${device.mobile} {
+    width: 100%;
+  }
 `;
 
