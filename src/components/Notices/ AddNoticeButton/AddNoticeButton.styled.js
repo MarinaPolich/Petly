@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Button = styled.button`
   position: fixed;
   right: 20px;
-  top: 50%;
+  bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,10 +25,9 @@ export const Button = styled.button`
 
   &:focus,
   &:hover {
-    background: #FF6101;
+    background: #ff6101;
   }
 `;
-
 
 export const FormWrapper = styled.form`
   display: inline-flex;
