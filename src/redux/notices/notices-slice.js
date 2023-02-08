@@ -56,7 +56,8 @@ const noticesSlice = createSlice({
           state.items[index] = newItem;
           return;
         }
-        state.items.push(newItem);
+        state.items.unshift(newItem);
+        state.items.slice(8);
       })
       .addCase(addNotice.rejected, (state, { payload }) => {
         state.error = payload;
