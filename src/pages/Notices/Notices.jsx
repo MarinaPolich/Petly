@@ -7,7 +7,7 @@ import {
   AddNoticeButton,
 } from "../../components/Notices/index";
 import { Box, NavBox } from "./Notices.styled";
-import { getIsLoading } from "redux/auth/auth-selector";
+import { getIsLoading } from "redux/notices/notices-selector";
 import { useSelector } from "react-redux";
 
 const Notices = () => {

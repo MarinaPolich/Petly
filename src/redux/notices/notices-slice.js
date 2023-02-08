@@ -56,7 +56,8 @@ const noticesSlice = createSlice({
           state.items[index] = newItem;
           return;
         }
-        state.items.push(newItem);
+        state.items.unshift(newItem);
+        state.items.slice(8);
       })
       .addCase(addNotice.rejected, (state, { payload }) => {
         state.error = payload;
@@ -95,7 +96,7 @@ const noticesSlice = createSlice({
       .addCase(deleteNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.items = [];
+        //state.items = [];
       })
       .addCase(deleteNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;

@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavUserNotice } from "redux/notices/notices-operations";
-import { filteredNoticesSelector } from "redux/notices/notices-selector";
+import {
+  getCategory,
+  getTotalCount,
+  noticesSelector,
+} from "redux/notices/notices-selector";
 import NoticeCategoryItem from "../NoticeCategoryItem/NoticeCategoryItem";
 import { BoxList, BoxButton, Button } from "./NoticesCategoriesList.styled";
 
 const NoticesCategoriesList = () => {
-  const [notices, setNotices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [noticesPerPage] = useState(8);
+  const innerCategory = "favorite";
   const dispatch = useDispatch();
-  const filteredNotices = useSelector(filteredNoticesSelector);
+  const notices = useSelector(noticesSelector);
+  const totalCount = useSelector(getTotalCount);
+  const noticeCategory = useSelector(getCategory);
 
   useEffect(() => {
-    dispatch(getFavUserNotice());
-  }, [dispatch]);
+    dispatch(getFavUserNotice({ page: currentPage, limit: noticesPerPage }));
+  }, [dispatch, currentPage, noticesPerPage]);
 
-  useEffect(() => {
-    setNotices(filteredNotices);
-  }, [filteredNotices]);
+  if (!notices || innerCategory !== noticeCategory) {
+    return;
+  }
 
-  if (!filteredNotices) return;
-
-  const lastNoticesIndex = currentPage * noticesPerPage;
-  const firstNoticesIndex = lastNoticesIndex - noticesPerPage;
-  const currentNotices = notices?.slice(firstNoticesIndex, lastNoticesIndex);
-
-  const totalPage = Math.ceil(filteredNotices.length / 8);
+  const totalPage = Math.ceil(totalCount / noticesPerPage);
 
   const nextPage = () => setCurrentPage((prev) => prev + 1);
   const prevPage = () => setCurrentPage((prev) => prev - 1);
@@ -34,7 +34,7 @@ const NoticesCategoriesList = () => {
   return (
     <>
       <BoxList>
-        {currentNotices?.map((item) => (
+        {notices?.map((item) => (
           <NoticeCategoryItem item={item} key={item._id}></NoticeCategoryItem>
         ))}
       </BoxList>
