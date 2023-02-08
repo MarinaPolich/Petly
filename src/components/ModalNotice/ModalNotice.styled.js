@@ -2,22 +2,40 @@ import styled from "styled-components";
 import { device } from "stylesheet/breakpoints";
 
 export const Wrapper = styled.div`
+  padding-top: 29px;
   padding-left: 20px;
   padding-right: 20px;
   text-align: left;
+
+  @media ${device.tablet} {
+    padding-top: 0;
+  }
+  @media ${device.desktop} {
+    padding-top: 0;
+  }
 `;
 
 export const BoxImage = styled.div`
   position: relative;
-  margin-top: 60px;
   margin-bottom: 16px;
 `;
 
 export const Image = styled.img`
+  position: relative;
   width: 240px;
   height: 240px;
-  /* object-fit: cover; */
   border-radius: 0px 0px 20px 20px;
+
+  @media ${device.tablet} {
+    width: 288px;
+    height: 328px;
+    object-fit: cover;
+  }
+  @media ${device.desktop} {
+    width: 288px;
+    height: 328px;
+    object-fit: cover;
+  }
 `;
 
 export const Category = styled.p`
@@ -51,6 +69,13 @@ export const Title = styled.h2`
   letter-spacing: -0.01em;
   color: var(--black);
   margin-bottom: 16px;
+
+  @media ${device.tablet} {
+    font-size: 28px;
+  }
+  @media ${device.desktop} {
+    font-size: 28px;
+  }
 `;
 
 export const List = styled.ul`
@@ -62,6 +87,8 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   font-family: "Manrope";
+  display: flex;
+  align-items: center;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -74,10 +101,16 @@ export const ListItem = styled.li`
 
 export const Comments = styled.p`
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   line-height: 1.3;
   color: var(--black);
+  @media ${device.tablet} {
+    font-size: 16px;
+  }
+  @media ${device.desktop} {
+    font-size: 16px;
+  }
 `;
 
 export const SpanComments = styled.span`
@@ -86,35 +119,45 @@ export const SpanComments = styled.span`
   font-size: 14px;
   line-height: 1.3;
   color: var(--black);
+
+  @media ${device.tablet} {
+    font-size: 16px;
+  }
+  @media ${device.desktop} {
+    font-size: 16px;
+  }
 `;
 
 export const Span = styled.span`
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
   display: inline-block;
   width: 70px;
+  font-size: 14px;
+  line-height: 1.3;
   margin-right: 57px;
+  color: var(--black);
+
+  @media ${device.tablet} {
+    margin-right: 20px;
+    font-size: 16px;
+  }
+  @media ${device.desktop} {
+    margin-right: 20px;
+    font-size: 16px;
+  }
 `;
 
 export const SpanData = styled.span`
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.3;
   display: inline-block;
   width: 91px;
   overflow: hidden;
-`;
-
-export const ModalFooter = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-  margin-top: 12px;
-  margin-bottom: 40px;
-
-  @media ${device.tablet} {
-    flex-direction: row;
-  }
-  @media ${device.desktop} {
-    flex-direction: row;
-  }
 `;
 
 export const FavoriteBox = styled.div`
@@ -132,59 +175,12 @@ export const FavoriteBox = styled.div`
   transition: 0.5s;
 
   @media ${device.tablet} {
-    width: 180px;
-    height: 44px;
+    font-size: 16px;
+    width: 140px;
   }
   @media ${device.desktop} {
-    width: 180px;
-    height: 44px;
-  }
-
-  &:hover {
-    color: white;
-    background: #f59256;
-  }
-
-  @media ${device.tablet} {
-    margin-right: 24px;
-    margin-bottom: 0px;
-  }
-  @media ${device.desktop} {
-    margin-right: 24px;
-    margin-bottom: 0px;
-  }
-`;
-
-export const ContactLink = styled.a`
-  color: white;
-  text-decoration: none;
-`;
-
-export const NextBtn = styled.button`
-  width: 100%;
-  height: 44px;
-  text-align: center;
-  border: 2px solid #f59256;
-  border-radius: 40px;
-  background: #f59256;
-
-  transition: 0.5s;
-
-  &:hover {
-    background: white;
-
-    & ${ContactLink} {
-      color: #111111;
-    }
-  }
-
-  @media ${device.tablet} {
-    width: 180px;
-    height: 44px;
-  }
-  @media ${device.desktop} {
-    width: 180px;
-    height: 44px;
+    font-size: 16px;
+    width: 140px;
   }
 `;
 
@@ -193,6 +189,32 @@ export const BoxList = styled.div`
   flex-direction: row;
 `;
 
+export const BoxTabl = styled.div`
+  @media ${device.tablet} {
+    display: flex;
+  }
+  @media ${device.desktop} {
+    display: flex;
+  }
+`;
+export const ContactLink = styled.a`
+  color: white;
+  text-decoration: none;
+`;
+
+export const BoxTitle = styled.div`
+  @media ${device.tablet} {
+    margin-left: 20px;
+  }
+  @media ${device.desktop} {
+    margin-left: 20px;
+  }
+`;
+
 export const FavoriteLabel = styled.label`
   cursor: pointer;
+
+  @media ${device.mobile} {
+    width: 100%;
+  }
 `;
