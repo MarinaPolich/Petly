@@ -21,7 +21,7 @@ export const addNotice = createAsyncThunk(
   async (notice, thunkAPI) => {
     try {
       const response = await axios.post("/notices/addnotice", notice);
-      return response.data.data.notices;
+      return response.data.data.notice;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -60,8 +60,8 @@ export const deleteNotice = createAsyncThunk(
   "notices/deleteNotices",
   async (id, thunkAPI) => {
     try {
-      const response = await axios.delete(`/notices/user/${id}`);
-      return response.data;
+      await axios.delete(`/notices/user/${id}`);
+      return { _id: id };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

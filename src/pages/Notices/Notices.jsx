@@ -1,4 +1,6 @@
 import { Outlet } from "react-router-dom";
+import { Loader } from "components/Loader/Loader";
+
 import {
   NoticesCategoriesNav,
   NoticesSearch,
@@ -9,6 +11,7 @@ import { Box, NavBox } from "./Notices.styled";
 const Notices = () => {
   return (
     <Box>
+      {isLoading && <Loader />}
       <NoticesSearch></NoticesSearch>
       <NavBox>
         <NoticesCategoriesNav></NoticesCategoriesNav>

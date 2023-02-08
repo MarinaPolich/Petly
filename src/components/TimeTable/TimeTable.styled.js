@@ -8,6 +8,7 @@ export const StyledDiv = styled.div`
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   position: absolute;
+  z-index: 10;
 `;
 
 export const StyledItem = styled.p`

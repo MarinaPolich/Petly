@@ -15,6 +15,7 @@ export const ModalWrapper = styled.div`
   opacity: ${(props) => (props.actv ? 1 : 0)};
   pointer-events: ${(props) => (props.actv ? "all" : "none")};
   transition: 0.5s;
+  z-index: 100;
   @media ${device.mobile} {
     padding: 20px;
   }

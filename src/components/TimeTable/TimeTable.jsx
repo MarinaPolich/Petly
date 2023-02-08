@@ -2,9 +2,9 @@ import React from "react";
 import { StyledDiv, StyledItem } from "./TimeTable.styled";
 import { daysOfWeek } from "constants/daysOfWeek";
 
-export default function TimeTable({ workDays }) {
+export default function TimeTable({ workDays, style }) {
   return (
-    <StyledDiv>
+    <StyledDiv style={style}>
       {workDays.map((item, index) => {
         return (
           <StyledItem>

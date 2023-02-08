@@ -10,9 +10,11 @@ import {
   TextLink,
   TitleForm,
 } from "components/RegisterForm/RegisterForm.styled";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "redux/auth/auth-operations";
 import { ButtonPrimaryMax } from "components/Button/Button";
+import { getIsLoading } from "redux/auth/auth-selector";
+import { Loader } from "components/Loader/Loader";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,53 +38,57 @@ const LoginSchema = Yup.object().shape({
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
   const handelSubmit = async ({ email, password }) => {
     await dispatch(logIn({ email, password }));
   };
 
   return (
-    <Formik
-      initialValues={{
-        email: "",
-        password: "",
-      }}
-      validationSchema={LoginSchema}
-      onSubmit={handelSubmit}
-    >
-      {({ handleChange, values, errors, touched }) => (
-        <Container>
-          <TitleForm>login</TitleForm>
-          <FormBox>
-            <InputForm
-              type="email"
-              name="email"
-              autoComplete="username"
-              value={values.email}
-              onChange={handleChange}
-              placeholder="Email"
-            />
-            {errors.email && touched.email ? (
-              <TextError>{errors.email}</TextError>
-            ) : null}
-            <InputForm
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              value={values.password}
-              onChange={handleChange}
-              placeholder="Password"
-            />
-            {errors.password && touched.password ? (
-              <TextError>{errors.password}</TextError>
-            ) : null}
-            <ButtonPrimaryMax type="submit" marginTop="24" title="login" />
-          </FormBox>
-          <BoxLink>
-            <TextLink>Don't have an account?</TextLink>
-            <StyledLink to="/register">register</StyledLink>
-          </BoxLink>
-        </Container>
-      )}
-    </Formik>
+    <>
+      {isLoading && <Loader />}
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={LoginSchema}
+        onSubmit={handelSubmit}
+      >
+        {({ handleChange, values, errors, touched }) => (
+          <Container>
+            <TitleForm>login</TitleForm>
+            <FormBox>
+              <InputForm
+                type="email"
+                name="email"
+                autoComplete="username"
+                value={values.email}
+                onChange={handleChange}
+                placeholder="Email"
+              />
+              {errors.email && touched.email ? (
+                <TextError>{errors.email}</TextError>
+              ) : null}
+              <InputForm
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                value={values.password}
+                onChange={handleChange}
+                placeholder="Password"
+              />
+              {errors.password && touched.password ? (
+                <TextError>{errors.password}</TextError>
+              ) : null}
+              <ButtonPrimaryMax type="submit" marginTop="24" title="login" />
+            </FormBox>
+            <BoxLink>
+              <TextLink>Don't have an account?</TextLink>
+              <StyledLink to="/register">register</StyledLink>
+            </BoxLink>
+          </Container>
+        )}
+      </Formik>
+    </>
   );
 };

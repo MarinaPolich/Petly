@@ -46,13 +46,12 @@ export default function NoticeCategoryItem({ item }) {
     const age = now.getFullYear() - birthDate.getFullYear();
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
-  const favoriteCheckbox = ({ target: { checked } }) => {
+  const favoriteCheckbox = async ({ target: { checked } }) => {
     if (!isLogin) {
       Notify.failure("You need to login");
       return;
     }
-    console.log("checked :", checked);
-    console.log("isCheck: ", isCheck);
+
     if (checked) {
       dispatch(addFavoriteNotice(item._id));
     } else {
