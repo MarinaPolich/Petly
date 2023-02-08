@@ -8,6 +8,8 @@ import {
   currentUser,
   deletePet,
   addPets,
+  addFavoriteNotice,
+  deleteFavoriteNotice,
 } from "./auth-operations";
 
 const handlePending = (state) => {
@@ -101,6 +103,30 @@ const authSlice = createSlice({
       })
       .addCase(addPets.fulfilled, (state, { payload }) => {
         state.user.pets.push(payload.data.pet);
+      })
+      .addCase(addFavoriteNotice.pending, (state) => {
+        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(addFavoriteNotice.rejected, (state, { payload }) => {
+        state.isLoggedIn = true;
+        state.error = payload;
+      })
+      .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favorite.push(payload.data.noticeId);
+        state.isLoggedIn = true;
+      })
+      .addCase(deleteFavoriteNotice.pending, (state) => {
+        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(deleteFavoriteNotice.rejected, (state, { payload }) => {
+        state.isLoggedIn = true;
+        state.error = payload;
+      })
+      .addCase(deleteFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favorite.splice(payload.data, 1);
+        state.isLoggedIn = true;
       }),
 });
 

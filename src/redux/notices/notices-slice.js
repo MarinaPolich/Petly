@@ -4,8 +4,6 @@ import {
   addNotice,
   userNotice,
   getFavUserNotice,
-  addFavoriteNotice,
-  deleteFavoriteNotice,
   deleteNotice,
 } from "./notices-operations";
 
@@ -31,6 +29,7 @@ const noticesSlice = createSlice({
       .addCase(getNoticesByCategories.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
 
       .addCase(getNoticesByCategories.fulfilled, (state, { payload }) => {
@@ -66,6 +65,7 @@ const noticesSlice = createSlice({
       .addCase(userNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
       .addCase(userNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
@@ -80,6 +80,7 @@ const noticesSlice = createSlice({
       .addCase(getFavUserNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
       .addCase(getFavUserNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
@@ -91,31 +92,10 @@ const noticesSlice = createSlice({
         state.error = payload;
         state.isLoading = false;
       })
-      .addCase(addFavoriteNotice.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-      })
-      .addCase(addFavoriteNotice.rejected, (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      })
-      .addCase(deleteFavoriteNotice.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(deleteFavoriteNotice.fulfilled, (state) => {
-        state.isLoading = false;
-      })
-      .addCase(deleteFavoriteNotice.rejected, (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      })
       .addCase(deleteNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
       .addCase(deleteNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
