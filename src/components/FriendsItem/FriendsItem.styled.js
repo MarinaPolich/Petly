@@ -6,11 +6,11 @@ export const FriendsContainer = styled.section`
   padding-bottom: 100px;
 
   @media ${device.tablet} {
-    padding-top: 88px;
+    padding-top: 90px;
   }
 
   @media ${device.desktop} {
-    padding-top: 69px;
+    padding-top: 60px;
   }
 `;
 
