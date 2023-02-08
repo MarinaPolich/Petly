@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form } from "formik";
+import { Form, Field } from "formik";
 import { device } from "stylesheet/breakpoints";
 
 export const FormWrapper = styled(Form)`
@@ -277,7 +277,7 @@ export const RadioLabel = styled.label`
   }
 `;
 
-export const RadioInput = styled.input`
+export const RadioInput = styled(Field)`
   display: none;
   &:checked + ${RadioLabel} {
     color: #f59256;
@@ -336,7 +336,7 @@ export const CategoryLabel = styled.label`
   }
 `;
 
-export const CategoryInut = styled.input`
+export const CategoryInut = styled(Field)`
   display: none;
 
   &:checked + ${CategoryLabel} {

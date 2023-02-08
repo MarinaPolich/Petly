@@ -67,6 +67,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
   const [petPhoto, setPetPhoto] = useState(null);
   const [previevPet, setPrevievPet] = useState(null);
   const dispatch = useDispatch();
+
   const onSubmit = (value, { resetForm }) => {
     const data = new FormData();
     data.append("category", value.category);
@@ -82,7 +83,7 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
     dispatch(addNotice(data));
     setPetPhoto(null);
     setActiveModal(false);
-    setPrevievPet(null)
+    setPrevievPet(null);
     resetForm();
     setTimeout(() => {
       setModal(1);
