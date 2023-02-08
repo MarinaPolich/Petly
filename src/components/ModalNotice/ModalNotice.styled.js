@@ -56,7 +56,7 @@ export const Title = styled.h2`
 export const List = styled.ul`
   margin-bottom: 28px;
   &:not(:last-child) {
-    margin-right: 40px;
+    margin-right: 0px;
   }
 `;
 
@@ -86,6 +86,18 @@ export const SpanComments = styled.span`
   font-size: 14px;
   line-height: 1.3;
   color: var(--black);
+`;
+
+export const Span = styled.span`
+display: inline-block;
+width: 70px;
+margin-right: 57px;
+`;
+
+export const SpanData = styled.span`
+  display: inline-block;
+  width: 91px;
+ overflow: hidden;
 `;
 
 export const ModalFooter = styled.div`

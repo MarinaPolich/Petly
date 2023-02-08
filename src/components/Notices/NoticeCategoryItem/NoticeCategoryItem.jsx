@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
-import {
-  addFavoriteNotice,
-  deleteFavoriteNotice,
-  deleteNotice,
-} from "redux/notices/notices-operations";
+import { deleteNotice } from "redux/notices/notices-operations";
+
 import { del, favoriteDefault, favorite } from "assets/icon";
 import { getIsLoggedIn, getUser } from "redux/auth/auth-selector";
-import { currentUser } from "redux/auth/auth-operations";
 
 import {
   Notice,
@@ -32,24 +28,17 @@ import {
 } from "./NoticeCategoryItem.styled";
 import { Notify } from "notiflix";
 import ModalNotice from "components/ModalNotice/ModalNotice";
+import {
+  addFavoriteNotice,
+  deleteFavoriteNotice,
+} from "redux/auth/auth-operations";
 
 export default function NoticeCategoryItem({ item }) {
-  const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
   const isLogin = useSelector(getIsLoggedIn);
   const user = useSelector(getUser);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isCheck, setIsCheck] = useState(user?.favorite?.includes(item._id));
   const [activeModal, setActiveModal] = useState(false);
-
-  useEffect(() => {
-    setIsCheck(isFavorite);
-  }, [isFavorite]);
-
-  useEffect(() => {
-    if (user?.favorite) {
-      setIsFavorite(user?.favorite?.includes(item._id));
-    }
-  }, [dispatch, item._id, user?.favorite]);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -62,13 +51,12 @@ export default function NoticeCategoryItem({ item }) {
       Notify.failure("You need to login");
       return;
     }
-    console.log("checked :>> ", checked);
+
     if (checked) {
-      await dispatch(addFavoriteNotice(item._id));
+      dispatch(addFavoriteNotice(item._id));
     } else {
-      await dispatch(deleteFavoriteNotice(item._id));
+      dispatch(deleteFavoriteNotice(item._id));
     }
-    dispatch(currentUser());
     setIsCheck(checked);
   };
 
@@ -89,7 +77,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isFavorite ? (
+            {!isCheck ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />
