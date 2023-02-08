@@ -109,11 +109,15 @@ const ModalNotice = ({
                 </ListItem>
                 <ListItem>
                   <Span>Email: </Span>
-                  <SpanData>{user.email}</SpanData>
+                  <SpanData>
+                    <a href={`mailto:${user.email}`}>{user.email}</a>
+                  </SpanData>
                 </ListItem>
                 <ListItem>
                   <Span>Phone: </Span>
-                  <SpanData>{user.phone}</SpanData>
+                  <SpanData>
+                    <a href={`tel:${user.phone}`}>{user.phone}</a>
+                  </SpanData>
                 </ListItem>
                 {dataNotice.price ? (
                   <ListItem>
