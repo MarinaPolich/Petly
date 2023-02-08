@@ -49,10 +49,14 @@ export const AddBtnLabel = styled.label`
   line-height: 27px;
   line-height: 1.35;
   color: var(--black);
+  @media ${device.desktop} {
+    position: relative;
+    top: -10px;
+  }
 `;
 export const HeadingBox = styled.div`
   display: flex;
-  align-items: baseline;
+
   justify-content: space-between;
 `;
 export const AddBtn = styled.button`

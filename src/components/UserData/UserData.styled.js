@@ -92,7 +92,11 @@ export const LogOutBtn = styled.button`
   border: none;
 
   color: var(--gray);
+  cursor: pointer;
 
+  :hover {
+    color: var(--primary);
+  }
   @media ${device.tablet} {
     position: absolute;
     bottom: 24px;

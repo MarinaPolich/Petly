@@ -33,19 +33,31 @@ import {
   deleteFavoriteNotice,
 } from "redux/auth/auth-operations";
 
-export default function NoticeCategoryItem({ item }) {
+export default function NoticeCategoryItem({
+  item,
+  onChangeFavorite = () => {},
+}) {
   const dispatch = useDispatch();
   const isLogin = useSelector(getIsLoggedIn);
   const user = useSelector(getUser);
   const [isCheck, setIsCheck] = useState(user?.favorite?.includes(item._id));
   const [activeModal, setActiveModal] = useState(false);
 
-  function birthDateToAge(birthDate) {
-    birthDate = new Date(birthDate);
-    const now = new Date();
-    const age = now.getFullYear() - birthDate.getFullYear();
-    return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
+  function birthDateToAge(dateString) {
+    const today = new Date();
+    const birthDate = new Date(
+      dateString[6] + dateString[7] + dateString[8] + dateString[9],
+      dateString[3] + dateString[4] - 1,
+      dateString[0] + dateString[1]
+    );
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
   }
+
   const favoriteCheckbox = async ({ target: { checked } }) => {
     if (!isLogin) {
       Notify.failure("You need to login");
@@ -58,6 +70,7 @@ export default function NoticeCategoryItem({ item }) {
       dispatch(deleteFavoriteNotice(item._id));
     }
     setIsCheck(checked);
+    onChangeFavorite(checked);
   };
 
   const onClick = () => {
@@ -68,7 +81,11 @@ export default function NoticeCategoryItem({ item }) {
     <Notice>
       <BoxImage>
         <Image src={item.avatarUrl} alt={item.title} />
-        <Category>{item.category}</Category>
+        {item.category === "in-good-hands" && (
+          <Category>in good hands</Category>
+        )}
+        {item.category === "lost-found" && <Category>lost/found</Category>}
+        {item.category === "sell" && <Category>sell</Category>}
         <FavoriteLabel>
           <FavoriteCheck
             type="checkbox"

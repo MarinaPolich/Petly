@@ -6,6 +6,7 @@ import {
   StyledHeader,
   StyledImg,
   StyledLi,
+  StyledNoText,
   StyledText,
 } from "./FriendsItem.styled";
 
@@ -19,14 +20,11 @@ export default function FriendsItem({ item, onShowTime }) {
         left: positions.left + window.scrollX,
       },
     });
-    //setVisible(true);
   };
 
   const outOfFocusAndHover = () => {
     onShowTime({ isShow: false });
-    //setVisible(false);
   };
-  console.log("item.imageURL", item.imageUrl);
   return (
     <StyledLi>
       <StyledHeader>
@@ -65,11 +63,11 @@ export default function FriendsItem({ item, onShowTime }) {
               </time>
             </StyledText>
           ) : (
-            <StyledText>
+            <StyledNoText>
               Time:
               <br />
               <time>--------------</time>
-            </StyledText>
+            </StyledNoText>
           )}
           {item.address ? (
             <StyledText>
@@ -82,11 +80,11 @@ export default function FriendsItem({ item, onShowTime }) {
               </address>
             </StyledText>
           ) : (
-            <StyledText>
+            <StyledNoText>
               Address:
               <br />
               <address>--------------</address>
-            </StyledText>
+            </StyledNoText>
           )}
           {item.email ? (
             <StyledText>
@@ -95,11 +93,11 @@ export default function FriendsItem({ item, onShowTime }) {
               <a href={`mailto:${item.email}`}>{item.email}</a>
             </StyledText>
           ) : (
-            <StyledText>
+            <StyledNoText>
               Email:
               <br />
               <a href={`mailto:""`}>--------------</a>
-            </StyledText>
+            </StyledNoText>
           )}
           {item.phone ? (
             <StyledText>
@@ -108,11 +106,11 @@ export default function FriendsItem({ item, onShowTime }) {
               <a href={`tel:${item.phone}`}>{item.phone}</a>
             </StyledText>
           ) : (
-            <StyledText>
+            <StyledNoText>
               Phone:
               <br />
               <a href={`tel:""`}>--------------</a>
-            </StyledText>
+            </StyledNoText>
           )}
         </InfoWrapper>
       </MainWrapper>

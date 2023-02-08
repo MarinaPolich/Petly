@@ -48,7 +48,7 @@ export const logIn = createAsyncThunk(
         Notify.failure("Validation error");
       }
       if (error.response.status === 401) {
-        return Notify.failure("Email or password invalid");
+        Notify.failure("Email or password invalid");
       }
       return rejectWithValue(error.message);
     }

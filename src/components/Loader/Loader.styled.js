@@ -5,7 +5,7 @@ export const ContainerLoaderBox = styled.div`
   height: 100vh;
   background-color: var(--gray);
   transform: translate(50% 50%);
-  position: absolute;
+  position: fixed;
   top: 0%;
   left: 0%;
 `;

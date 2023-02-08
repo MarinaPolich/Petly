@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { device } from "stylesheet/breakpoints";
 import { Form } from "formik";
+import SVG from "react-inlinesvg";
 
 export const UserInfoStats = styled.li`
   display: flex;
@@ -118,6 +119,7 @@ export const EditBtn = styled.button`
 
   background-color: var(--bg-body);
   cursor: pointer;
+  /* background-color: ${(props) => (props.disabled ? "black" : null)}; */
   @media ${device.tablet} {
     width: 32px;
     height: 32px;
@@ -126,4 +128,11 @@ export const EditBtn = styled.button`
     width: 32px;
     height: 32px;
   }
+`;
+export const Icon = styled(SVG)`
+  /* fill: ${(props) => (props.disabled ? "black" : "#F59256")}; */
+  fill: var(--primary);
+`;
+export const DisableIcon = styled(SVG)`
+  fill: var(--gray);
 `;

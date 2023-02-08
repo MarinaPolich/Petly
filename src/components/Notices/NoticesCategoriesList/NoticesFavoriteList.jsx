@@ -35,8 +35,17 @@ const NoticesCategoriesList = () => {
   return notices && notices.length > 0 ? (
     <>
       <BoxList>
-        {notices.map((item) => (
-          <NoticeCategoryItem item={item} key={item._id}></NoticeCategoryItem>
+        {notices?.map((item) => (
+          <NoticeCategoryItem
+            item={item}
+            key={item._id}
+            onChangeFavorite={(isChecked) => {
+              dispatch(
+                getFavUserNotice({ page: currentPage, limit: noticesPerPage })
+              );
+            }}
+          ></NoticeCategoryItem>
+
         ))}
       </BoxList>
       <BoxButton>

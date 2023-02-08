@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { device } from "stylesheet/breakpoints";
 
 export const StyledLi = styled.li`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
   &::before {
     display: inline-block;
     content: "";
@@ -13,8 +13,6 @@ flex-direction: column;
     background: linear-gradient(90deg, #ff634e 0%, #ffdf48 105.44%);
     border-radius: 40px;
     margin-bottom: 4px;
-
-    
   }
 
   @media ${device.tablet} {
@@ -35,7 +33,7 @@ flex-direction: column;
   @media ${device.desktop} {
     flex-basis: calc((100% - 64px) / 3);
     &::before {
-        width: 340px;
+      width: 340px;
     }
   }
 `;
@@ -72,7 +70,13 @@ export const Link = styled.a`
   font-size: 16px;
   line-height: 22px;
 
-  color: #f59256;
+  color: var(--primary);
+  transition: color var(--transition);
+
+  &:hover,
+  &:focus {
+    color: var(--hover-bg);
+  }
 `;
 
 export const FlexBox = styled.div`
