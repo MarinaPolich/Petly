@@ -1,10 +1,14 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { search, clear } from "assets/icon";
 import { Box, Title, Form, Input, Button, Svg } from "./NoticesSearch.styled";
 import { Mobile } from "components/Container/Mobile";
 import { useDesktopOrTablet } from "hooks/useTablet";
-import { getNoticesByCategories } from "redux/notices/notices-operations";
+import {
+  getFavUserNotice,
+  getNoticesByCategories,
+  userNotice,
+} from "redux/notices/notices-operations";
 
 const NoticesSearch = () => {
   const dispatch = useDispatch();
@@ -12,16 +16,20 @@ const NoticesSearch = () => {
   const isDesktopOrTablet = useDesktopOrTablet();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
+  const location = useLocation();
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(
-      getNoticesByCategories({
-        category: category === "for-free" ? "in-good-hands" : category,
-        q: query,
-      })
-    );
+    const operation = category
+      ? getNoticesByCategories({
+          category: category === "for-free" ? "in-good-hands" : category,
+          q: query,
+        })
+      : location.pathname === "/notices/favorite"
+      ? getFavUserNotice({ q: query })
+      : userNotice({ q: query });
+    dispatch(operation);
     setSearchParams("");
   };
   const onClickBtn = () => {

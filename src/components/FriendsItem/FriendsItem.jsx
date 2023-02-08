@@ -1,5 +1,4 @@
-import TimeTable from "components/TimeTable/TimeTable";
-import React, { useState } from "react";
+import React from "react";
 import {
   ImageBox,
   InfoWrapper,
@@ -10,17 +9,24 @@ import {
   StyledText,
 } from "./FriendsItem.styled";
 
-export default function FriendsItem({ item }) {
-  const [visible, setVisible] = useState(false);
-
-  const onHoverAndFocus = () => {
-    setVisible(true);
+export default function FriendsItem({ item, onShowTime }) {
+  const onHoverAndFocus = ({ target }) => {
+    const positions = target.getBoundingClientRect();
+    onShowTime({
+      isShow: true,
+      position: {
+        top: positions.bottom + window.scrollY,
+        left: positions.left + window.scrollX,
+      },
+    });
+    //setVisible(true);
   };
 
   const outOfFocusAndHover = () => {
-    setVisible(false);
+    onShowTime({ isShow: false });
+    //setVisible(false);
   };
-console.log('item.imageURL', item.imageUrl)
+  console.log("item.imageURL", item.imageUrl);
   return (
     <StyledLi>
       <StyledHeader>
@@ -65,7 +71,6 @@ console.log('item.imageURL', item.imageUrl)
               <time>--------------</time>
             </StyledText>
           )}
-          {visible && <TimeTable workDays={item.workDays} />}
           {item.address ? (
             <StyledText>
               Address:
