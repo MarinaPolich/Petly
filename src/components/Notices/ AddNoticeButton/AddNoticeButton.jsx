@@ -11,6 +11,7 @@ import { Mobile } from "components/Container/Mobile";
 import { useDesktopOrTablet } from "hooks/useTablet";
 import { getIsLoggedIn } from "redux/auth/auth-selector";
 // import { addNotice } from "redux/notices/notices-operations";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { addBtnIcon } from "assets/icon";
 import { AddBtnLabel, AddBtn } from "pages/User/User.styled";
 import { Button } from "./AddNoticeButton.styled";
@@ -24,7 +25,7 @@ const AddNoticeButton = () => {
 
   const onClick = () => {
     if (!isLogin) {
-      console.log("Login false");
+      Notify.failure("You must login");
       return;
     }
     setActiveModal(true);
