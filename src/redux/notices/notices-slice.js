@@ -29,6 +29,7 @@ const noticesSlice = createSlice({
       .addCase(getNoticesByCategories.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
 
       .addCase(getNoticesByCategories.fulfilled, (state, { payload }) => {
@@ -70,6 +71,7 @@ const noticesSlice = createSlice({
       .addCase(userNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
       .addCase(userNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
@@ -84,6 +86,7 @@ const noticesSlice = createSlice({
       .addCase(getFavUserNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
       .addCase(getFavUserNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
@@ -98,6 +101,7 @@ const noticesSlice = createSlice({
       .addCase(deleteNotice.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.items = [];
       })
       .addCase(deleteNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;

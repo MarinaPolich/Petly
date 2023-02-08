@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SVG from "react-inlinesvg";
 import { deleteNotice } from "redux/notices/notices-operations";
@@ -34,18 +34,11 @@ import {
 } from "redux/auth/auth-operations";
 
 export default function NoticeCategoryItem({ item }) {
-  const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
   const isLogin = useSelector(getIsLoggedIn);
   const user = useSelector(getUser);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isCheck, setIsCheck] = useState(user?.favorite?.includes(item._id));
   const [activeModal, setActiveModal] = useState(false);
-
-  useEffect(() => {
-    if (user?.favorite) {
-      setIsFavorite(user?.favorite?.includes(item._id));
-    }
-  }, [dispatch, item._id, user?.favorite]);
 
   function birthDateToAge(birthDate) {
     birthDate = new Date(birthDate);
@@ -58,7 +51,8 @@ export default function NoticeCategoryItem({ item }) {
       Notify.failure("You need to login");
       return;
     }
-
+    console.log("checked :", checked);
+    console.log("isCheck: ", isCheck);
     if (checked) {
       dispatch(addFavoriteNotice(item._id));
     } else {
@@ -84,7 +78,7 @@ export default function NoticeCategoryItem({ item }) {
             onChange={favoriteCheckbox}
           />
           <FavoriteBox>
-            {!isFavorite ? (
+            {!isCheck ? (
               <SVG src={favoriteDefault} width="28" height="28" />
             ) : (
               <SVG src={favorite} width="28" height="28" />

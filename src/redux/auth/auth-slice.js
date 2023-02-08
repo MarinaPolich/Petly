@@ -94,14 +94,26 @@ const authSlice = createSlice({
       .addCase(addPets.fulfilled, (state, { payload }) => {
         state.user.pets.push(payload.data.pet);
       })
-      .addCase(addFavoriteNotice.pending, handlePending)
-      .addCase(addFavoriteNotice.rejected, handleRejected)
+      .addCase(addFavoriteNotice.pending, (state) => {
+        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(addFavoriteNotice.rejected, (state, { payload }) => {
+        state.isLoggedIn = true;
+        state.error = payload;
+      })
       .addCase(addFavoriteNotice.fulfilled, (state, { payload }) => {
         state.user.favorite.push(payload.data.noticeId);
         state.isLoggedIn = true;
       })
-      .addCase(deleteFavoriteNotice.pending, handlePending)
-      .addCase(deleteFavoriteNotice.rejected, handleRejected)
+      .addCase(deleteFavoriteNotice.pending, (state) => {
+        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(deleteFavoriteNotice.rejected, (state, { payload }) => {
+        state.isLoggedIn = true;
+        state.error = payload;
+      })
       .addCase(deleteFavoriteNotice.fulfilled, (state, { payload }) => {
         state.user.favorite.splice(payload.data, 1);
         state.isLoggedIn = true;
