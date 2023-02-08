@@ -50,20 +50,14 @@ const noticesSlice = createSlice({
       .addCase(addNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         const newItem = {
-          title: payload.title,
-          name: payload.name,
-          birthdate: payload.birthdate,
-          breed: payload.breed,
-          location: payload.location,
-          comments: payload.comments,
-          price: payload.price,
+          ...payload,
         };
-        state.items.filter((item) => {
-          if (item._id !== payload._id) {
-            state.items.push(newItem);
-          }
-          return newItem;
-        });
+        const index = state.items.findIndex(({ _id }) => _id === newItem._id);
+        if (index !== -1) {
+          state.items[index] = newItem;
+          return;
+        }
+        state.items.push(newItem);
       })
       .addCase(addNotice.rejected, (state, { payload }) => {
         state.error = payload;

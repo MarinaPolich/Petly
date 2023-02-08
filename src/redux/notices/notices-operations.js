@@ -21,7 +21,7 @@ export const addNotice = createAsyncThunk(
   async (notice, thunkAPI) => {
     try {
       const response = await axios.post("/notices/addnotice", notice);
-      return response.data.data.notices;
+      return response.data.data.notice;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

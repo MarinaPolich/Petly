@@ -30,7 +30,6 @@ import {
   CategoryLabel,
   Box2,
   Error,
-
 } from "./AddNoticesModal.styled";
 import { useDispatch } from "react-redux";
 import { addNotice } from "redux/notices/notices-operations";
@@ -55,7 +54,10 @@ const ModalSchema = Yup.object().shape({
     .min(8, "Too Short, at least 8!")
     .max(120, "Too Long, at maximum 120!"),
   location: Yup.string().required(),
-  price: Yup.string().required(),
+  price: Yup.string().when("category", {
+    is: "sell",
+    then: Yup.string().required(),
+  }),
 });
 
 const AddNoticesModal = ({ activeModal, setActiveModal }) => {
@@ -209,7 +211,6 @@ const AddNoticesModal = ({ activeModal, setActiveModal }) => {
                     />
                     {errors.title && touched.title ? (
                       <Error>{errors.title}</Error>
-
                     ) : null}
                     <InputText htmlFor="name">Name pet</InputText>
                     <FormInput
