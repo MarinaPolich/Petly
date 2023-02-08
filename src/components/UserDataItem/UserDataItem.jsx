@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import React from "react";
 import moment from "moment";
-import SVG from "react-inlinesvg";
+
 import { confirm, pencil } from "assets/icon";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,12 +14,15 @@ import {
   InfoHolder,
   EditBtn,
   FormBox,
+  Icon,
+  DisableIcon,
 } from "./UserDataItem.styled";
 import { useDispatch } from "react-redux";
 import { patchData } from "redux/auth/auth-operations";
 
-const confirmIcon = <SVG src={confirm} width={15} height={15} />;
-const editIcon = <SVG src={pencil} width={15} height={15} />;
+const confirmIcon = <Icon src={confirm} width={15} height={15} />;
+const editIcon = <Icon src={pencil} width={15} height={15} />;
+const disabledEdit = <DisableIcon src={pencil} width={15} height={15} />;
 
 const UserDataItem = ({ user }) => {
   const [name, setName] = useState(false);
@@ -123,7 +126,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              {editIcon}
+              {!isActiveBtn ? editIcon : disabledEdit}
             </EditBtn>
           </>
         )}
@@ -156,7 +159,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              {editIcon}
+              {!isActiveBtn ? editIcon : disabledEdit}
             </EditBtn>
           </>
         )}
@@ -202,7 +205,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              {editIcon}
+              {!isActiveBtn ? editIcon : disabledEdit}
             </EditBtn>
           </>
         )}
@@ -241,7 +244,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              {editIcon}
+              {!isActiveBtn ? editIcon : disabledEdit}
             </EditBtn>
           </>
         )}
@@ -280,7 +283,7 @@ const UserDataItem = ({ user }) => {
               disabled={isActiveBtn}
               onClick={btnClick}
             >
-              {editIcon}
+              {!isActiveBtn ? editIcon : disabledEdit}
             </EditBtn>
           </>
         )}
