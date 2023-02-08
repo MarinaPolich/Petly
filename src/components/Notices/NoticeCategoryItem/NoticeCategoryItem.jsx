@@ -8,6 +8,7 @@ import {
 } from "redux/notices/notices-operations";
 import { del, favoriteDefault, favorite } from "assets/icon";
 import { getIsLoggedIn, getUser } from "redux/auth/auth-selector";
+import { currentUser } from "redux/auth/auth-operations";
 
 import {
   Notice,
@@ -41,6 +42,10 @@ export default function NoticeCategoryItem({ item }) {
   const [activeModal, setActiveModal] = useState(false);
 
   useEffect(() => {
+    setIsCheck(isFavorite);
+  }, [isFavorite]);
+
+  useEffect(() => {
     if (user?.favorite) {
       setIsFavorite(user?.favorite?.includes(item._id));
     }
@@ -52,17 +57,18 @@ export default function NoticeCategoryItem({ item }) {
     const age = now.getFullYear() - birthDate.getFullYear();
     return now.setFullYear(1972) < birthDate.setFullYear(1972) ? age - 1 : age;
   }
-  const favoriteCheckbox = ({ target: { checked } }) => {
+  const favoriteCheckbox = async ({ target: { checked } }) => {
     if (!isLogin) {
       Notify.failure("You need to login");
       return;
     }
-
+    console.log("checked :>> ", checked);
     if (checked) {
-      dispatch(addFavoriteNotice(item._id));
+      await dispatch(addFavoriteNotice(item._id));
     } else {
-      dispatch(deleteFavoriteNotice(item._id));
+      await dispatch(deleteFavoriteNotice(item._id));
     }
+    dispatch(currentUser());
     setIsCheck(checked);
   };
 

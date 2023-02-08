@@ -1,4 +1,5 @@
 export const noticesSelector = (state) => state.notices.items;
+export const getIsLoading = (state) => state.notices.isLoading;
 export const getTotalCount = (state) => state.notices.totalCount;
 export const getCategory = (state) => state.notices.category;
 export const filterSelector = (state) => state.notices.filter;

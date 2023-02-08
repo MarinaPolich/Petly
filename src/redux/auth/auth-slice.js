@@ -13,10 +13,12 @@ import {
 const handlePending = (state) => {
   state.isLoggedIn = false;
   state.error = null;
+  state.isLoading = true;
 };
 const handleRejected = (state, { payload }) => {
   state.isLoggedIn = false;
   state.error = payload;
+  state.isLoading = false;
 };
 
 const authSlice = createSlice({
@@ -27,6 +29,7 @@ const authSlice = createSlice({
     refreshToken: null,
     isLoggedIn: false,
     isRefreshing: false,
+    isLoading: false,
     error: null,
   },
 
@@ -38,6 +41,7 @@ const authSlice = createSlice({
         // state.accessToken = payload.accessToken;
         // state.refreshToken = payload.refreshToken;
         // state.isLoggedIn = true;
+        state.isLoading = false;
       })
       .addCase(registration.rejected, handleRejected)
 
@@ -47,6 +51,7 @@ const authSlice = createSlice({
         state.accessToken = payload.accessToken;
         state.refreshToken = payload.refreshToken;
         state.isLoggedIn = true;
+        state.isLoading = false;
       })
       .addCase(logIn.rejected, handleRejected)
 
@@ -56,6 +61,7 @@ const authSlice = createSlice({
         state.accessToken = null;
         state.refreshToken = null;
         state.isLoggedIn = false;
+        state.isLoading = false;
       })
       .addCase(logOut.rejected, handleRejected)
 
@@ -63,12 +69,14 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = true;
         state.error = null;
+        state.isLoading = true;
       })
       .addCase(refreshToken.fulfilled, (state, { payload }) => {
         state.accessToken = payload.accessToken;
         state.refreshToken = payload.refreshToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
+        state.isLoading = false;
       })
       .addCase(refreshToken.rejected, (state, { payload }) => {
         state.user = {};
@@ -76,9 +84,11 @@ const authSlice = createSlice({
         state.refreshToken = null;
         state.isRefreshing = false;
         state.isLoggedIn = false;
+        state.isLoading = false;
       })
       .addCase(currentUser.fulfilled, (state, { payload }) => {
         state.user = payload.data.result;
+        state.isLoading = false;
       })
       .addCase(patchData.fulfilled, (state, { payload }) => {
         state.user = payload;

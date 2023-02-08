@@ -9,7 +9,7 @@ export const Loader = () => {
     <ContainerLoaderBox>
       <LoaderBox>
         <RotatingLines
-          strokeColor="var(--btn-bg-color)"
+          strokeColor="var(--white)"
           strokeWidth="5"
           animationDuration="0.75"
           width="96"

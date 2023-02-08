@@ -1,8 +1,10 @@
+import { Loader } from "components/Loader/Loader";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { currentUser } from "redux/auth/auth-operations";
 import { getUser } from "redux/auth/auth-selector";
+import { getIsLoading } from "redux/notices/notices-selector";
 import {
   NoticesCategoriesNav,
   NoticesSearch,
@@ -11,6 +13,7 @@ import {
 import { Box, NavBox } from "./Notices.styled";
 
 const Notices = () => {
+  const isLoading = useSelector(getIsLoading);
   const userData = useSelector(getUser);
   const dispatch = useDispatch();
 
@@ -22,6 +25,7 @@ const Notices = () => {
 
   return (
     <Box>
+      {isLoading && <Loader />}
       <NoticesSearch></NoticesSearch>
       <NavBox>
         <NoticesCategoriesNav></NoticesCategoriesNav>
