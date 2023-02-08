@@ -1,9 +1,10 @@
 import axios from "axios";
+import SVG from "react-inlinesvg";
 import Modal from "components/Modal/Modal";
 import { useEffect, useState } from "react";
 import {
   BoxImage,
-  CancelBtn,
+  FavoriteBox,
   Category,
   Comments,
   Image,
@@ -16,9 +17,19 @@ import {
   SpanData,
   Title,
   Wrapper,
+  FavoriteLabel,
+  ContactLink,
 } from "./ModalNotice.styled";
+import { FavoriteCheck } from "../Notices/NoticeCategoryItem/NoticeCategoryItem.styled";
+import { favoriteDefault, favorite } from "assets/icon";
 
-const ModalNotice = ({ activeModal, setActiveModal, idNotice }) => {
+const ModalNotice = ({
+  activeModal,
+  setActiveModal,
+  idNotice,
+  favoriteCheckbox,
+  isCheck,
+}) => {
   const [modalActive, setModalActive] = useState(activeModal);
   const [dataNotice, setDataNotice] = useState(null);
   const [user, setDataUser] = useState(null);
@@ -113,8 +124,29 @@ const ModalNotice = ({ activeModal, setActiveModal, idNotice }) => {
           </Comments>
 
           <ModalFooter>
-            <CancelBtn type="button">Add to</CancelBtn>
-            <NextBtn type="button">Contact</NextBtn>
+            <FavoriteLabel>
+              <FavoriteCheck
+                type="checkbox"
+                name="favorite-check"
+                checked={isCheck}
+                onChange={favoriteCheckbox}
+              />
+              <FavoriteBox>
+                Add to
+                {!isCheck ? (
+                  <SVG src={favoriteDefault} width="28" height="28" />
+                ) : (
+                  <SVG src={favorite} width="28" height="28" />
+                )}
+              </FavoriteBox>
+            </FavoriteLabel>
+            <NextBtn type="button">
+              {user.phone ? (
+                <ContactLink href={`tel:${user.phone}`}>Contact</ContactLink>
+              ) : (
+                <ContactLink href={`mailto:${user.email}`}>Contact</ContactLink>
+              )}
+            </NextBtn>
           </ModalFooter>
         </Wrapper>
       ) : null}
