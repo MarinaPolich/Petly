@@ -56,8 +56,8 @@ export const HeadingBox = styled.div`
   justify-content: space-between;
 `;
 export const AddBtn = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: none;
 
   border-radius: 50%;
@@ -65,5 +65,3 @@ export const AddBtn = styled.button`
   margin-left: 12px;
   cursor: pointer;
 `;
-
-
