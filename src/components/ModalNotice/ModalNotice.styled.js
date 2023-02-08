@@ -166,7 +166,6 @@ export const FavoriteBox = styled.div`
   align-items: center;
   width: 100%;
   height: 44px;
-  margin-bottom: 12px;
   text-align: center;
   border: 2px solid #f59256;
   border-radius: 40px;
@@ -216,5 +215,50 @@ export const FavoriteLabel = styled.label`
 
   @media ${device.mobile} {
     width: 100%;
+  }
+`;
+
+export const ModalFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 40px;
+
+  @media ${device.tablet} {
+    flex-direction: row;
+    align-items: right;
+  }
+  @media ${device.desktop} {
+    flex-direction: row;
+    align-items: right;
+  }
+`;
+
+export const NextBtn = styled.button`
+  width: 100%;
+  height: 44px;
+  text-align: center;
+  border: 2px solid #f59256;
+  border-radius: 40px;
+  color: white;
+  background: #f59256;
+
+  transition: 0.5s;
+
+  &:hover {
+    color: #111111;
+    background: white;
+  }
+
+  @media ${device.tablet} {
+    width: 180px;
+    height: 44px;
+    margin-left: 12px;
+  }
+  @media ${device.desktop} {
+    width: 180px;
+    height: 44px;
   }
 `;
