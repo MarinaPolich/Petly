@@ -172,14 +172,26 @@ export const FavoriteBox = styled.div`
   color: #111111;
   background-color: white;
   transition: 0.5s;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  &:hover {
+    color: #111111;
+    background: white;
+  }
 
   @media ${device.tablet} {
+    margin-top: 0;
+    margin-bottom: 0;
     font-size: 16px;
-    width: 140px;
+    width: 180px;
+    margin-right: 12px;
   }
   @media ${device.desktop} {
+    margin-top: 0;
+    margin-bottom: 0;
     font-size: 16px;
-    width: 140px;
+    width: 180px;
+    margin-right: 12px;
   }
 `;
 
@@ -189,24 +201,32 @@ export const BoxList = styled.div`
 `;
 
 export const BoxTabl = styled.div`
+/* display: table;
+margin: 0 auto; */
   @media ${device.tablet} {
     display: flex;
+    /* margin: 0; */
   }
   @media ${device.desktop} {
     display: flex;
+    /* margin: 0; */
   }
 `;
 export const ContactLink = styled.a`
-  color: white;
+  color: black;
   text-decoration: none;
+  padding-left: 45px;
+  padding-right: 45px;
 `;
 
 export const BoxTitle = styled.div`
   @media ${device.tablet} {
     margin-left: 20px;
+  
   }
   @media ${device.desktop} {
     margin-left: 20px;
+
   }
 `;
 
@@ -223,14 +243,15 @@ export const ModalFooter = styled.div`
   flex-direction: column;
   justify-content: right;
   align-items: center;
-  margin-top: 12px;
   margin-bottom: 40px;
 
   @media ${device.tablet} {
     flex-direction: row;
     align-items: right;
+    margin-top: 32px;
   }
   @media ${device.desktop} {
+    margin-top: 32px;
     flex-direction: row;
     align-items: right;
   }
@@ -244,21 +265,22 @@ export const NextBtn = styled.button`
   border-radius: 40px;
   color: white;
   background: #f59256;
-
   transition: 0.5s;
-
   &:hover {
-    color: #111111;
+    color: black;
     background: white;
   }
 
   @media ${device.tablet} {
     width: 180px;
     height: 44px;
-    margin-left: 12px;
   }
   @media ${device.desktop} {
     width: 180px;
     height: 44px;
   }
+`;
+
+export const FavoriteCheck = styled.input`
+  display: none;
 `;

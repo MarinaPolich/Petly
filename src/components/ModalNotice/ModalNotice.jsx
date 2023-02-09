@@ -20,11 +20,10 @@ import {
   FavoriteLabel,
   ContactLink,
   ModalFooter,
+  FavoriteCheck,
   NextBtn,
 } from "./ModalNotice.styled";
-import { FavoriteCheck } from "../Notices/NoticeCategoryItem/NoticeCategoryItem.styled";
 import { favoriteDefault, favorite } from "assets/icon";
-// import { ModalFooter, NextBtn } from "components/addPetModal/addPetModal.style";
 
 const ModalNotice = ({
   activeModal,
@@ -102,7 +101,7 @@ const ModalNotice = ({
                   <SpanData>{dataNotice.breed}</SpanData>
                 </ListItem>
                 <ListItem>
-                  <Span>Lovation: </Span>
+                  <Span>Location: </Span>
                   {dataNotice.location}
                 </ListItem>
                 <ListItem>
