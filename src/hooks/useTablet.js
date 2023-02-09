@@ -8,3 +8,7 @@ export const useTablet = () => {
 export const useDesktopOrTablet = () => {
   return useMediaQuery({ minWidth: tablet });
 };
+
+export const useMobileOrTablet = () => {
+  return useMediaQuery({ maxWidth: desktop - 1 });
+};
