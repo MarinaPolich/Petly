@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   text-align: left;
+  
 
   @media ${device.tablet} {
     padding-top: 0;
@@ -201,17 +202,24 @@ export const BoxList = styled.div`
 `;
 
 export const BoxTabl = styled.div`
-/* display: table;
-margin: 0 auto; */
   @media ${device.tablet} {
     display: flex;
-    /* margin: 0; */
+   
   }
   @media ${device.desktop} {
     display: flex;
-    /* margin: 0; */
+    
   }
 `;
+
+export const BoxMob = styled.div`
+  @media ${device.mobile} {
+    display: table;
+    margin: 0 auto;
+  }
+`;
+
+
 export const ContactLink = styled.a`
   color: black;
   text-decoration: none;

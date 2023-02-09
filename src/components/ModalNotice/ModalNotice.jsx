@@ -22,6 +22,7 @@ import {
   ModalFooter,
   FavoriteCheck,
   NextBtn,
+  BoxMob,
 } from "./ModalNotice.styled";
 import { favoriteDefault, favorite } from "assets/icon";
 
@@ -80,60 +81,68 @@ const ModalNotice = ({
     >
       {dataNotice && user ? (
         <Wrapper>
-          <BoxTabl>
-            <BoxImage>
-              <Image src={dataNotice.avatarUrl} alt="" />
-              <Category>{dataNotice.category}</Category>
-            </BoxImage>
-            <BoxTitle>
-              <Title>{dataNotice.title}</Title>
-              <List>
-                <ListItem>
-                  <Span>Name: </Span>
-                  <SpanData>{dataNotice.name}</SpanData>
-                </ListItem>
-                <ListItem>
-                  <Span>Birthday: </Span>
-                  <SpanData>{dataNotice.birthday}</SpanData>
-                </ListItem>
-                <ListItem>
-                  <Span>Breed: </Span>
-                  <SpanData>{dataNotice.breed}</SpanData>
-                </ListItem>
-                <ListItem>
-                  <Span>Location: </Span>
-                  {dataNotice.location}
-                </ListItem>
-                <ListItem>
-                  <Span>The sex: </Span>
-                  {dataNotice.sex}
-                </ListItem>
-                <ListItem>
-                  <Span>Email: </Span>
-                  <SpanData>
-                    <a href={`mailto:${user.email}`}>{user.email}</a>
-                  </SpanData>
-                </ListItem>
-                <ListItem>
-                  <Span>Phone: </Span>
-                  <SpanData>
-                    <a href={`tel:${user.phone}`}>{user.phone}</a>
-                  </SpanData>
-                </ListItem>
-                {dataNotice.price ? (
+          <BoxMob>
+            <BoxTabl>
+              <BoxImage>
+                <Image src={dataNotice.avatarUrl} alt="" />
+                {dataNotice.category === "in-good-hands" && (
+                  <Category>in good hands</Category>
+                )}
+                {dataNotice.category === "lost-found" && (
+                  <Category>lost/found</Category>
+                )}
+                {dataNotice.category === "sell" && <Category>sell</Category>}
+              </BoxImage>
+              <BoxTitle>
+                <Title>{dataNotice.title}</Title>
+                <List>
                   <ListItem>
-                    <Span>Price: </Span>
-                    <SpanData>{dataNotice.price}</SpanData>
+                    <Span>Name: </Span>
+                    <SpanData>{dataNotice.name}</SpanData>
                   </ListItem>
-                ) : null}
-              </List>
-            </BoxTitle>
-          </BoxTabl>
+                  <ListItem>
+                    <Span>Birthday: </Span>
+                    <SpanData>{dataNotice.birthday}</SpanData>
+                  </ListItem>
+                  <ListItem>
+                    <Span>Breed: </Span>
+                    <SpanData>{dataNotice.breed}</SpanData>
+                  </ListItem>
+                  <ListItem>
+                    <Span>Location: </Span>
+                    {dataNotice.location}
+                  </ListItem>
+                  <ListItem>
+                    <Span>The sex: </Span>
+                    {dataNotice.sex}
+                  </ListItem>
+                  <ListItem>
+                    <Span>Email: </Span>
+                    <SpanData>
+                      <a href={`mailto:${user.email}`}>{user.email}</a>
+                    </SpanData>
+                  </ListItem>
+                  <ListItem>
+                    <Span>Phone: </Span>
+                    <SpanData>
+                      <a href={`tel:${user.phone}`}>{user.phone}</a>
+                    </SpanData>
+                  </ListItem>
+                  {dataNotice.price ? (
+                    <ListItem>
+                      <Span>Price: </Span>
+                      <SpanData>{dataNotice.price}</SpanData>
+                    </ListItem>
+                  ) : null}
+                </List>
+              </BoxTitle>
+            </BoxTabl>
 
-          <Comments>
-            <SpanComments>Comments: </SpanComments>
-            {dataNotice.comments}
-          </Comments>
+            <Comments>
+              <SpanComments>Comments: </SpanComments>
+              {dataNotice.comments}
+            </Comments>
+          </BoxMob>
 
           <ModalFooter>
             <FavoriteLabel>
