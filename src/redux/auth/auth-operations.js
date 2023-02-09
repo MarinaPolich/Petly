@@ -163,3 +163,16 @@ export const deleteFavoriteNotice = createAsyncThunk(
     }
   }
 );
+
+export const verificationToken = createAsyncThunk(
+  "auth/verificationToken",
+  async (token, thunkAPI) => {
+    try {
+      const response = await axios.get(`/verify/${token}`);
+      return response.data;
+    } catch (error) {
+      Notify.failure("Something went wrong");
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

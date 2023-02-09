@@ -2,13 +2,16 @@ import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { refreshToken, currentUser } from "redux/auth/auth-operations";
-import { getIsRefreshing } from "redux/auth/auth-selector";
+import { getIsLoggedIn, getIsRefreshing } from "redux/auth/auth-selector";
 import { Loader } from "./Loader/Loader";
 import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
 import { SharedLayout } from "./SharedLayout/SharedLayout";
 
 const Home = lazy(() => import("../pages/Home/Home"));
+const VerificationEmail = lazy(() =>
+  import("../pages/VerificationEmail/VerificationEmail")
+);
 const Registration = lazy(() => import("../pages/Registration/Registration"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const News = lazy(() => import("../pages/News/News"));
@@ -28,10 +31,15 @@ const NoticesOwnList = lazy(() =>
 export const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(getIsRefreshing);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   useEffect(() => {
-    dispatch(refreshToken()).then(() => dispatch(currentUser()));
+    dispatch(refreshToken());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoggedIn) dispatch(currentUser());
+  }, [dispatch, isLoggedIn]);
 
   return isRefreshing ? (
     <Loader />
@@ -39,6 +47,15 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Home />} />
+        <Route
+          path="verification/:token"
+          element={
+            <RestrictedRoute
+              redirectTo="/user"
+              component={<VerificationEmail />}
+            />
+          }
+        />
         <Route
           path="login"
           element={<RestrictedRoute redirectTo="/user" component={<Login />} />}

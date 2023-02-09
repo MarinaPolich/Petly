@@ -10,6 +10,7 @@ import {
   addPets,
   addFavoriteNotice,
   deleteFavoriteNotice,
+  verificationToken,
 } from "./auth-operations";
 
 const handlePending = (state) => {
@@ -39,10 +40,6 @@ const authSlice = createSlice({
     builder
       .addCase(registration.pending, handlePending)
       .addCase(registration.fulfilled, (state, { payload }) => {
-        // state.user = payload.user;
-        // state.accessToken = payload.accessToken;
-        // state.refreshToken = payload.refreshToken;
-        // state.isLoggedIn = true;
         state.isLoading = false;
       })
       .addCase(registration.rejected, handleRejected)
@@ -68,7 +65,7 @@ const authSlice = createSlice({
       .addCase(logOut.rejected, handleRejected)
 
       .addCase(refreshToken.pending, (state) => {
-        state.isLoggedIn = true;
+        // state.isLoggedIn = true;
         state.isRefreshing = true;
         state.error = null;
         state.isLoading = true;
@@ -127,7 +124,13 @@ const authSlice = createSlice({
       .addCase(deleteFavoriteNotice.fulfilled, (state, { payload }) => {
         state.user.favorite.splice(payload.data, 1);
         state.isLoggedIn = true;
-      }),
+      })
+
+      .addCase(verificationToken.pending, handlePending)
+      .addCase(verificationToken.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(verificationToken.rejected, handleRejected),
 });
 
 export const authReducer = authSlice.reducer;
