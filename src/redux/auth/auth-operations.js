@@ -168,7 +168,7 @@ export const verificationToken = createAsyncThunk(
   "auth/verificationToken",
   async (token, thunkAPI) => {
     try {
-      const response = await axios.get(`/verify/${token}`);
+      const response = await axios.get(`/auth/verify/${token}`);
       return response.data;
     } catch (error) {
       Notify.failure("Something went wrong");
