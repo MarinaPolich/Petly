@@ -47,6 +47,7 @@ const noticesSlice = createSlice({
       })
       .addCase(addNotice.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        if (state.category !== payload.category) return;
         const newItem = {
           ...payload,
         };
