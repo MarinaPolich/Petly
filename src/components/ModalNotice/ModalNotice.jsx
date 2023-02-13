@@ -23,6 +23,7 @@ import {
   FavoriteCheck,
   NextBtn,
   BoxMob,
+  Link,
 } from "./ModalNotice.styled";
 import { favoriteDefault, favorite } from "assets/icon";
 
@@ -120,14 +121,14 @@ const ModalNotice = ({
                   <ListItem>
                     <Span>Email: </Span>
                     <SpanData>
-                      <a href={`mailto:${user.email}`}>{user.email}</a>
+                      <Link href={`mailto:${user.email}`}>{user.email}</Link>
                     </SpanData>
                   </ListItem>
                   {user.phone ? (
                     <ListItem>
                       <Span>Phone: </Span>
                       <SpanData>
-                        <a href={`tel:${user.phone}`}>{user.phone}</a>
+                        <Link href={`tel:${user.phone}`}>{user.phone}</Link>
                       </SpanData>
                     </ListItem>
                   ) : null}
