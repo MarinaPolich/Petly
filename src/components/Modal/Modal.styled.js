@@ -34,10 +34,10 @@ export const ModalContent = styled.div`
   transform: ${(props) => (props.actv ? "scale(1)" : "scale(0.5)")};
   transition: 0.5s all;
   @media ${device.tablet} {
-    width: 608px;
+    width: ${(props) => (props.width ? "704px" : "608px")};
   }
   @media ${device.desktop} {
-    width: 608px;
+    width: ${(props) => (props.width ? "704px" : "608px")};
   }
 `;
 
