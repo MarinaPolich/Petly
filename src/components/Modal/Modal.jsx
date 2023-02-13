@@ -9,7 +9,7 @@ import {
   ModalContent,
 } from "./Modal.styled";
 
-const Modal = ({ active, title, setActive, setModalClose, children }) => {
+const Modal = ({ active, title,width, setModalClose, children }) => {
   const modalRoot = document.querySelector("#modal-root");
   const handleCloseByEsc = (e) => {
     if (e.code === "Escape") {
@@ -32,7 +32,7 @@ useEffect(() => {
 
   return createPortal(
     <ModalWrapper actv={active} onClick={handleBackdropClick}>
-      <ModalContent actv={active} onClick={(e) => e.stopPropagation()}>
+      <ModalContent actv={active} onClick={(e) => e.stopPropagation()} width={width}>
         <CloseIcon onClick={() => setModalClose()} width="44px" />
         <ModalTitle>{title}</ModalTitle>
         {children}

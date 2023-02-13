@@ -78,6 +78,7 @@ const ModalNotice = ({
       active={activeModal}
       setActive={setActiveModal}
       setModalClose={closeModal}
+      width={"width"}
     >
       {dataNotice && user ? (
         <Wrapper>

@@ -141,11 +141,11 @@ export const Span = styled.span`
   color: var(--black);
 
   @media ${device.tablet} {
-    margin-right: 20px;
+    margin-right: 51px;
     font-size: 16px;
   }
   @media ${device.desktop} {
-    margin-right: 20px;
+    margin-right: 51px;
     font-size: 16px;
   }
 `;
@@ -157,7 +157,6 @@ export const SpanData = styled.span`
   font-size: 14px;
   line-height: 1.3;
   display: inline-block;
-  width: 91px;
   overflow: hidden;
 `;
 
