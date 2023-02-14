@@ -160,6 +160,19 @@ export const SpanData = styled.span`
   overflow: hidden;
 `;
 
+export const Link = styled.a`
+  outline: none;
+  text-decoration: none;
+  color: #111111;
+  &:hover {
+    color: rgba(0, 0, 0,0.6) 
+  }
+
+ 
+`;
+
+
+
 export const FavoriteBox = styled.div`
   display: flex;
   justify-content: center;

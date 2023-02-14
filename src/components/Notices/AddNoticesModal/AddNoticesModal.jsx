@@ -54,9 +54,12 @@ const ModalSchema = Yup.object().shape({
     .min(8, "Too Short, at least 8!")
     .max(120, "Too Long, at maximum 120!"),
   location: Yup.string().required(),
-  price: Yup.string().when("category", {
+  price: Yup.number().when("category", {
     is: "sell",
-    then: Yup.string().required(),
+    then: Yup.number()
+      .required()
+      .typeError("price must be a number")
+      .positive("price must be greater than zero"),
   }),
 });
 
