@@ -83,7 +83,7 @@ export const LoginForm = () => {
               <ButtonPrimaryMax type="submit" marginTop="24" title="login" />
             </FormBox>
             <BoxLink>
-              <TextLink>Don't have an account?</TextLink>
+              <TextLink>Don't have an account? </TextLink>
               <StyledLink to="/register">register</StyledLink>
             </BoxLink>
           </Container>
