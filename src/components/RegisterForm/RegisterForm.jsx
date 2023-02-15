@@ -225,7 +225,7 @@ export const RegisterForm = () => {
               )}
             </FormBox>
             <BoxLink>
-              <TextLink>Already have an account?</TextLink>
+              <TextLink>Already have an account? </TextLink>
               <StyledLink to="/login">login</StyledLink>
             </BoxLink>
           </Container>
